@@ -28,5 +28,6 @@ urlpatterns = [
     path('add_friend/', deal_user_add_friend),
     path('add_result/', deal_user_add_friend_result),
     path('get_friends/', deal_user_get_friends),
+    path('send/', deal_user_send),
 
 ]

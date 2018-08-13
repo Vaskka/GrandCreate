@@ -490,3 +490,37 @@ def deal_user_get_friends(request):
         return HttpResponse(json.dumps(error_dict))
         pass
     pass
+
+
+def deal_user_send(request):
+    """
+    处理用户向好友发送消息
+    :param request: HttpRequest
+    :return: HttpResponse
+    """
+    request_obj = json.loads(request.body)
+    # 验证身份
+    if not get_auth(request_obj["email"], request_obj["token"]):
+        error_dict = {
+            "code": 1,
+            "msg": "permission denied"
+        }
+        return HttpResponse(json.dumps(error_dict))
+    try:
+        Talk.objects.create(content=request_obj["message"], send=User.objects.get(email=request_obj["email"]), receive=User.objects.get(email=request_obj["to_email"]), is_new=True)
+
+        success_dict = {
+            "code": 0,
+            "msg": "success"
+        }
+        return HttpResponse(json.dumps(success_dict))
+    except:
+        error_dict = {
+            "code": 2,
+            "msg": "wrong receiver"
+        }
+        return HttpResponse(json.dumps(error_dict))
+        pass
+
+
+    pass
