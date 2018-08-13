@@ -108,8 +108,7 @@ def get_error_response(request_obj):
     response = dict()
 
     response["code"] = 1
-    response["email"] = request_obj.email
-    response["status"] = "error"
+    response["msg"] = "error"
 
     return json.dumps(response)
     pass
@@ -172,6 +171,7 @@ def get_response_general_param(request_obj, response):
     :return: dict
     """
     response["code"] = 0
+    response["msg"] = "success"
     response["email"] = request_obj.email
     return response
     pass
