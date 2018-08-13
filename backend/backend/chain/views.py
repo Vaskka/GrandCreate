@@ -2,7 +2,7 @@ import datetime
 import json
 import random
 
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 
 # Create your views here.
 from chain.models import Talk, User, UserSession, FriendApply, FriendMapping
@@ -122,7 +122,7 @@ def get_new_message(request_obj):
 
     """
     # 检查有无新信息
-    result = Talk.objects.filter(send__email=request_obj.email).filter(is_new=True)
+    result = Talk.objects.filter(receive__email=request_obj.email).filter(is_new=True)
     data = dict()
     if result.exists():
         data["message_status"] = "Active"
@@ -194,7 +194,7 @@ def deal_user_call(request):
     # 添加通用参数
     get_response_general_param(request_obj, response)
 
-    return HttpResponse(json.dumps(response))
+    return JsonResponse(response)
     pass
 
 
