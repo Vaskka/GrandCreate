@@ -76,6 +76,12 @@ u1.doSearchUser("test_sdk_1");
 u1.doAddFriend(u2.getEmail())
 </pre>
 
+#### 同意或不同意好友申请
+<pre>
+// 第一个参数是添加人的email 第二个是是否同意
+u2.doAddFriendResult(u1.getEmail(), true)
+</pre>
+
 #### 发送消息
 <pre>
 // 第一个参数是接受者的email 第二个参数时发送的消息
