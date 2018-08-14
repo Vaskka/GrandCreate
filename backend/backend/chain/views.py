@@ -140,6 +140,8 @@ def get_new_message(request_obj):
         pass
     else:
         data["message_status"] = "None"
+    # 全部新消息变为旧消息
+    Talk.objects.filter(receive__email=request_obj.email).update(is_new=False)
 
     # 检查有无新的好友申请
     result = FriendApply.objects.filter(receiver__email=request_obj.email)
