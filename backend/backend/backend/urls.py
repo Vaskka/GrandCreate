@@ -22,6 +22,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('call/', deal_user_call),
     path('register/', deal_user_register),
+    path('register/ok', deal_user_ok_to_register),
     path('sign/', deal_user_sign),
     path('logout/', deal_user_log_out),
     path('search_user/', deal_user_search_user),

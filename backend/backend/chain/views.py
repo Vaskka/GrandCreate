@@ -211,6 +211,49 @@ def deal_user_register(request):
 
         request_obj = json.loads(request_obj_str)
 
+        # user_name = request_obj["user_name"]
+        # psw = request_obj["password"]
+        email = request_obj["email"]
+        # head_image = request_obj["head_image"]
+
+        if get_is_email_exist(email):
+            error_response = {
+                "code": 2,
+                "msg": "email is already exist"
+            }
+            return HttpResponse(json.dumps(error_response))
+            pass
+
+        # User.objects.create(user_name=user_name, password=psw, email=email, head_image=head_image, balance=0)
+    except Exception as e:
+        error_response = {
+            "code": 1,
+            "msg": "server error"
+        }
+        return HttpResponse(json.dumps(error_response))
+
+    success_response = {
+        "code": 0,
+        "msg": "success",
+        "token_code": str(random.randint(2000, 3000))
+    }
+
+    return HttpResponse(json.dumps(success_response))
+
+    pass
+
+
+def deal_user_ok_to_register(request):
+    """
+    用户注册验证成功
+    :param request: HttpRequest
+    :return: HttpResponse json
+    """
+    try:
+        request_obj_str = request.body
+
+        request_obj = json.loads(request_obj_str)
+
         user_name = request_obj["user_name"]
         psw = request_obj["password"]
         email = request_obj["email"]
@@ -238,7 +281,6 @@ def deal_user_register(request):
     }
 
     return HttpResponse(json.dumps(success_response))
-
     pass
 
 
