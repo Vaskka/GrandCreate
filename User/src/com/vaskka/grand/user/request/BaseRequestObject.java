@@ -12,7 +12,7 @@ public class BaseRequestObject {
     protected String email = "";
 
 
-    BaseRequestObject(String email) {
+    public BaseRequestObject(String email) {
         this.email = email;
     }
 

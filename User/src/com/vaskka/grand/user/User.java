@@ -1,10 +1,7 @@
 package com.vaskka.grand.user;
 
 import com.vaskka.grand.user.request.*;
-import com.vaskka.grand.user.response.BaseResponseObject;
-import com.vaskka.grand.user.response.CallResponseObject;
-import com.vaskka.grand.user.response.LoginResponseObject;
-import com.vaskka.grand.user.response.SearchUserResponseObject;
+import com.vaskka.grand.user.response.*;
 import com.vaskka.grand.user.util.HttpUtil;
 
 import java.text.SimpleDateFormat;
@@ -27,6 +24,23 @@ public class User {
      */
     private static String BASE_URL = "http://localhost:8000";
 
+    /**
+     * 用户进行尝试注册的方法
+     * @return TestRegisterResponseObject 尝试注册的对象
+     * @throws NullPointerException email 为null抛出
+     */
+    public TestRegisterResponseObject doTestRegister() throws NullPointerException {
+        if (email == null) {
+            throw new NullPointerException("email is null");
+        }
+
+        BaseRequestObject testRegisterRequestObject = new BaseRequestObject(email);
+
+        String rawResponse = HttpUtil.post(BASE_URL + "/register/", testRegisterRequestObject);
+
+        return new TestRegisterResponseObject(rawResponse);
+    }
+
 
     /**
      * 用户进行注册的方法
@@ -46,7 +60,7 @@ public class User {
 
         RegisterRequestObject registerObject = new RegisterRequestObject(email, userName, password, "");
 
-        String rawResponse = HttpUtil.post(BASE_URL + "/register/", registerObject);
+        String rawResponse = HttpUtil.post(BASE_URL + "/register/ok/", registerObject);
 
         return new BaseResponseObject(rawResponse);
 
