@@ -207,7 +207,7 @@ def deal_user_register(request):
     :return: HttpResponse json风格
     """
     try:
-        request_obj_str = request.body
+        request_obj_str = str(request.body)
 
         request_obj = json.loads(request_obj_str)
 
@@ -250,7 +250,7 @@ def deal_user_ok_to_register(request):
     :return: HttpResponse json
     """
     try:
-        request_obj_str = request.body
+        request_obj_str = str(request.body)
 
         request_obj = json.loads(request_obj_str)
 
@@ -290,7 +290,7 @@ def deal_user_sign(request):
     :param request: HttpRequest
     :return: HttpResponse json风格
     """
-    request_obj = json.loads(request.body)
+    request_obj = json.loads(str(request.body))
     # 检查email是否存在
     try:
         user_id = User.objects.get(email=request_obj["email"]).id
@@ -347,7 +347,7 @@ def deal_user_log_out(request):
     :param request: HttpRequest
     :return: json
     """
-    request_obj = json.loads(request.body)
+    request_obj = json.loads(str(request.body))
     if get_is_email_in_user_session(request_obj["email"]):
         if get_is_token_correctly(request_obj["email"], request_obj["token"]):
             UserSession.objects.filter(user__email=request_obj["email"], token=request_obj["token"]).delete()
@@ -416,7 +416,7 @@ def deal_user_add_friend(request):
     :param request:
     :return:
     """
-    request_obj = json.loads(request.body)
+    request_obj = json.loads(str(request.body))
     # 验证身份
     if not get_auth(request_obj["email"], request_obj["token"]):
         error_dict = {
@@ -542,7 +542,7 @@ def deal_user_send(request):
     :param request: HttpRequest
     :return: HttpResponse
     """
-    request_obj = json.loads(request.body)
+    request_obj = json.loads(str(request.body))
     # 验证身份
     if not get_auth(request_obj["email"], request_obj["token"]):
         error_dict = {
