@@ -206,31 +206,25 @@ def deal_user_register(request):
     :param request: HttpRequest
     :return: HttpResponse json风格
     """
-    try:
-        request_obj_str = str(request.body)
 
-        request_obj = json.loads(request_obj_str)
+    request_obj_str = str(request.body)
 
-        # user_name = request_obj["user_name"]
-        # psw = request_obj["password"]
-        email = request_obj["email"]
-        # head_image = request_obj["head_image"]
+    request_obj = json.loads(request_obj_str)
 
-        if get_is_email_exist(email):
-            error_response = {
-                "code": 2,
-                "msg": "email is already exist"
-            }
-            return HttpResponse(json.dumps(error_response))
-            pass
+    # user_name = request_obj["user_name"]
+    # psw = request_obj["password"]
+    email = request_obj["email"]
+    # head_image = request_obj["head_image"]
 
-        # User.objects.create(user_name=user_name, password=psw, email=email, head_image=head_image, balance=0)
-    except Exception as e:
+    if get_is_email_exist(email):
         error_response = {
-            "code": 1,
-            "msg": "server error"
+            "code": 2,
+            "msg": "email is already exist"
         }
         return HttpResponse(json.dumps(error_response))
+        pass
+
+    # User.objects.create(user_name=user_name, password=psw, email=email, head_image=head_image, balance=0)
 
     success_response = {
         "code": 0,
