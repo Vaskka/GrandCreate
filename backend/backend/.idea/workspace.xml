@@ -60,25 +60,25 @@
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="py" value="768" />
-          <entry key="txt" value="206" />
+          <entry key="py" value="783" />
+          <entry key="txt" value="228" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="PLAIN_TEXT" value="206" />
-          <entry key="Python" value="768" />
+          <entry key="PLAIN_TEXT" value="228" />
+          <entry key="Python" value="783" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.js.language.service.starts" />
       <usages-collector id="statistics.file.types.open">
         <counts>
-          <entry key="Python" value="1" />
+          <entry key="Python" value="2" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
         <counts>
-          <entry key="py" value="1" />
+          <entry key="py" value="2" />
         </counts>
       </usages-collector>
     </session>
@@ -148,15 +148,24 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/chain/views.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="168">
-              <caret line="544" column="46" selection-start-line="544" selection-start-column="46" selection-end-line="544" selection-end-column="46" />
+            <state relative-caret-position="5167">
+              <caret line="538" column="57" selection-start-line="538" selection-start-column="57" selection-end-line="538" selection-end-column="57" />
               <folding>
                 <element signature="e#0#15#0" expanded="true" />
-                <marker date="1535889558291" expanded="true" signature="5652:6683" ph="..." />
-                <marker date="1535889558291" expanded="true" signature="9312:9370" ph="..." />
-                <marker date="1535889558291" expanded="true" signature="10989:10994" ph="..." />
-                <marker date="1535889558291" expanded="true" signature="13503:13508" ph="..." />
+                <marker date="1535894868668" expanded="true" signature="5422:6464" ph="..." />
+                <marker date="1535894868668" expanded="true" signature="9115:9173" ph="..." />
+                <marker date="1535894868668" expanded="true" signature="10803:10808" ph="..." />
+                <marker date="1535894868668" expanded="true" signature="13317:13322" ph="..." />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file:///usr/local/lib/python3.7/site-packages/django/http/request.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="172">
+              <caret line="273" selection-start-line="273" selection-end-line="273" />
             </state>
           </provider>
         </entry>
@@ -206,9 +215,10 @@
     <detection-done>true</detection-done>
     <sorting>DEFINITION_ORDER</sorting>
   </component>
-  <component name="ProjectFrameBounds" fullScreen="true">
+  <component name="ProjectFrameBounds">
+    <option name="y" value="23" />
     <option name="width" value="1920" />
-    <option name="height" value="1080" />
+    <option name="height" value="958" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
@@ -364,11 +374,25 @@
       <option name="project" value="LOCAL" />
       <updated>1535646802661</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="fix json bytes bug">
+      <created>1535889572950</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1535889572951</updated>
+    </task>
+    <task id="LOCAL-00010" summary="test">
+      <created>1535890542959</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1535890542959</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="0" width="1920" height="1080" extended-state="0" />
+    <frame x="0" y="23" width="1920" height="958" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.20607029" />
@@ -376,8 +400,8 @@
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32891566" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.32673267" />
-      <window_info anchor="bottom" id="Debug" order="3" weight="0.3987952" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.32673267" />
+      <window_info active="true" anchor="bottom" id="Debug" order="3" visible="true" weight="0.39838338" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" />
@@ -410,7 +434,20 @@
     <MESSAGE value="fix register bugs" />
     <MESSAGE value="settings.py" />
     <MESSAGE value="fix uwsgi.ini bugs" />
-    <option name="LAST_COMMIT_MESSAGE" value="fix uwsgi.ini bugs" />
+    <MESSAGE value="fix json bytes bug" />
+    <MESSAGE value="test" />
+    <option name="LAST_COMMIT_MESSAGE" value="test" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/chain/views.py</url>
+          <line>209</line>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
     <entry file="file:///usr/local/lib/python3.7/site-packages/MySQLdb/__init__.py">
@@ -429,13 +466,6 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/chain/apps.py">
       <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file:///usr/local/lib/python3.7/site-packages/django/http/request.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="157">
-          <caret line="272" selection-start-line="272" selection-end-line="272" />
-        </state>
-      </provider>
     </entry>
     <entry file="file:///usr/local/Cellar/python/3.7.0/Frameworks/Python.framework/Versions/3.7/lib/python3.7/json/__init__.py">
       <provider selected="true" editor-type-id="text-editor">
@@ -520,16 +550,23 @@
         </state>
       </provider>
     </entry>
+    <entry file="file:///usr/local/lib/python3.7/site-packages/django/http/request.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="172">
+          <caret line="273" selection-start-line="273" selection-end-line="273" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/chain/views.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="168">
-          <caret line="544" column="46" selection-start-line="544" selection-start-column="46" selection-end-line="544" selection-end-column="46" />
+        <state relative-caret-position="5167">
+          <caret line="538" column="57" selection-start-line="538" selection-start-column="57" selection-end-line="538" selection-end-column="57" />
           <folding>
             <element signature="e#0#15#0" expanded="true" />
-            <marker date="1535889558291" expanded="true" signature="5652:6683" ph="..." />
-            <marker date="1535889558291" expanded="true" signature="9312:9370" ph="..." />
-            <marker date="1535889558291" expanded="true" signature="10989:10994" ph="..." />
-            <marker date="1535889558291" expanded="true" signature="13503:13508" ph="..." />
+            <marker date="1535894868668" expanded="true" signature="5422:6464" ph="..." />
+            <marker date="1535894868668" expanded="true" signature="9115:9173" ph="..." />
+            <marker date="1535894868668" expanded="true" signature="10803:10808" ph="..." />
+            <marker date="1535894868668" expanded="true" signature="13317:13322" ph="..." />
           </folding>
         </state>
       </provider>
