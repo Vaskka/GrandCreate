@@ -2,12 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="4a23951b-4971-4507-a238-1752f40e0ba9" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/com/vaskka/grand/user/util/HttpCallBack.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/User.iml" beforeDir="false" afterPath="$PROJECT_DIR$/User.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/vaskka/grand/user/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/vaskka/grand/user/User.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/vaskka/grand/user/util/HttpUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/vaskka/grand/user/util/HttpUtil.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../backend/backend/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../backend/backend/.idea/workspace.xml" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -55,7 +50,7 @@
     <session id="-2046947405">
       <usages-collector id="statistics.lifecycle.project">
         <counts>
-          <entry key="project.closed" value="1" />
+          <entry key="project.closed" value="2" />
           <entry key="project.open.time.1" value="1" />
           <entry key="project.open.time.8" value="1" />
           <entry key="project.opened" value="2" />
@@ -74,11 +69,13 @@
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
           <entry key="java" value="870" />
+          <entry key="txt" value="28" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
           <entry key="JAVA" value="870" />
+          <entry key="PLAIN_TEXT" value="28" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.js.language.service.starts" />
@@ -114,7 +111,7 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/com/vaskka/grand/user/User.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="447">
+            <state relative-caret-position="2604">
               <caret line="233" column="8" lean-forward="true" selection-start-line="233" selection-start-column="8" selection-end-line="233" selection-end-column="8" />
               <folding>
                 <element signature="imports" expanded="true" />
@@ -234,7 +231,7 @@
   <component name="PropertiesComponent">
     <property name="SearchEverywhereHistoryKey" value="&#9;FILE&#9;file:///Users/vaskka/Desktop/User/src/com/vaskka/grand/user/RunResult.java" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1535957701358" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1535957709913" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.15" />
@@ -282,12 +279,20 @@
       <workItem from="1534144845363" duration="3134000" />
       <workItem from="1534218046062" duration="13574000" />
       <workItem from="1535599964160" duration="2314000" />
-      <workItem from="1535955996193" duration="1357000" />
+      <workItem from="1535955996193" duration="1451000" />
     </task>
+    <task id="LOCAL-00001" summary="rewrite user sdk">
+      <created>1535957752261</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1535957752261</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="20379000" />
+    <option name="totallyTimeSpent" value="20473000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="23" width="1440" height="797" extended-state="0" />
@@ -329,6 +334,10 @@
   </component>
   <component name="VcsContentAnnotationSettings">
     <option name="myLimit" value="2678400000" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="rewrite user sdk" />
+    <option name="LAST_COMMIT_MESSAGE" value="rewrite user sdk" />
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/User.iml">
@@ -460,7 +469,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/vaskka/grand/user/User.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="447">
+        <state relative-caret-position="2604">
           <caret line="233" column="8" lean-forward="true" selection-start-line="233" selection-start-column="8" selection-end-line="233" selection-end-column="8" />
           <folding>
             <element signature="imports" expanded="true" />

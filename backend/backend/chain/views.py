@@ -6,6 +6,7 @@ from django.http import HttpResponse, JsonResponse
 
 # Create your views here.
 from chain.models import Talk, User, UserSession, FriendApply, FriendMapping
+from utils import util
 from utils.request import QueryRequest
 from utils.util import md5
 
@@ -226,10 +227,13 @@ def deal_user_register(request):
 
     # User.objects.create(user_name=user_name, password=psw, email=email, head_image=head_image, balance=0)
 
+    token_code = str(random.randint(2000, 3000))
+    util.send_a_email(email, "验证码:" + token_code)
+
     success_response = {
         "code": 0,
         "msg": "success",
-        "token_code": str(random.randint(2000, 3000))
+        "token_code": token_code
     }
 
     return HttpResponse(json.dumps(success_response))
