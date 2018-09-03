@@ -2,21 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="4a23951b-4971-4507-a238-1752f40e0ba9" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/src/com/vaskka/grand/user/Main.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/vaskka/grand/user/User.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/vaskka/grand/user/request/AddFriendRequestObject.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/vaskka/grand/user/request/BaseRequestObject.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/vaskka/grand/user/request/LoginRequestObject.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/vaskka/grand/user/request/LogoutRequestObject.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/vaskka/grand/user/request/RegisterRequestObject.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/vaskka/grand/user/request/SendMessageRequestObject.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/vaskka/grand/user/response/BaseResponseObject.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/vaskka/grand/user/response/CallResponseObject.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/vaskka/grand/user/response/LoginResponseObject.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/vaskka/grand/user/response/SearchUserResponseObject.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/vaskka/grand/user/response/TestRegisterResponseObject.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/vaskka/grand/user/util/HttpUtil.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/vaskka/grand/user/util/OtherUtil.java" beforeDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/com/vaskka/grand/user/util/HttpCallBack.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/User.iml" beforeDir="false" afterPath="$PROJECT_DIR$/User.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/vaskka/grand/user/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/vaskka/grand/user/User.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/vaskka/grand/user/util/HttpUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/vaskka/grand/user/util/HttpUtil.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../backend/backend/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../backend/backend/.idea/workspace.xml" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
@@ -66,40 +56,89 @@
       <usages-collector id="statistics.lifecycle.project">
         <counts>
           <entry key="project.closed" value="1" />
+          <entry key="project.open.time.1" value="1" />
           <entry key="project.open.time.8" value="1" />
-          <entry key="project.opened" value="1" />
+          <entry key="project.opened" value="2" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
         <counts>
-          <entry key="java" value="3" />
+          <entry key="java" value="7" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
-          <entry key="JAVA" value="3" />
+          <entry key="JAVA" value="7" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="java" value="610" />
+          <entry key="java" value="870" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="JAVA" value="610" />
+          <entry key="JAVA" value="870" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.js.language.service.starts" />
     </session>
   </component>
   <component name="FileEditorManager">
-    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300" />
+    <leaf>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/com/vaskka/grand/user/util/HttpUtil.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="15">
+              <caret line="1" lean-forward="true" selection-start-line="1" selection-end-line="1" />
+              <folding>
+                <element signature="imports" expanded="true" />
+                <element signature="e#1364#1365#0" expanded="true" />
+                <element signature="e#1419#1420#0" expanded="true" />
+                <element signature="e#2172#2173#0" expanded="true" />
+                <element signature="e#2227#2228#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/com/vaskka/grand/user/response/BaseResponseObject.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="223">
+              <caret line="37" column="11" selection-start-line="37" selection-start-column="11" selection-end-line="37" selection-end-column="11" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/com/vaskka/grand/user/User.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="447">
+              <caret line="233" column="8" lean-forward="true" selection-start-line="233" selection-start-column="8" selection-end-line="233" selection-end-column="8" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/com/vaskka/grand/user/util/HttpCallBack.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="75">
+              <caret line="5" column="40" selection-start-line="5" selection-start-column="40" selection-end-line="5" selection-end-column="40" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Class" />
+        <option value="Interface" />
       </list>
     </option>
   </component>
@@ -116,7 +155,6 @@
         <option value="$PROJECT_DIR$/src/com/vaskka/grand/user/request/LogoutRequestObject.java" />
         <option value="$PROJECT_DIR$/src/com/vaskka/grand/user/request/LoginRequestObject.java" />
         <option value="$PROJECT_DIR$/src/com/vaskka/grand/user/util/OtherUtil.java" />
-        <option value="$PROJECT_DIR$/src/com/vaskka/grand/user/util/HttpUtil.java" />
         <option value="$PROJECT_DIR$/src/com/vaskka/grand/user/RunResult.java" />
         <option value="$PROJECT_DIR$/src/com/vaskka/grand/user/response/ResponseObject.java" />
         <option value="$PROJECT_DIR$/src/com/vaskka/grand/user/response/BaseResponseObject.java" />
@@ -125,6 +163,8 @@
         <option value="$PROJECT_DIR$/src/com/vaskka/grand/user/response/CallResponseObject.java" />
         <option value="$PROJECT_DIR$/src/com/vaskka/grand/user/Main.java" />
         <option value="$PROJECT_DIR$/src/com/vaskka/grand/user/response/TestRegisterResponseObject.java" />
+        <option value="$PROJECT_DIR$/src/com/vaskka/grand/user/util/HttpCallBack.java" />
+        <option value="$PROJECT_DIR$/src/com/vaskka/grand/user/util/HttpUtil.java" />
         <option value="$PROJECT_DIR$/src/com/vaskka/grand/user/User.java" />
       </list>
     </option>
@@ -135,7 +175,7 @@
     <detection-done>true</detection-done>
     <sorting>DEFINITION_ORDER</sorting>
   </component>
-  <component name="ProjectFrameBounds" fullScreen="true">
+  <component name="ProjectFrameBounds">
     <option name="y" value="23" />
     <option name="width" value="1440" />
     <option name="height" value="797" />
@@ -146,6 +186,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="AndroidView" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -160,6 +201,26 @@
             </path>
             <path>
               <item name="User" type="b2602c69:ProjectViewProjectNode" />
+              <item name="User" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="user" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="User" type="b2602c69:ProjectViewProjectNode" />
+              <item name="User" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="user" type="462c0819:PsiDirectoryNode" />
+              <item name="response" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="User" type="b2602c69:ProjectViewProjectNode" />
+              <item name="User" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="user" type="462c0819:PsiDirectoryNode" />
+              <item name="util" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="User" type="b2602c69:ProjectViewProjectNode" />
               <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
             </path>
           </expand>
@@ -168,13 +229,12 @@
       </pane>
       <pane id="PackagesPane" />
       <pane id="Scope" />
-      <pane id="AndroidView" />
     </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="SearchEverywhereHistoryKey" value="&#9;FILE&#9;file:///Users/vaskka/Desktop/User/src/com/vaskka/grand/user/RunResult.java" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1535601927400" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1535957701358" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.15" />
@@ -222,16 +282,18 @@
       <workItem from="1534144845363" duration="3134000" />
       <workItem from="1534218046062" duration="13574000" />
       <workItem from="1535599964160" duration="2314000" />
+      <workItem from="1535955996193" duration="1357000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="19022000" />
+    <option name="totallyTimeSpent" value="20379000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="0" width="1920" height="1080" extended-state="0" />
+    <frame x="0" y="23" width="1440" height="797" extended-state="0" />
+    <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.19116081" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.19384836" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Designer" order="2" />
       <window_info id="Image Layers" order="3" />
@@ -308,19 +370,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/vaskka/grand/user/util/HttpUtil.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="360">
-          <caret line="42" column="29" selection-start-line="42" selection-start-column="29" selection-end-line="42" selection-end-column="29" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="method#getConnection#0;class#HttpUtil#0" />
-            <element signature="method#post#0;class#HttpUtil#0" />
-            <element signature="method#get#0;class#HttpUtil#0" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/com/vaskka/grand/user/request/RegisterRequestObject.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="165">
@@ -358,16 +407,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/vaskka/grand/user/Main.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="300">
-          <caret line="20" column="34" lean-forward="true" selection-start-line="20" selection-start-column="34" selection-end-line="20" selection-end-column="34" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/vaskka/grand/user/Main.java" />
     <entry file="file://$PROJECT_DIR$/src/com/vaskka/grand/user/response/TestRegisterResponseObject.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="585">
@@ -383,13 +423,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/vaskka/grand/user/response/BaseResponseObject.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="465">
-          <caret line="37" column="11" selection-start-line="37" selection-start-column="11" selection-end-line="37" selection-end-column="11" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/com/vaskka/grand/user/request/BaseRequestObject.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="135">
@@ -397,26 +430,40 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/vaskka/grand/user/User.java">
+    <entry file="file://$PROJECT_DIR$/src/com/vaskka/grand/user/util/HttpCallBack.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="188">
-          <caret line="29" column="49" selection-start-line="29" selection-start-column="49" selection-end-line="29" selection-end-column="49" />
+        <state relative-caret-position="75">
+          <caret line="5" column="40" selection-start-line="5" selection-start-column="40" selection-end-line="5" selection-end-column="40" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/vaskka/grand/user/util/HttpUtil.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="15">
+          <caret line="1" lean-forward="true" selection-start-line="1" selection-end-line="1" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#7219#7220#0" expanded="true" />
-            <element signature="e#7247#7248#0" expanded="true" />
-            <element signature="e#7289#7290#0" expanded="true" />
-            <element signature="e#7323#7324#0" expanded="true" />
-            <element signature="e#7358#7359#0" expanded="true" />
-            <element signature="e#7389#7390#0" expanded="true" />
-            <element signature="e#7437#7438#0" expanded="true" />
-            <element signature="e#7477#7478#0" expanded="true" />
-            <element signature="e#7512#7513#0" expanded="true" />
-            <element signature="e#7543#7544#0" expanded="true" />
-            <element signature="e#7591#7592#0" expanded="true" />
-            <element signature="e#7631#7632#0" expanded="true" />
-            <element signature="e#7748#7749#0" expanded="true" />
-            <element signature="e#7776#7777#0" expanded="true" />
+            <element signature="e#1364#1365#0" expanded="true" />
+            <element signature="e#1419#1420#0" expanded="true" />
+            <element signature="e#2172#2173#0" expanded="true" />
+            <element signature="e#2227#2228#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/vaskka/grand/user/response/BaseResponseObject.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="223">
+          <caret line="37" column="11" selection-start-line="37" selection-start-column="11" selection-end-line="37" selection-end-column="11" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/vaskka/grand/user/User.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="447">
+          <caret line="233" column="8" lean-forward="true" selection-start-line="233" selection-start-column="8" selection-end-line="233" selection-end-column="8" />
+          <folding>
+            <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>

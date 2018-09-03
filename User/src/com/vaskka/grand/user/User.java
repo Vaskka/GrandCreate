@@ -2,6 +2,7 @@ package com.vaskka.grand.user;
 
 import com.vaskka.grand.user.request.*;
 import com.vaskka.grand.user.response.*;
+import com.vaskka.grand.user.util.HttpCallBack;
 import com.vaskka.grand.user.util.HttpUtil;
 
 import java.text.SimpleDateFormat;
@@ -22,32 +23,30 @@ public class User {
     /**
      * 域名
      */
-    private static String BASE_URL = "http://localhost:8000";
+    private static String BASE_URL = "http://101.201.234.129";
 
     /**
      * 用户进行尝试注册的方法
-     * @return TestRegisterResponseObject 尝试注册的对象
      * @throws NullPointerException email 为null抛出
      */
-    public TestRegisterResponseObject doTestRegister() throws NullPointerException {
+    public void doTestRegister(HttpCallBack mCallBack) throws NullPointerException {
         if (email == null) {
             throw new NullPointerException("email is null");
         }
 
         BaseRequestObject testRegisterRequestObject = new BaseRequestObject(email);
 
-        String rawResponse = HttpUtil.post(BASE_URL + "/register/", testRegisterRequestObject);
+        HttpUtil.post(BASE_URL + "/register/", testRegisterRequestObject.toString(), mCallBack);
 
-        return new TestRegisterResponseObject(rawResponse);
+
     }
 
 
     /**
      * 用户进行注册的方法
-     * @return BaseResponseObject
      * @throws NullPointerException 有任意参数为null抛出
      */
-    public BaseResponseObject doRegister() throws NullPointerException{
+    public void doRegister(HttpCallBack mCallBack) throws NullPointerException{
         if (email == null) {
             throw new NullPointerException("email is null");
         }
@@ -60,19 +59,16 @@ public class User {
 
         RegisterRequestObject registerObject = new RegisterRequestObject(email, userName, password, "");
 
-        String rawResponse = HttpUtil.post(BASE_URL + "/register/ok/", registerObject);
-
-        return new BaseResponseObject(rawResponse);
+        HttpUtil.post(BASE_URL + "/register/ok/", registerObject.toString(), mCallBack);
 
     }
 
 
     /**
      * 用户进行登陆
-     * @return LoginResponse
      * @throws NullPointerException 有任意参数为null抛出
      **/
-    public LoginResponseObject doLogin() throws NullPointerException {
+    public void doLogin(HttpCallBack mCallBack) throws NullPointerException {
         if (email == null) {
             throw new NullPointerException("email is null");
         }
@@ -82,23 +78,17 @@ public class User {
 
         LoginRequestObject registerObject = new LoginRequestObject(email, password);
 
-        String rawResponse = HttpUtil.post(BASE_URL + "/sign/", registerObject);
+        HttpUtil.post(BASE_URL + "/sign/", registerObject.toString(), mCallBack);
 
-        LoginResponseObject result = new LoginResponseObject(rawResponse);
-
-        if (result.isOK()) {
-            this.token = result.getToken();
-        }
-        return result;
     }
 
 
     /**
      * 用户登出的操作
-     * @return BaseResponseObject
+
      * @throws NullPointerException 有任意参数为null抛出
      */
-    public BaseResponseObject doLogout() throws NullPointerException {
+    public void doLogout(HttpCallBack mCallBack) throws NullPointerException {
         if (email == null) {
             throw new NullPointerException("email is null");
         }
@@ -108,19 +98,17 @@ public class User {
 
         LogoutRequestObject registerObject = new LogoutRequestObject(email, token);
 
-        String rawResponse = HttpUtil.post(BASE_URL + "/logout/", registerObject);
+        HttpUtil.post(BASE_URL + "/logout/", registerObject.toString(), mCallBack);
 
-        return new BaseResponseObject(rawResponse);
 
     }
 
 
     /**
      * 用户尝试添加好友的操作
-     * @return BaseResponseObject
      * @throws NullPointerException 有任意参数为null抛出
      */
-    public BaseResponseObject doAddFriend(String friendEmail) throws NullPointerException {
+    public void doAddFriend(String friendEmail, HttpCallBack mCallBack) throws NullPointerException {
         if (email == null) {
             throw new NullPointerException("email is null");
         }
@@ -133,9 +121,7 @@ public class User {
 
         AddFriendRequestObject registerObject = new AddFriendRequestObject(email, token, friendEmail);
 
-        String rawResponse = HttpUtil.post(BASE_URL + "/add_friend/", registerObject);
-
-        return new BaseResponseObject(rawResponse);
+        HttpUtil.post(BASE_URL + "/add_friend/", registerObject.toString(), mCallBack);
 
     }
 
@@ -143,10 +129,9 @@ public class User {
     /**
      * 搜索好友的操作
      * @param searchUserName 要是搜索的名字
-     * @return SearchUserResponseObject
      * @throws NullPointerException 有任意参数为null抛出
      */
-    public SearchUserResponseObject doSearchUser(String searchUserName) throws NullPointerException {
+    public void doSearchUser(String searchUserName, HttpCallBack mCallBack) throws NullPointerException {
         if (email == null) {
             throw new NullPointerException("email is null");
         }
@@ -162,9 +147,8 @@ public class User {
         params.put("token", token);
         params.put("search_name", searchUserName);
 
-        String rawResponse = HttpUtil.get(BASE_URL + "/search_user/", params);
+        HttpUtil.get(BASE_URL + "/search_user/", params, mCallBack);
 
-        return new SearchUserResponseObject(rawResponse);
 
     }
 
@@ -173,10 +157,9 @@ public class User {
      * 是否确认添加这个好友
      * @param thisFriendEmail 这个好友的email
      * @param isOkToBeYourFriend 是否同意
-     * @return BaseResponseObject
      * @throws NullPointerException 有任意参数为null抛出
      */
-    public BaseResponseObject doAddFriendResult(String thisFriendEmail, boolean isOkToBeYourFriend) throws NullPointerException {
+    public void doAddFriendResult(String thisFriendEmail, boolean isOkToBeYourFriend, HttpCallBack mCallBack) throws NullPointerException {
         if (email == null) {
             throw new NullPointerException("email is null");
         }
@@ -198,9 +181,8 @@ public class User {
             params.put("result", "0");
         }
 
-        String rawResponse = HttpUtil.get(BASE_URL + "/add_result/", params);
+        HttpUtil.get(BASE_URL + "/add_result/", params, mCallBack);
 
-        return new BaseResponseObject(rawResponse);
     }
 
 
@@ -208,10 +190,9 @@ public class User {
      * 向某个用户发消息
      * @param toEmail 接受人的email
      * @param content 消息内容
-     * @return BaseResponseObject
      * @throws NullPointerException 有任意参数为null抛出
      */
-    public BaseResponseObject doSend(String toEmail, String content) throws NullPointerException {
+    public void doSend(String toEmail, String content, HttpCallBack mCallBack) throws NullPointerException {
         if (email == null) {
             throw new NullPointerException("email is null");
         }
@@ -227,18 +208,16 @@ public class User {
 
         SendMessageRequestObject obj = new SendMessageRequestObject(email, token, content, toEmail);
 
-        String rawResponse = HttpUtil.post(BASE_URL + "/send/", obj);
+        HttpUtil.post(BASE_URL + "/send/", obj.toString(), mCallBack);
 
-        return new BaseResponseObject(rawResponse);
     }
 
 
     /**
      * 处理用户的轮询操作
-     * @return CallResponseObject
      * @throws NullPointerException 有任意参数为null抛出
      */
-    public CallResponseObject doCall() throws NullPointerException {
+    public void doCall(HttpCallBack mCallBack) throws NullPointerException {
         if (email == null) {
             throw new NullPointerException("email is null");
         }
@@ -252,9 +231,9 @@ public class User {
         params.put("token", token);
         params.put("request_time", sf.format(new Date()));
 
-        String rawResponse = HttpUtil.get(BASE_URL + "/call/", params);
+        HttpUtil.get(BASE_URL + "/call/", params, mCallBack);
 
-        return new CallResponseObject(rawResponse);
+
 
     }
 
