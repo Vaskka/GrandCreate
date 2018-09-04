@@ -207,28 +207,46 @@ def deal_user_register(request):
     :param request: HttpRequest
     :return: HttpResponse json风格
     """
+    try:
+        request_obj_str = request.body.decode("utf-8")
 
-    request_obj_str = request.body.decode("utf-8")
+        request_obj = json.loads(request_obj_str)
 
-    request_obj = json.loads(request_obj_str)
+        # user_name = request_obj["user_name"]
+        # psw = request_obj["password"]
+        email = request_obj["email"]
+        # head_image = request_obj["head_image"]
 
-    # user_name = request_obj["user_name"]
-    # psw = request_obj["password"]
-    email = request_obj["email"]
-    # head_image = request_obj["head_image"]
+        if get_is_email_exist(email):
+            error_response = {
+                "code": 2,
+                "msg": "email is already exist"
+            }
+            return HttpResponse(json.dumps(error_response))
+            pass
 
-    if get_is_email_exist(email):
+        # User.objects.create(user_name=user_name, password=psw, email=email, head_image=head_image, balance=0)
+
+        token_code = str(random.randint(2000, 3000))
+
+    except:
         error_response = {
-            "code": 2,
-            "msg": "email is already exist"
+            "code": "-1",
+            "msg": "server error"
         }
-        return HttpResponse(json.dumps(error_response))
+        return JsonResponse(error_response)
         pass
 
-    # User.objects.create(user_name=user_name, password=psw, email=email, head_image=head_image, balance=0)
+    try:
+        util.send_a_email(email, "验证码:" + token_code)
+    except:
+        error_response = {
+            "code": "-2",
+            "msg": "email send error"
+        }
+        return JsonResponse(error_response)
+        pass
 
-    token_code = str(random.randint(2000, 3000))
-    util.send_a_email(email, "验证码:" + token_code)
 
     success_response = {
         "code": 0,
