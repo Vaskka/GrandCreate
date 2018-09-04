@@ -231,7 +231,7 @@ def deal_user_register(request):
 
     except:
         error_response = {
-            "code": "-1",
+            "code": -1,
             "msg": "server error"
         }
         return JsonResponse(error_response)
@@ -241,7 +241,7 @@ def deal_user_register(request):
         util.send_a_email(email, "验证码:" + token_code)
     except:
         error_response = {
-            "code": "-2",
+            "code": -2,
             "msg": "email send error"
         }
         return JsonResponse(error_response)

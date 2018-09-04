@@ -51,24 +51,25 @@
     <session id="272772736">
       <usages-collector id="statistics.lifecycle.project">
         <counts>
-          <entry key="project.closed" value="8" />
+          <entry key="project.closed" value="9" />
           <entry key="project.open.time.1" value="2" />
           <entry key="project.open.time.14" value="1" />
           <entry key="project.open.time.2" value="1" />
+          <entry key="project.open.time.5" value="1" />
           <entry key="project.open.time.7" value="4" />
           <entry key="project.open.time.8" value="1" />
-          <entry key="project.opened" value="9" />
+          <entry key="project.opened" value="10" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
           <entry key="py" value="1238" />
-          <entry key="txt" value="264" />
+          <entry key="txt" value="296" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="PLAIN_TEXT" value="264" />
+          <entry key="PLAIN_TEXT" value="296" />
           <entry key="Python" value="1238" />
         </counts>
       </usages-collector>
@@ -102,7 +103,7 @@
         <entry file="file://$PROJECT_DIR$/script/uwsgi.ini">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="315">
-              <caret line="21" column="6" lean-forward="true" selection-start-line="21" selection-start-column="6" selection-end-line="21" selection-end-column="6" />
+              <caret line="21" column="6" selection-start-line="21" selection-start-column="6" selection-end-line="21" selection-end-column="6" />
             </state>
           </provider>
         </entry>
@@ -151,14 +152,14 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/chain/views.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="321">
-              <caret line="244" column="30" selection-start-line="244" selection-start-column="30" selection-end-line="244" selection-end-column="30" />
+            <state relative-caret-position="340">
+              <caret line="243" column="22" selection-start-line="243" selection-start-column="22" selection-end-line="243" selection-end-column="22" />
               <folding>
                 <element signature="e#0#15#0" expanded="true" />
-                <marker date="1536027011270" expanded="true" signature="5944:6986" ph="..." />
-                <marker date="1536027011270" expanded="true" signature="9637:9695" ph="..." />
-                <marker date="1536027011270" expanded="true" signature="11325:11330" ph="..." />
-                <marker date="1536027011270" expanded="true" signature="13839:13844" ph="..." />
+                <marker date="1536027813370" expanded="true" signature="5940:6982" ph="..." />
+                <marker date="1536027813370" expanded="true" signature="9633:9691" ph="..." />
+                <marker date="1536027813370" expanded="true" signature="11321:11326" ph="..." />
+                <marker date="1536027813370" expanded="true" signature="13835:13840" ph="..." />
               </folding>
             </state>
           </provider>
@@ -222,6 +223,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -263,7 +265,6 @@
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -403,14 +404,21 @@
       <option name="project" value="LOCAL" />
       <updated>1535965328471</updated>
     </task>
-    <option name="localTasksCounter" value="13" />
+    <task id="LOCAL-00013" summary="update register send email logic">
+      <created>1536027040595</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1536027040595</updated>
+    </task>
+    <option name="localTasksCounter" value="14" />
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="23" width="1440" height="797" extended-state="6" />
+    <frame x="0" y="23" width="1440" height="797" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.21459228" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.21745351" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -452,7 +460,8 @@
     <MESSAGE value="fix json bytes bug" />
     <MESSAGE value="test" />
     <MESSAGE value="fix bytes without decode bug" />
-    <option name="LAST_COMMIT_MESSAGE" value="fix bytes without decode bug" />
+    <MESSAGE value="update register send email logic" />
+    <option name="LAST_COMMIT_MESSAGE" value="update register send email logic" />
   </component>
   <component name="editorHistoryManager">
     <entry file="file:///usr/local/lib/python3.7/site-packages/MySQLdb/__init__.py">
@@ -532,10 +541,24 @@
         </state>
       </provider>
     </entry>
+    <entry file="file:///usr/local/lib/python3.7/site-packages/django/http/response.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="410">
+          <caret line="547" column="8" selection-start-line="547" selection-start-column="8" selection-end-line="547" selection-end-column="8" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/backend/settings.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="540">
           <caret line="36" column="30" selection-start-line="36" selection-start-column="30" selection-end-line="36" selection-end-column="30" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/script/uwsgi.ini">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="315">
+          <caret line="21" column="6" selection-start-line="21" selection-start-column="6" selection-end-line="21" selection-end-column="6" />
         </state>
       </provider>
     </entry>
@@ -579,30 +602,16 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/script/uwsgi.ini">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="315">
-          <caret line="21" column="6" lean-forward="true" selection-start-line="21" selection-start-column="6" selection-end-line="21" selection-end-column="6" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file:///usr/local/lib/python3.7/site-packages/django/http/response.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="410">
-          <caret line="547" column="8" selection-start-line="547" selection-start-column="8" selection-end-line="547" selection-end-column="8" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/chain/views.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="321">
-          <caret line="244" column="30" selection-start-line="244" selection-start-column="30" selection-end-line="244" selection-end-column="30" />
+        <state relative-caret-position="340">
+          <caret line="243" column="22" selection-start-line="243" selection-start-column="22" selection-end-line="243" selection-end-column="22" />
           <folding>
             <element signature="e#0#15#0" expanded="true" />
-            <marker date="1536027011270" expanded="true" signature="5944:6986" ph="..." />
-            <marker date="1536027011270" expanded="true" signature="9637:9695" ph="..." />
-            <marker date="1536027011270" expanded="true" signature="11325:11330" ph="..." />
-            <marker date="1536027011270" expanded="true" signature="13839:13844" ph="..." />
+            <marker date="1536027813370" expanded="true" signature="5940:6982" ph="..." />
+            <marker date="1536027813370" expanded="true" signature="9633:9691" ph="..." />
+            <marker date="1536027813370" expanded="true" signature="11321:11326" ph="..." />
+            <marker date="1536027813370" expanded="true" signature="13835:13840" ph="..." />
           </folding>
         </state>
       </provider>
