@@ -533,7 +533,7 @@ def deal_user_get_friends(request):
                 user_obj = User.objects.get(id=friend.another_user)
                 friends_list.append({
                     "email": user_obj.email,
-                    "user_name": user_obj.user_name
+                    "name": user_obj.user_name
                 })
                 pass
 

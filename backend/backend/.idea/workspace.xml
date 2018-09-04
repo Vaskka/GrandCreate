@@ -63,14 +63,14 @@
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="py" value="1334" />
-          <entry key="txt" value="319" />
+          <entry key="py" value="1357" />
+          <entry key="txt" value="358" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="PLAIN_TEXT" value="319" />
-          <entry key="Python" value="1334" />
+          <entry key="PLAIN_TEXT" value="358" />
+          <entry key="Python" value="1357" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.js.language.service.starts" />
@@ -111,8 +111,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/backend/urls.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="360">
-              <caret line="24" column="22" selection-start-line="24" selection-start-column="22" selection-end-line="24" selection-end-column="22" />
+            <state relative-caret-position="450">
+              <caret line="30" column="31" selection-start-line="30" selection-start-column="31" selection-end-line="30" selection-end-column="31" />
               <folding>
                 <element signature="e#631#663#0" expanded="true" />
               </folding>
@@ -152,14 +152,14 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/chain/views.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="533">
-              <caret line="342" column="15" selection-start-line="342" selection-start-column="15" selection-end-line="342" selection-end-column="15" />
+            <state relative-caret-position="389">
+              <caret line="535" column="21" selection-start-line="535" selection-start-column="21" selection-end-line="535" selection-end-column="21" />
               <folding>
                 <element signature="e#0#15#0" expanded="true" />
-                <marker date="1536060255085" expanded="true" signature="5940:6982" ph="..." />
-                <marker date="1536060255085" expanded="true" signature="9779:9837" ph="..." />
-                <marker date="1536060255085" expanded="true" signature="11467:11472" ph="..." />
-                <marker date="1536060255085" expanded="true" signature="13981:13986" ph="..." />
+                <marker date="1536071226994" expanded="true" signature="5940:6982" ph="..." />
+                <marker date="1536071226994" expanded="true" signature="9892:9950" ph="..." />
+                <marker date="1536071226994" expanded="true" signature="11580:11585" ph="..." />
+                <marker date="1536071226994" expanded="true" signature="14089:14094" ph="..." />
               </folding>
             </state>
           </provider>
@@ -425,7 +425,21 @@
       <option name="project" value="LOCAL" />
       <updated>1536030427549</updated>
     </task>
-    <option name="localTasksCounter" value="16" />
+    <task id="LOCAL-00016" summary="update login logic">
+      <created>1536060283854</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1536060283854</updated>
+    </task>
+    <task id="LOCAL-00017" summary="make login return use_name">
+      <created>1536061355716</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1536061355716</updated>
+    </task>
+    <option name="localTasksCounter" value="18" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -477,7 +491,9 @@
     <MESSAGE value="update register send email logic" />
     <MESSAGE value="fix register bug" />
     <MESSAGE value="fix url" />
-    <option name="LAST_COMMIT_MESSAGE" value="fix url" />
+    <MESSAGE value="update login logic" />
+    <MESSAGE value="make login return use_name" />
+    <option name="LAST_COMMIT_MESSAGE" value="make login return use_name" />
   </component>
   <component name="editorHistoryManager">
     <entry file="file:///usr/local/lib/python3.7/site-packages/MySQLdb/__init__.py">
@@ -610,8 +626,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/backend/urls.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="360">
-          <caret line="24" column="22" selection-start-line="24" selection-start-column="22" selection-end-line="24" selection-end-column="22" />
+        <state relative-caret-position="450">
+          <caret line="30" column="31" selection-start-line="30" selection-start-column="31" selection-end-line="30" selection-end-column="31" />
           <folding>
             <element signature="e#631#663#0" expanded="true" />
           </folding>
@@ -620,14 +636,14 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/chain/views.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="533">
-          <caret line="342" column="15" selection-start-line="342" selection-start-column="15" selection-end-line="342" selection-end-column="15" />
+        <state relative-caret-position="389">
+          <caret line="535" column="21" selection-start-line="535" selection-start-column="21" selection-end-line="535" selection-end-column="21" />
           <folding>
             <element signature="e#0#15#0" expanded="true" />
-            <marker date="1536060255085" expanded="true" signature="5940:6982" ph="..." />
-            <marker date="1536060255085" expanded="true" signature="9779:9837" ph="..." />
-            <marker date="1536060255085" expanded="true" signature="11467:11472" ph="..." />
-            <marker date="1536060255085" expanded="true" signature="13981:13986" ph="..." />
+            <marker date="1536071226994" expanded="true" signature="5940:6982" ph="..." />
+            <marker date="1536071226994" expanded="true" signature="9892:9950" ph="..." />
+            <marker date="1536071226994" expanded="true" signature="11580:11585" ph="..." />
+            <marker date="1536071226994" expanded="true" signature="14089:14094" ph="..." />
           </folding>
         </state>
       </provider>
