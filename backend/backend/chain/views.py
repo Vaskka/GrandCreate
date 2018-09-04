@@ -338,10 +338,14 @@ def deal_user_sign(request):
         # 在session表中注册
         token = md5(str(datetime.datetime.now()) + str(random.randint(20, 30)))
         UserSession.objects.create(user=User.objects.get(email=request_obj["email"]), token=token)
+        # 拿到用户名
+        res_user_name = User.objects.get(email=request_obj["email"])
+        # 返回的数据
         success_response = {
             "code": 0,
             "token": token,
-            "msg": "log in success"
+            "msg": "log in success",
+            "user_name": str(res_user_name)
         }
         return HttpResponse(json.dumps(success_response))
         pass
