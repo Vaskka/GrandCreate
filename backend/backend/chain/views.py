@@ -323,9 +323,11 @@ def deal_user_sign(request):
     if get_is_user_session_exist(user_id):
 
         token = UserSession.objects.get(user__id=user_id).token
+        res_user_name = User.objects.get(email=request_obj["email"])
         success_response = {
             "code": 0,
             "token": token,
+            "use_name": str(res_user_name),
             "msg": "user already sign in"
         }
         return HttpResponse(json.dumps(success_response))
