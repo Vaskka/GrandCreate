@@ -26,7 +26,7 @@ class User(models.Model):
     head_image = TextField()
 
     # 账户余额
-    balance = FloatField()
+    balance = IntegerField()
 
     def __str__(self):
         return self.user_name

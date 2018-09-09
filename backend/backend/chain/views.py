@@ -132,6 +132,7 @@ def get_new_message(request_obj):
             content_message = dict()
             content_message["sender_name"] = message.send.user_name
             content_message["sender_email"] = message.send.email
+            content_message["message_kind"] = message.kind
             content_message["content"] = message.content
             content_message["time"] = message.create_time
             message_list.append(content_message)
@@ -563,6 +564,7 @@ def deal_user_send(request):
     处理用户向好友发送消息
     :param request: HttpRequest
     :return: HttpResponse
+    类型如果是转账message是金额
     """
     request_obj = json.loads(request.body.decode("utf-8"))
     # 验证身份
@@ -573,7 +575,19 @@ def deal_user_send(request):
         }
         return HttpResponse(json.dumps(error_dict))
     try:
-        Talk.objects.create(content=request_obj["message"], send=User.objects.get(email=request_obj["email"]), receive=User.objects.get(email=request_obj["to_email"]), is_new=True)
+        if request_obj["kind"] == "Transform":
+            now_balance = User.objects.get(email=request_obj["email"]).balance
+            if int(request_obj["message"]) > int(now_balance):
+                error_dict = {
+                    "code": 3,
+                    "msg": "above balance"
+                }
+                return HttpResponse(json.dumps(error_dict))
+            # 扣除
+            User.objects.get(email=request_obj["email"]).balance -= int(request_obj["message"])
+            pass
+
+        Talk.objects.create(content=request_obj["message"], send=User.objects.get(email=request_obj["email"]), receive=User.objects.get(email=request_obj["to_email"]), kind=request_obj["kind"], is_new=True)
 
         success_dict = {
             "code": 0,
@@ -590,3 +604,33 @@ def deal_user_send(request):
 
 
     pass
+
+
+def deal_user_confirm_transform(request):
+    """
+    处理用户确认转账
+    {
+        "email": "113@qq.com",
+        "token": "a",
+        "money": "100",
+    }
+    :param request: HttpRequests
+    :return:
+    """
+    request_obj = json.loads(request.body.decode("utf-8"))
+    # 验证身份
+    if not get_auth(request_obj["email"], request_obj["token"]):
+        error_dict = {
+            "code": 1,
+            "msg": "permission denied"
+        }
+        return HttpResponse(json.dumps(error_dict))
+    pass
+
+    # 加上
+    User.objects.get(email=request_obj["email"]).balance += int(request_obj["money"])
+    success_dict = {
+        "code": 0,
+        "msg": "success"
+    }
+    return JsonResponse(success_dict)
