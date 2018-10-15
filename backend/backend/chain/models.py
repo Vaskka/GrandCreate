@@ -7,85 +7,116 @@ from django.db.models import CharField, DateTimeField, FloatField, ManyToManyFie
 
 class User(models.Model):
     """
-    用户模型
+    用户model
     """
 
-    # 用户名
-    user_name = CharField(max_length=50)
+    # 主键id
+    user_id = CharField(max_length=32, primary_key=True)
 
-    # 密码
-    password = CharField(max_length=50)
+    # trade_id
+    trade_id = CharField(max_length=32, null=True)
 
-    # 邮箱
-    email = CharField(max_length=50)
+    # 昵称
+    nick_name = CharField(max_length=255, null=False, blank=False)
 
-    # 创建时间
-    create_time = DateTimeField(auto_now_add=True)
+    # password (md5)
+    password = CharField(max_length=32, null=False, blank=False)
 
-    # 头像
-    head_image = TextField()
-
-    # 账户余额
-    balance = IntegerField()
-
-    def __str__(self):
-        return self.user_name
-        pass
-
-
-class FriendMapping(models.Model):
-    """ 手动实现好友映射关系 """
-    """ 同步更新 """
-    one_user = IntegerField(blank=True, null=True)
-
-    another_user = IntegerField(blank=True, null=True)
-
-    pass
-
-
-class Talk(models.Model):
-    """
-    聊天记录
-    """
-    # 文字内容
-    content = TextField()
-
-    # 创建时间
-    create_time = DateTimeField(auto_now_add=True)
-
-    # 内容类型
-    kind = CharField(max_length=60, default="PlainText")
-
-    # 发送者
-    send = ForeignKey(User, on_delete=DO_NOTHING, blank=True, null=True, related_name="send_talk")
-
-    # 接收者
-    receive = ForeignKey(User, on_delete=DO_NOTHING, blank=True, null=True, related_name="receive_talk")
-
-    # 是否是新消息
-    is_new = BooleanField()
+    # email
+    email = CharField(max_length=255, null=False, blank=False)
 
     pass
 
 
 class UserSession(models.Model):
     """
-    用户Session表
+    session
     """
-    # 关联用户
-    user = OneToOneField(User, on_delete=DO_NOTHING, blank=True, null=True)
-    # token
-    token = CharField(max_length=255)
+    # 关联User
+    user = OneToOneField('User', on_delete=models.SET_NULL, null=True)
+
+    # session_token
+    session_token = CharField(max_length=32, null=False, blank=False)
 
     pass
 
 
-class FriendApply(models.Model):
-    """ 好友申请 """
+class NotRegisterUser(models.Model):
+    """
+    为完成成注册的User
+    """
+    # 主键
+    user_id = CharField(max_length=32, primary_key=True)
 
-    # 发送者
-    sender = ForeignKey(User, on_delete=DO_NOTHING, blank=True, null=True, related_name="sender")
-    # 接受者
-    receiver = ForeignKey(User, on_delete=DO_NOTHING, blank=True, null=True, related_name="receiver")
+    # 昵称
+    nick_name = CharField(max_length=255, null=False, blank=False)
 
+    # password (md5)
+    password = CharField(max_length=32, null=False, blank=False)
+
+    # email
+    email = CharField(max_length=255, null=False, blank=False)
+
+    # verify code
+    verify_code = CharField(max_length=4, null=False, blank=False)
+
+    pass
+
+
+class Transaction(models.Model):
+    """
+    转账订单model
+    一次transaction代表两次Trade（一次扣款一次充值）
+    """
+    # 主键
+    order_id = CharField(max_length=32, primary_key=True)
+
+    # 转账人
+    sender = OneToOneField("User", null=True, on_delete=models.SET_NULL)
+
+    # 首款人
+    receiver = OneToOneField("User", null=True, on_delete=models.SET_NULL)
+
+
+
+    pass
+
+
+class Balance(models.Model):
+    """
+    余额
+    """
+    # 关联用户
+    user = OneToOneField('User', on_delete=models.SET_NULL, null=True)
+
+    # 余额
+    value = IntegerField()
+
+    # 主键
+    balanceId = CharField(max_length=32, primary_key=True)
+    pass
+
+
+class Trade(models.Model):
+    """
+    Trade model
+    """
+
+    # 关联transaction
+    transaction = ForeignKey("Transaction", null=True, on_delete=models.SET_NULL)
+
+    # trade_id
+    transaction_id = CharField(max_length=64, blank=False, null=False, primary_key=True)
+
+    # 交易类型
+    trade_type = IntegerField()
+
+    # 交易人的face_token
+    face_token = CharField(max_length=255, null=False, blank=False)
+
+    # 交易额
+    trade_value = IntegerField()
+
+    # 关联Balance
+    balance = OneToOneField("Balance", on_delete=models.SET_NULL, null=True)
     pass
