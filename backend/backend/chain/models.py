@@ -25,6 +25,22 @@ class User(models.Model):
     # email
     email = CharField(max_length=255, null=False, blank=False)
 
+    # 创建时间
+    create_time = DateTimeField(auto_now_add=True)
+
+    # 更新时间
+    update_time = DateTimeField(auto_now=True)
+
+    pass
+
+
+class UserMapping(models.Model):
+    """
+    好友映射, 主键自增
+    """
+    one_user_id = OneToOneField('User', on_delete=models.SET_NULL, null=True)
+
+    another_user_id = OneToOneField('User', on_delete=models.SET_NULL, null=True)
     pass
 
 
@@ -38,12 +54,18 @@ class UserSession(models.Model):
     # session_token
     session_token = CharField(max_length=32, null=False, blank=False)
 
+    # 创建时间
+    create_time = DateTimeField(auto_now_add=True)
+
+    # 更新时间
+    update_time = DateTimeField(auto_now=True)
+
     pass
 
 
 class NotRegisterUser(models.Model):
     """
-    为完成成注册的User
+    未完成成注册的User
     """
     # 主键
     user_id = CharField(max_length=32, primary_key=True)
@@ -59,6 +81,34 @@ class NotRegisterUser(models.Model):
 
     # verify code
     verify_code = CharField(max_length=4, null=False, blank=False)
+
+    # 创建时间
+    create_time = DateTimeField(auto_now_add=True)
+
+    # 更新时间
+    update_time = DateTimeField(auto_now=True)
+
+    pass
+
+
+class UserFriendRequestOrder(models.Model):
+    """
+    好友请求订单model
+    """
+    # 订单主键
+    friend_order_id = CharField(max_length=32, primary_key=True)
+
+    # 发起人
+    sponsor = OneToOneField("User", on_delete=models.SET_NULL, null=True)
+
+    # 接受人
+    recipient = OneToOneField("User", on_delete=models.SET_NULL, null=True)
+
+    # 订单创建时间
+    create_time = DateTimeField(auto_now_add=True)
+
+    # 订单更新时间
+    update_time = DateTimeField(default=True)
 
     pass
 
@@ -77,7 +127,17 @@ class Transaction(models.Model):
     # 首款人
     receiver = OneToOneField("User", null=True, on_delete=models.SET_NULL)
 
+    # 状态 0-已完成 1-待确认 2-已取消
+    status = IntegerField()
 
+    # 交易额
+    transaction_value = IntegerField()
+
+    # 创建时间
+    create_time = DateTimeField(auto_now_add=True)
+
+    # 更新时间
+    update_time = DateTimeField(auto_now=True)
 
     pass
 
@@ -94,6 +154,12 @@ class Balance(models.Model):
 
     # 主键
     balanceId = CharField(max_length=32, primary_key=True)
+
+    # 创建时间
+    create_time = DateTimeField(auto_now_add=True)
+
+    # 更新时间
+    update_time = DateTimeField(auto_now=True)
     pass
 
 
@@ -105,7 +171,7 @@ class Trade(models.Model):
     # 关联transaction
     transaction = ForeignKey("Transaction", null=True, on_delete=models.SET_NULL)
 
-    # trade_id
+    # trade_id (取款链上交易id)
     transaction_id = CharField(max_length=64, blank=False, null=False, primary_key=True)
 
     # 交易类型
@@ -116,6 +182,9 @@ class Trade(models.Model):
 
     # 交易额
     trade_value = IntegerField()
+
+    # 交易时间
+    trade_time = DateTimeField()
 
     # 关联Balance
     balance = OneToOneField("Balance", on_delete=models.SET_NULL, null=True)
