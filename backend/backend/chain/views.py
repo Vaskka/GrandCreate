@@ -53,9 +53,7 @@ def user_login(request):
     :return:
     """
 
-
     pass
-
 
 
 def user_logout(request):
@@ -77,9 +75,47 @@ def user_find_from_email_user_id(request):
     pass
 
 
-def transaction(request):
+def user_try_add_friend(request):
     """
-    向用户发起转账
+    用户尝试添加好友
+    :param request:
+    :return:
+    """
+
+    pass
+
+
+def user_confirm_add_friend(request):
+    """
+    用户同意添加好友
+    :param request:
+    :return:
+    """
+    pass
+
+
+def transaction_try_trade(request):
+    """
+    向用户尝试发起转账
+    :param request:
+    :return:
+    """
+    pass
+
+
+def transaction_confirm_trade(request):
+    """
+    用户同意交易申请
+    :param request:
+    :return:
+    """
+
+    pass
+
+
+def transaction_inquire_trade(request):
+    """
+    用户查询全部交易
     :param request:
     :return:
     """
