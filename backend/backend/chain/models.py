@@ -41,6 +41,12 @@ class UserMapping(models.Model):
     one_user_id = OneToOneField('User', on_delete=models.SET_NULL, null=True)
 
     another_user_id = OneToOneField('User', on_delete=models.SET_NULL, null=True)
+
+    # 创建时间
+    create_time = DateTimeField(auto_now_add=True)
+
+    # 更新时间
+    update_time = DateTimeField(auto_now=True)
     pass
 
 
