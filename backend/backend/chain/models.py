@@ -25,6 +25,9 @@ class User(models.Model):
     # email
     email = CharField(max_length=255, null=False, blank=False)
 
+    # face_token
+    face_token = CharField(max_length=255, null=False, blank=False, default="NULL")
+
     # 创建时间
     create_time = DateTimeField(auto_now_add=True)
 

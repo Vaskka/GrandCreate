@@ -284,3 +284,22 @@ def update_into_not_register_user(json_dict, code):
     """
     NotRegisterUser.objects.filter(email=json_dict["email"]).update(verify_code=code)
     pass
+
+
+def insert_into_user(json_dict, uid, tid):
+    """
+    注册在正式用户中, 删除未注册记录
+    :param json_dict:
+    :param uid: user_id
+    :param tid: trader_id
+    :return:
+    """
+    res = NotRegisterUser.objects.get(email=json_dict["email"])
+    User.objects.create(trade_id=tid,
+                        user_id=uid,
+                        nick_name=res.nick_name,
+                        password=res.password,
+                        email=res.email)
+
+    res.delete()
+    pass

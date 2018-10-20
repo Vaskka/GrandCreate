@@ -101,3 +101,12 @@ def get_order_id():
     """
     return "order" + md5(current_time())[0:27]
     pass
+
+
+def get_trade_id():
+    """
+    获取trade_id
+    :return:
+    """
+    return "trader" + md5(current_time())[0:26]
+    pass

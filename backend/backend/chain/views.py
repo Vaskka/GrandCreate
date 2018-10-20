@@ -5,6 +5,7 @@ import random
 from django.http import HttpResponse, JsonResponse
 
 # Create your views here.
+from chain.inner.chain import *
 from utils import util
 from utils.request import QueryRequest
 from utils.util import md5
@@ -67,7 +68,11 @@ def user_confirm_verify(request):
         if check_not_register_user_exist(param_check[2]):
             # 检查验证码
             if check_verify_code(param_check[2]):
-                
+                # 正式注册
+                tid = get_trade_id()
+                # 注册在正式用户中, 删除未注册记录
+                insert_into_user(param_check[2], uid, tid)
+
                 return res.success_response({"user_id": uid, "session_token": session_token})
             else:
                 return res.error_response(502, "error verify code", {"user_id": "NULL", "session_token": "NULL"})
@@ -119,6 +124,8 @@ def user_insert_face_token(request):
     :param request:
     :return:
     """
+
+    
     pass
 
 
