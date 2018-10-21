@@ -3,6 +3,7 @@ from django.db import models
 # Create your models here.
 from django.db.models import CharField, DateTimeField, FloatField, ManyToManyField, TextField, ForeignKey, \
     BooleanField, CASCADE, OneToOneField, SET_NULL, DO_NOTHING, IntegerField
+from utils.util import *
 
 
 class User(models.Model):
@@ -11,22 +12,22 @@ class User(models.Model):
     """
 
     # 主键id
-    user_id = CharField(max_length=32, primary_key=True)
+    user_id = CharField(max_length=32, primary_key=True, default=get_user_id())
 
     # trade_id
     trade_id = CharField(max_length=32, null=True)
 
     # 昵称
-    nick_name = CharField(max_length=255, null=False, blank=False)
+    nick_name = CharField(max_length=255, null=True)
 
     # password (md5)
-    password = CharField(max_length=32, null=False, blank=False)
+    password = CharField(max_length=32, null=True)
 
     # email
-    email = CharField(max_length=255, null=False, blank=False)
+    email = CharField(max_length=255, null=True)
 
     # face_token
-    face_token = CharField(max_length=255, null=False, blank=False, default="NULL")
+    face_token = CharField(max_length=255, default="NULL")
 
     # 创建时间
     create_time = DateTimeField(auto_now_add=True)
@@ -41,9 +42,9 @@ class UserMapping(models.Model):
     """
     好友映射, 主键自增
     """
-    one_user = OneToOneField('User', on_delete=models.SET_NULL, null=True)
+    one_user = OneToOneField(User, related_name='one_user', on_delete=models.SET_NULL, null=True)
 
-    another_user = OneToOneField('User', on_delete=models.SET_NULL, null=True)
+    another_user = OneToOneField(User, related_name='another_user', on_delete=models.SET_NULL, null=True)
 
     # 创建时间
     create_time = DateTimeField(auto_now_add=True)
@@ -57,11 +58,13 @@ class UserSession(models.Model):
     """
     session
     """
+    # session_id = CharField(max_length=32, primary_key=True, default=md5(current_time()))
+
     # 关联User
-    user = OneToOneField('User', on_delete=models.SET_NULL, null=True)
+    user = OneToOneField(User, related_name='user', on_delete=models.SET_NULL, null=True)
 
     # session_token
-    session_token = CharField(max_length=32, null=False, blank=False)
+    session_token = CharField(max_length=32, null=True)
 
     # 创建时间
     create_time = DateTimeField(auto_now_add=True)
@@ -80,16 +83,16 @@ class NotRegisterUser(models.Model):
     user_id = CharField(max_length=32, primary_key=True)
 
     # 昵称
-    nick_name = CharField(max_length=255, null=False, blank=False)
+    nick_name = CharField(max_length=255, null=True)
 
     # password (md5)
-    password = CharField(max_length=32, null=False, blank=False)
+    password = CharField(max_length=32, null=True)
 
     # email
-    email = CharField(max_length=255, null=False, blank=False)
+    email = CharField(max_length=255, null=True)
 
     # verify code
-    verify_code = CharField(max_length=4, null=False, blank=False)
+    verify_code = CharField(max_length=4, null=True)
 
     # 创建时间
     create_time = DateTimeField(auto_now_add=True)
@@ -105,13 +108,13 @@ class UserFriendRequestOrder(models.Model):
     好友请求订单model
     """
     # 订单主键
-    friend_order_id = CharField(max_length=32, primary_key=True)
+    friend_order_id = CharField(max_length=32, primary_key=True, default=get_order_id())
 
     # 发起人
-    sponsor = OneToOneField("User", on_delete=models.SET_NULL, null=True)
+    sponsor = OneToOneField(User, related_name="friend_sender", on_delete=models.SET_NULL, null=True)
 
     # 接受人
-    recipient = OneToOneField("User", on_delete=models.SET_NULL, null=True)
+    recipient = OneToOneField(User, related_name="friend_receiver", on_delete=models.SET_NULL, null=True)
 
     # 订单创建时间
     create_time = DateTimeField(auto_now_add=True)
@@ -128,13 +131,13 @@ class Transaction(models.Model):
     一次transaction代表两次Trade（一次扣款一次充值）
     """
     # 主键
-    order_id = CharField(max_length=32, primary_key=True)
+    order_id = CharField(max_length=32, primary_key=True, default=get_order_id())
 
     # 转账人
-    sender = OneToOneField("User", null=True, on_delete=models.SET_NULL)
+    sender = OneToOneField(User, related_name="pay_sender", null=True, on_delete=models.SET_NULL)
 
     # 首款人
-    receiver = OneToOneField("User", null=True, on_delete=models.SET_NULL)
+    receiver = OneToOneField(User, related_name="pay_receiver", null=True, on_delete=models.SET_NULL)
 
     # 状态 0-已完成 1-待确认 2-已取消
     status = IntegerField()
@@ -156,13 +159,13 @@ class Balance(models.Model):
     余额
     """
     # 关联用户
-    user = OneToOneField('User', on_delete=models.SET_NULL, null=True)
+    user = OneToOneField(User, related_name='balance', on_delete=models.SET_NULL, null=True)
 
     # 余额
     value = IntegerField()
 
     # 主键
-    balance_id = CharField(max_length=32, primary_key=True)
+    balance_id = CharField(max_length=32, primary_key=True, default=get_balance_id())
 
     # 创建时间
     create_time = DateTimeField(auto_now_add=True)
@@ -178,16 +181,16 @@ class Trade(models.Model):
     """
 
     # 关联transaction
-    transaction = ForeignKey("Transaction", null=True, on_delete=models.SET_NULL)
+    transaction = ForeignKey(Transaction, related_name="transaction", null=True, on_delete=models.SET_NULL)
 
     # trade_id (区块链上交易id)
-    transaction_id = CharField(max_length=64, blank=False, null=False, primary_key=True)
+    trade_id = CharField(max_length=64, primary_key=True)
 
     # 交易类型
     trade_type = IntegerField()
 
     # 交易人的face_token
-    face_token = CharField(max_length=255, null=False, blank=False)
+    face_token = CharField(max_length=255, null=True)
 
     # 交易额
     trade_value = IntegerField()
@@ -196,5 +199,5 @@ class Trade(models.Model):
     trade_time = DateTimeField()
 
     # 关联Balance
-    balance = OneToOneField("Balance", on_delete=models.SET_NULL, null=True)
+    balance = OneToOneField(Balance, related_name="balance", on_delete=models.SET_NULL, null=True)
     pass
