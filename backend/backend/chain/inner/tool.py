@@ -2,9 +2,10 @@ import json
 
 from django.http import JsonResponse
 
-from chain.models import User, NotRegisterUser
+from chain.models import User, NotRegisterUser, UserSession, UserFriendRequestOrder
 from utils import util
 from utils.util import *
+from chain.inner.chain import *
 
 
 class Response:
@@ -302,4 +303,191 @@ def insert_into_user(json_dict, uid, tid):
                         email=res.email)
 
     res.delete()
+    pass
+
+
+def check_user_id_email_matched(user_id, email):
+    """
+    验证user_id email 是否匹配
+    :param user_id:
+    :param email:
+    :return:
+    """
+    try:
+        res_u = User.objects.get(user_id=user_id)
+        res_e = res_u.email
+        if email == res_e:
+            return True
+
+        return False
+    except:
+        return False
+        pass
+    pass
+
+
+def session_check(json_dict):
+    """
+    session 检查
+    :param json_dict:
+    :return:
+    """
+    try:
+        st = UserSession.objects.get(user_id=json_dict["user_id"]).session_token
+        if st == json_dict["session_token"]:
+            return True
+        return False
+    except:
+        return False
+    pass
+
+
+def check_face_token_is_already_exist(json_dict):
+    """
+    检查face_token是否已经存在
+    :param json_dict:
+    :return:
+    """
+    try:
+        res_f = User.objects.get(user_id=json_dict["user_id"]).face_token
+        if not res_f == "NULL":
+            return True
+        else:
+            return False
+    except:
+        return False
+    pass
+
+
+def insert_face_token(json_dict):
+    """
+    插入face_token
+    :param json_dict:
+    :return:
+    """
+    User.objects.filter(user_id=json_dict["user_id"]).update(face_token=json_dict["face_token"])
+
+    pass
+
+
+def register_user_into_fabric(json_dict):
+    """
+    用户上链
+    :param json_dict:
+    :return:
+    """
+    res = User.objects.get(user_id=json_dict["user_id"])
+
+    tid = res.trade_id
+    uid = res.user_id
+    ftn = res.face_token
+
+    create_trader(tid, uid, ftn)
+
+    pass
+
+
+def check_user_exist_with_email(json_dict):
+    """
+    检查用户是否存在
+    :param json_dict:
+    :return:
+    """
+    res = User.objects.filter(email=json_dict["email"])
+
+    if res.exists():
+        return True
+    return False
+    pass
+
+
+def check_email_password(json_dict):
+    """
+    EMAIL PASSWORD
+    :param json_dict:
+    :return:
+    """
+    res  = User.objects.filter(email=json_dict["email"])
+    if res.password == json_dict["password"]:
+        return True
+
+    return False
+    pass
+
+
+def insert_into_user_session(json_dict):
+    """
+    插入session表
+    :param json_dict:
+    :return: [session, user_id]
+    """
+    res = UserSession.objects.filter(user__email=json_dict["email"])
+
+    if res.exists():
+        uid = res.first().user.user_id
+        stn = res.first().session_token
+        return [stn, uid]
+
+    # 未登录就插入UserSession
+    uid = User.objects.get(email=json_dict["email"]).user_id
+    stn = md5(str(datetime.datetime.now()))
+
+    UserSession.objects.create(user_id=uid, session_token=stn)
+
+    return [stn, uid]
+    pass
+
+
+def delete_from_user_session(json_dict):
+    """
+    在UserSession中登出
+    :param json_dict:
+    :return:
+    """
+    UserSession.objects.filter(user_id=json_dict["user_id"]).delete()
+    pass
+
+
+def from_email_get_user_id_and_nick_name(json_dict):
+    """
+    从 email 得到 user_id nick_name
+    :param json_dict:
+    :return:
+    """
+    res = User.objects.get(email=json_dict["inquire_email"])
+
+    return [res.user_id, res.nick_name]
+
+    pass
+
+
+def insert_into_friend_request(json_dict):
+    """
+    插入好友注册表
+    :param json_dict:
+    :return: Integer 1-添加的用户不存在 2-已在请求中 0-success
+    """
+
+    uid = json_dict["add_user_id"]
+
+    res = User.objects.filter(user_id=uid)
+    if not res.exists():
+        return 1
+
+    res = UserFriendRequestOrder.objects.filter(sponsor__user_id=json_dict["user_id"]).filter(recipient__user_id=json_dict["add_user_id"])
+    if res.exists():
+        return 2
+
+    UserFriendRequestOrder.objects.create(friend_order_id=get_order_id(), sponsor_id=json_dict["user_id"], recipient_id=json_dict["add_user_id"])
+    return 0
+    pass
+
+
+def from_user_id_get_nick_name(user_id):
+    """
+    user_id 得到nick_name
+    :param user_id:
+    :return:
+    """
+    return User.objects.get(user_id=user_id).nick_name
     pass

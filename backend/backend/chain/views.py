@@ -115,7 +115,6 @@ def user_resend_code(request):
     except Exception as e:
         return res.error_response(500, str(e), {})
     pass
-    pass
 
 
 def user_insert_face_token(request):
@@ -125,7 +124,38 @@ def user_insert_face_token(request):
     :return:
     """
 
-    
+    res = Response()
+
+    try:
+        # 参数检查结果
+        param_check = Checker.common_check_param(request, ["email", "user_id", "session_token", "face_token"])
+
+        if 0 not in param_check:
+            return res.error_response(param_check[0], param_check[1], {})
+
+        # 业务检查
+        # 检查session
+        if not session_check(param_check[2]):
+            return res.error_response(504, "identity error", {})
+
+        # 检查user_id email是否匹配
+        if check_user_id_email_matched(param_check[2]["user_id"], param_check[2]["email"]):
+            # 检查face_token 是否已经存在
+            if check_face_token_is_already_exist(param_check[2]):
+                return res.error_response(502, "face_token already exist", {})
+
+            # 插入face_token
+            insert_face_token(param_check[2])
+
+            # 用户上链
+            register_user_into_fabric(param_check[2])
+
+            return res.success_response({})
+            pass
+        else:
+            return res.error_response(503, "user_id, email does not matched or user does not exist", {})
+    except Exception as e:
+        return res.error_response(500, str(e), {})
     pass
 
 
@@ -135,6 +165,30 @@ def user_login(request):
     :param request:
     :return:
     """
+    res = Response()
+
+    try:
+        # 参数检查结果
+        param_check = Checker.common_check_param(request, ["email", "password"])
+
+        if 0 not in param_check:
+            return res.error_response(param_check[0], param_check[1], {"user_id": "NULL", "session_token": "NULL"})
+
+        # 业务检查
+        # 检查用户是否存在
+        if not check_user_exist_with_email(param_check[2]):
+            return res.error_response(501, "user does not exist", {"user_id": "NULL", "session_token": "NULL"})
+
+        # 检查密码
+        if not check_email_password(param_check[2]):
+            return res.error_response(502, "password error", {"user_id": "NULL", "session_token": "NULL"})
+
+        result = insert_into_user_session(param_check[2])
+
+        return res.success_response({"user_id": result[1], "session_token": result[0]})
+    except Exception as e:
+        return res.error_response(500, str(e), {"user_id": "NULL", "session_token": "NULL"})
+    pass
 
     pass
 
@@ -145,6 +199,31 @@ def user_logout(request):
     :param request:
     :return:
     """
+    res = Response()
+
+    try:
+        # 参数检查结果
+        param_check = Checker.common_check_param(request, ["email", "user_id", "session_token"])
+
+        if 0 not in param_check:
+            return res.error_response(param_check[0], param_check[1], {})
+
+        # 业务检查
+        # 身份检查
+        if not session_check(param_check[2]):
+            return res.error_response(504, "identity error", {})
+        # 检查用户是否存在
+        if not check_user_exist_with_email(param_check[2]):
+            return res.error_response(501, "user does not exist", {})
+
+        # email user_id 是否匹配
+        if not check_user_id_email_matched(email=param_check[2]["email"], user_id=param_check[2]["user_id"]):
+            return res.error_response(503, "email or user_id error", {})
+        # 删除session
+        delete_from_user_session(param_check[2])
+        return res.success_response({})
+    except Exception as e:
+        return res.error_response(500, str(e), {})
     pass
 
 
@@ -154,7 +233,32 @@ def user_find_from_email_user_id(request):
     :param request:
     :return:
     """
+    res = Response()
 
+    try:
+        # 参数检查结果
+        param_check = Checker.common_check_param(request, ["email", "user_id", "session_token", "inquire_email"])
+
+        if 0 not in param_check:
+            return res.error_response(param_check[0], param_check[1], {"inquire_email": "NULL", "result": "NULL"})
+
+        # 业务检查
+        # 身份检查
+        if not session_check(param_check[2]):
+            return res.error_response(504, "identity error", {"inquire_email": "NULL", "result": "NULL"})
+        # 检查用户是否存在
+        if not check_user_exist_with_email(param_check[2]):
+            return res.error_response(501, "user does not exist", {"inquire_email": "NULL", "result": "NULL"})
+
+        # email user_id 是否匹配
+        if not check_user_id_email_matched(email=param_check[2]["email"], user_id=param_check[2]["user_id"]):
+            return res.error_response(503, "email or user_id error", {"inquire_email": "NULL", "result": "NULL"})
+
+        res = from_email_get_user_id_and_nick_name(param_check[2])
+
+        return res.success_response({"inquire_email": res[0], "result": res[1]})
+    except Exception as e:
+        return res.error_response(500, str(e), {"inquire_email": "NULL", "result": "NULL"})
     pass
 
 
@@ -164,7 +268,36 @@ def user_try_add_friend(request):
     :param request:
     :return:
     """
+    res = Response()
 
+    try:
+        # 参数检查结果
+        param_check = Checker.common_check_param(request, ["email", "user_id", "session_token", "add_user_id"])
+
+        if 0 not in param_check:
+            return res.error_response(param_check[0], param_check[1], {"add_user_id": "NULL", "add_user_nick_name": "NULL"})
+
+        # 业务检查
+        # 身份检查
+        if not session_check(param_check[2]):
+            return res.error_response(504, "identity error", {"add_user_id": "NULL", "add_user_nick_name": "NULL"})
+        # 检查用户是否存在
+        if not check_user_exist_with_email(param_check[2]):
+            return res.error_response(501, "user does not exist", {"add_user_id": "NULL", "add_user_nick_name": "NULL"})
+
+        # email user_id 是否匹配
+        if not check_user_id_email_matched(email=param_check[2]["email"], user_id=param_check[2]["user_id"]):
+            return res.error_response(503, "email or user_id error", {"add_user_id": "NULL", "add_user_nick_name": "NULL"})
+
+        res = insert_into_friend_request(param_check[2])
+        if res == 1:
+            return res.error_response(501, "user does not exist", {"add_user_id": "NULL", "add_user_nick_name": "NULL"})
+        if res == 2:
+            return res.error_response(502, "request has already sent", {"add_user_id": "NULL", "add_user_nick_name": "NULL"})
+
+        return res.success_response({"add_user_id": param_check[2]["add_user_id"], "add_user_nick_name": from_user_id_get_nick_name(param_check[2]["user_id"])})
+    except Exception as e:
+        return res.error_response(500, str(e), {"inquire_email": "NULL", "result": "NULL"})
     pass
 
 
@@ -174,6 +307,8 @@ def user_confirm_add_friend(request):
     :param request:
     :return:
     """
+
+
     pass
 
 
