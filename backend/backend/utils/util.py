@@ -110,3 +110,13 @@ def get_trade_id():
     """
     return "trader" + md5(current_time())[0:26]
     pass
+
+
+def get_balance_id():
+    """
+    得到balance_id
+    :return:
+    """
+
+    return "balance" + md5(current_time())[0:25]
+    pass

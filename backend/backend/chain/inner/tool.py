@@ -2,7 +2,7 @@ import json
 
 from django.http import JsonResponse
 
-from chain.models import User, NotRegisterUser, UserSession, UserFriendRequestOrder
+from chain.models import User, NotRegisterUser, UserSession, UserFriendRequestOrder, UserMapping, Balance, Trade
 from utils import util
 from utils.util import *
 from chain.inner.chain import *
@@ -302,6 +302,8 @@ def insert_into_user(json_dict, uid, tid):
                         password=res.password,
                         email=res.email)
 
+    Balance.objects.create(balance_id=get_balance_id(), user=uid, value=0)
+
     res.delete()
     pass
 
@@ -381,9 +383,14 @@ def register_user_into_fabric(json_dict):
     tid = res.trade_id
     uid = res.user_id
     ftn = res.face_token
+    bid = res.balance.balance_id
+    val = res.balance.value
 
+    # user上链
     create_trader(tid, uid, ftn)
 
+    # balance上链
+    create_balance(balance_id=bid, trade_id=tid, value=int(val))
     pass
 
 
@@ -493,7 +500,7 @@ def from_user_id_get_nick_name(user_id):
     pass
 
 
-def check_friend_order_exist(friend_order_id):
+def check_friend_order_exist_and_delete(friend_order_id):
     """
     检查好友请求订单是否存在
     :param friend_order_id:
@@ -502,6 +509,7 @@ def check_friend_order_exist(friend_order_id):
     res = UserFriendRequestOrder.objects.filter(friend_order_id=friend_order_id)
 
     if res.exists():
+        res.delete()
         return True
 
     return False
@@ -518,4 +526,188 @@ def from_friend_order_id_get_user_id_and_nick_name(friend_order_id):
     res = UserFriendRequestOrder.objects.get(friend_order_id=friend_order_id)
 
     return [res.sponsor.user_id, res.sponsor.nick_name]
+    pass
+
+
+def add_friend_mapping(one_user_id, another_user_id):
+    """
+    添加好友映射
+    :param one_user_id:
+    :param another_user_id:
+    :return:
+    """
+
+    UserMapping.objects.create(one_user=one_user_id, another_user=another_user_id)
+    UserMapping.objects.create(another_user=one_user_id, one_user=another_user_id)
+
+    pass
+
+
+def charge_balance(uid, change_value):
+    """
+    充值用户的balance
+    :param uid:
+    :param change_value:
+    :return:
+    """
+
+    val = Balance.objects.get(user=uid).value
+
+    val += change_value
+
+    Balance.objects.filter(user=uid).update(value=val)
+
+    bid = Balance.objects.get(user=uid).balance_id
+    tid = User.objects.get(user_id=uid).trade_id
+
+    # 充值过程信息上链
+    change_balance_value_on_fabric(tid, bid, val)
+
+    return val
+    pass
+
+
+def check_user_id_is_exist(uid):
+    """
+    检查user_id是否存在对应用户
+    :param uid:
+    :return:
+    """
+    res = User.objects.filter(user_id=uid)
+    if res.exists():
+        return True
+    return False
+    pass
+
+
+def check_balance_can_suffer_value_and_pay(user_id, value):
+    """
+    检查余额是否充足,充足直接扣除value
+    :param user_id:
+    :param value:
+    :return:
+    """
+    val = Balance.objects.get(user_id=user_id).value
+
+    if int(value) > val:
+        return False
+
+    Balance.objects.filter(user=user_id).update(value=val-int(value))
+    return True
+
+
+def check_face_token(user_id, face_token):
+    """
+    验证身份信息
+    :param user_id:
+    :param face_token:
+    :return:
+    """
+    ft = User.objects.get(user_id=user_id).face_token
+
+    if ft == face_token:
+        return True
+
+    return False
+    pass
+
+
+def insert_into_trans_order(user_id, receiver_user_id, value, face_token):
+    """
+    创建交易并将支付方上链
+    :param user_id:
+    :param receiver_user_id:
+    :param value:
+    :param face_token:
+    :return:
+    """
+    oid = get_order_id()
+    Transaction.objects.create(order_id=oid,
+                               sender=user_id,
+                               receiver=receiver_user_id,
+                               status=1,
+                               transaction_value=value)
+
+    # 付款用户上链
+    bid = User.objects.get(user_id=user_id).balance.balance_id
+    trade_dict = create_trade(face_token, 0, value, oid, bid)
+
+    # Trade插入扣款记录
+    trade_id = trade_dict["transactionId"]
+    Trade.objects.create(transaction=oid,
+                         transaction_id=trade_id,
+                         trade_type=0,
+                         face_token=face_token,
+                         trade_value=value,
+                         trade_time=datetime.datetime.strptime(trade_dict["timestamp"], "%Y-%m-%dT%H:%M:%S.%fZ"),
+                         balance=bid)
+    pass
+
+
+def get_balance(uid):
+    """
+    查询余额
+    :param uid:
+    :return:
+    """
+    return Balance.objects.get(user=uid).value
+
+
+def check_trans_order_is_exist(order_id):
+    res = Transaction.objects.filter(order_id=order_id)
+
+    if res.exists() and res.first().status == 1:
+        return True
+
+    return False
+
+
+def update_trans_order(user_id, order_id, face_token):
+    """
+    修改订单表
+    :param user_id:
+    :param order_id:
+    :param face_token:
+    :return:
+    """
+    res = Transaction.objects.get(order_id=order_id)
+    value = res.transaction_value
+    bid = Balance.objects.get(user=user_id).balance_id
+
+    # 转款上链
+    trade_dict = create_trade(face_token, 1, value, order_id, bid)
+
+    # 修改订单表
+    Transaction.objects.filter(order_id=order_id).update(status=0)
+
+    # Trade插入转款记录
+    trade_id = trade_dict["transactionId"]
+    Trade.objects.create(transaction=order_id,
+                         transaction_id=trade_id,
+                         trade_type=0,
+                         face_token=face_token,
+                         trade_value=value,
+                         trade_time=datetime.datetime.strptime(trade_dict["timestamp"], "%Y-%m-%dT%H:%M:%S.%fZ"),
+                         balance=bid)
+    pass
+
+
+def from_user_id_get_balance_id(user_id):
+    """
+    利用user_id得到balance_id
+    :param user_id:
+    :return:
+    """
+    return Balance.objects.get(user=user_id).balance_id
+    pass
+
+
+def from_fabric_balance_get_balance_id(fabric_balance):
+    """
+    从fabric格式的balance中提取balance
+    :param fabric_balance:
+    :return:
+    """
+
+    return reg_match_str_with_group("^.*#(.*)$", fabric_balance)
     pass

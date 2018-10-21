@@ -147,7 +147,7 @@ def user_insert_face_token(request):
             # 插入face_token
             insert_face_token(param_check[2])
 
-            # 用户上链
+            # 用户资产上链
             register_user_into_fabric(param_check[2])
 
             return res.success_response({})
@@ -297,7 +297,7 @@ def user_try_add_friend(request):
 
         return res.success_response({"add_user_id": param_check[2]["add_user_id"], "add_user_nick_name": from_user_id_get_nick_name(param_check[2]["user_id"])})
     except Exception as e:
-        return res.error_response(500, str(e), {"inquire_email": "NULL", "result": "NULL"})
+        return res.error_response(500, str(e), {"add_user_id": "NULL", "add_user_nick_name": "NULL"})
     pass
 
 
@@ -329,16 +329,64 @@ def user_confirm_add_friend(request):
         if not check_user_id_email_matched(email=param_check[2]["email"], user_id=param_check[2]["user_id"]):
             return res.error_response(503, "email or user_id error",
                                       {"add_user_id": "NULL", "add_user_nick_name": "NULL"})
+
         # 检查订单是否存在
-        if not check_friend_order_exist(param_check[2]["friend_order_id"]):
+        if not check_friend_order_exist_and_delete(param_check[2]["friend_order_id"]):
             return res.error_response(502, "order_id does not exist",
                                       {"add_user_id": "NULL", "add_user_nick_name": "NULL"})
         res = from_friend_order_id_get_user_id_and_nick_name(param_check[2]["friend_order_id"])
 
+        # 添加朋友映射
+        add_friend_mapping(one_user_id=param_check[2]["user_id"], another_user_id=res[0])
+
         return res.success_response({"add_user_id": res[0],
                                      "add_user_nick_name": res[1]})
     except Exception as e:
-        return res.error_response(500, str(e), {"inquire_email": "NULL", "result": "NULL"})
+        return res.error_response(500, str(e), {"add_user_id": "NULL", "add_user_nick_name": "NULL"})
+    pass
+
+
+def user_charger(request):
+    """
+    账户充值
+    :param request:
+    :return:
+    """
+
+    res = Response()
+
+    try:
+        # 参数检查结果
+        param_check = Checker.common_check_param(request, ["email", "user_id", "session_token", "trade_value"])
+
+        if 0 not in param_check:
+            return res.error_response(param_check[0], param_check[1],
+                                      {"balance": "NULL"})
+
+        # 业务检查
+        # 身份检查
+        if not session_check(param_check[2]):
+            return res.error_response(504, "identity error", {"balance": "NULL"})
+        # 检查用户是否存在
+        if not check_user_exist_with_email(param_check[2]):
+            return res.error_response(501, "user does not exist", {"balance": "NULL"})
+
+        # email user_id 是否匹配
+        if not check_user_id_email_matched(email=param_check[2]["email"], user_id=param_check[2]["user_id"]):
+            return res.error_response(503, "email or user_id error",
+                                      {"balance": "NULL"})
+
+        # 检查是否已经进行生物信息登记
+        if not check_face_token_is_already_exist(param_check):
+            return res.error_response(501, "user face_token does not exist", {"balance": "NULL"})
+
+        # 更改Balance, 过程信息上链
+        bal = charge_balance(param_check[2]["user_id"], param_check[2]["trade_value"])
+
+        return res.success_response({"balance": bal})
+
+    except Exception as e:
+        return res.error_response(500, str(e), {"balance": "NULL"})
     pass
 
 
@@ -348,6 +396,48 @@ def transaction_try_trade(request):
     :param request:
     :return:
     """
+
+    res = Response()
+
+    try:
+        # 参数检查结果
+        param_check = Checker.common_check_param(request, ["email", "user_id", "session_token", "trade_value", "receiver_user_id", "face_token"])
+
+        if 0 not in param_check:
+            return res.error_response(param_check[0], param_check[1],
+                                      {"balance": "NULL"})
+
+        # 业务检查
+        # 身份检查
+        if not session_check(param_check[2]):
+            return res.error_response(504, "identity error", {"balance": "NULL"})
+        # 检查用户是否存在
+        if not check_user_exist_with_email(param_check[2]):
+            return res.error_response(501, "user does not exist", {"balance": "NULL"})
+
+        # email user_id 是否匹配
+        if not check_user_id_email_matched(email=param_check[2]["email"], user_id=param_check[2]["user_id"]):
+            return res.error_response(503, "email or user_id error", {"balance": "NULL"})
+
+        # 检查余额
+        if not check_balance_can_suffer_value_and_pay(param_check[2]["user_id"], param_check[2]["trade_value"]):
+            return res.error_response(502, "insufficient balance", {"balance": "NULL"})
+
+        # 检查收款方是否存在
+        if not check_user_id_is_exist(param_check[2]["receiver_user_id"]):
+            return res.error_response(501, "receiver user does not exist", {"balance": "NULL"})
+
+        # 验证生物信息
+        if not check_face_token(param_check[2]["user_id"], param_check[2]["face_token"]):
+            return res.error_response(505, "bioinformatics error", {"balance": "NULL"})
+
+        # 插入在订单表并上链
+        insert_into_trans_order(param_check[2]["user_id"], param_check[2]["receiver_user_id"], param_check[2]["trade_value"], param_check[2]["trade_value"])
+
+        return res.success_response({"balance": str(get_balance(param_check[2]["user_id"]))})
+
+    except Exception as e:
+        return res.error_response(500, str(e), {"balance": "NULL"})
     pass
 
 
@@ -357,7 +447,44 @@ def transaction_confirm_trade(request):
     :param request:
     :return:
     """
+    res = Response()
 
+    try:
+        # 参数检查结果
+        param_check = Checker.common_check_param(request, ["email", "user_id", "session_token", "order_id", "face_token"])
+
+        if 0 not in param_check:
+            return res.error_response(param_check[0], param_check[1],
+                                      {"balance": "NULL"})
+
+        # 业务检查
+        # 身份检查
+        if not session_check(param_check[2]):
+            return res.error_response(504, "identity error", {"balance": "NULL"})
+
+        # 检查用户是否存在
+        if not check_user_exist_with_email(param_check[2]):
+            return res.error_response(501, "user does not exist", {"balance": "NULL"})
+
+        # email user_id 是否匹配
+        if not check_user_id_email_matched(email=param_check[2]["email"], user_id=param_check[2]["user_id"]):
+            return res.error_response(503, "email or user_id error", {"balance": "NULL"})
+
+        # 检查订单是否存在
+        if not check_trans_order_is_exist(param_check[2]["order_id"]):
+            return res.error_response(504, "order not exist", {"balance": "NULL"})
+
+        # 验证生物信息
+        if not check_face_token(param_check[2]["user_id"], param_check[2]["face_token"]):
+            return res.error_response(505, "bioinformatics error", {"balance": "NULL"})
+
+        # 修改订单表并上链
+        update_trans_order(param_check[2]["user_id"], param_check[2]["order_id"], param_check[2]["face_token"])
+
+        return res.success_response({"balance": str(get_balance(param_check[2]["user_id"]))})
+
+    except Exception as e:
+        return res.error_response(500, str(e), {"balance": "NULL"})
     pass
 
 
@@ -367,4 +494,61 @@ def transaction_inquire_trade(request):
     :param request:
     :return:
     """
+    res = Response()
+
+    try:
+        # 参数检查结果
+        param_check = Checker.common_check_param(request, ["email", "user_id", "session_token"])
+
+        if 0 not in param_check:
+            return res.error_response(param_check[0], param_check[1],
+                                      {"balance": "NULL"})
+
+        # 业务检查
+        # 身份检查
+        if not session_check(param_check[2]):
+            return res.error_response(504, "identity error", {"balance": "NULL"})
+
+        # 检查用户是否存在
+        if not check_user_exist_with_email(param_check[2]):
+            return res.error_response(501, "user does not exist", {"balance": "NULL"})
+
+        # email user_id 是否匹配
+        if not check_user_id_email_matched(email=param_check[2]["email"], user_id=param_check[2]["user_id"]):
+            return res.error_response(503, "email or user_id error", {"balance": "NULL"})
+
+        # 链上查询
+        trade_dict = get_all_transaction()
+
+        record = []
+        bid = from_user_id_get_nick_name(param_check["user_id"])
+        for trade in trade_dict:
+            # 筛选与自己资产相关的trade记录
+            if bid != from_fabric_balance_get_balance_id(trade["balance"]):
+                continue
+
+            # 时间 类型 交易额
+            tsp = datetime.datetime.strptime(trade["timestamp"], "%Y-%m-%dT%H:%M:%S.%fZ").strftime("%Y-%m-%d %H:%M:%S")
+            t_type = trade["type"]
+            value = str(trade["trade_value"])
+
+            record.append({
+                "time_stamp": tsp,
+                "type": t_type,
+                "trade_value": value
+            })
+            pass
+
+        success_return_dict = {
+            "code": 0,
+            "msg": "success",
+            "record": record
+        }
+
+        return JsonResponse(success_return_dict)
+
+    except Exception as e:
+        return res.error_response(500, str(e), {"balance": "NULL"})
+    pass
+
     pass

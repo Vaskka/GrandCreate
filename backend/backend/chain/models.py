@@ -41,9 +41,9 @@ class UserMapping(models.Model):
     """
     好友映射, 主键自增
     """
-    one_user_id = OneToOneField('User', on_delete=models.SET_NULL, null=True)
+    one_user = OneToOneField('User', on_delete=models.SET_NULL, null=True)
 
-    another_user_id = OneToOneField('User', on_delete=models.SET_NULL, null=True)
+    another_user = OneToOneField('User', on_delete=models.SET_NULL, null=True)
 
     # 创建时间
     create_time = DateTimeField(auto_now_add=True)
@@ -162,7 +162,7 @@ class Balance(models.Model):
     value = IntegerField()
 
     # 主键
-    balanceId = CharField(max_length=32, primary_key=True)
+    balance_id = CharField(max_length=32, primary_key=True)
 
     # 创建时间
     create_time = DateTimeField(auto_now_add=True)
@@ -180,7 +180,7 @@ class Trade(models.Model):
     # 关联transaction
     transaction = ForeignKey("Transaction", null=True, on_delete=models.SET_NULL)
 
-    # trade_id (取款链上交易id)
+    # trade_id (区块链上交易id)
     transaction_id = CharField(max_length=64, blank=False, null=False, primary_key=True)
 
     # 交易类型
