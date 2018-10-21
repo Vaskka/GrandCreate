@@ -19,17 +19,18 @@ from django.urls import path
 from chain.views import *
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('call/', deal_user_call),
-    path('register/', deal_user_register),
-    path('register/ok/', deal_user_ok_to_register),
-    path('sign/', deal_user_sign),
-    path('logout/', deal_user_log_out),
-    path('search_user/', deal_user_search_user),
-    path('add_friend/', deal_user_add_friend),
-    path('add_result/', deal_user_add_friend_result),
-    path('get_friends/', deal_user_get_friends),
-    path('confirm_trans/', deal_user_confirm_transform),
-    path('send/', deal_user_send),
-
+    path("grand/chain/register/try/", user_try_register),
+    path("grand/chain/register/verify/", user_confirm_verify),
+    path("grand/chain/register/send/", user_resend_code),
+    path("grand/chain/register/face/insert/", user_insert_face_token),
+    path("grand/chain/login/", user_login),
+    path("grand/chain/logout/", user_logout),
+    path("grand/chain/user/inquire/", user_find_from_email_user_id),
+    path("grand/chain/user/add/friend", user_try_add_friend),
+    path("grand/chain/user/confirm/friend", user_confirm_add_friend),
+    path("grand/chain/user/charge", user_charger),
+    path("grand/chain/trade/transfer/", transaction_try_trade),
+    path("grand/chain/trade/receive/", transaction_confirm_trade),
+    path("grand/chain/trade/inquire/", transaction_inquire_trade),
+    path("admin/", admin.site.urls)
 ]
