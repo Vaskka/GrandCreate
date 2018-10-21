@@ -307,8 +307,38 @@ def user_confirm_add_friend(request):
     :param request:
     :return:
     """
+    res = Response()
 
+    try:
+        # 参数检查结果
+        param_check = Checker.common_check_param(request, ["email", "user_id", "session_token", "friend_order_id"])
 
+        if 0 not in param_check:
+            return res.error_response(param_check[0], param_check[1],
+                                      {"add_user_id": "NULL", "add_user_nick_name": "NULL"})
+
+        # 业务检查
+        # 身份检查
+        if not session_check(param_check[2]):
+            return res.error_response(504, "identity error", {"add_user_id": "NULL", "add_user_nick_name": "NULL"})
+        # 检查用户是否存在
+        if not check_user_exist_with_email(param_check[2]):
+            return res.error_response(501, "user does not exist", {"add_user_id": "NULL", "add_user_nick_name": "NULL"})
+
+        # email user_id 是否匹配
+        if not check_user_id_email_matched(email=param_check[2]["email"], user_id=param_check[2]["user_id"]):
+            return res.error_response(503, "email or user_id error",
+                                      {"add_user_id": "NULL", "add_user_nick_name": "NULL"})
+        # 检查订单是否存在
+        if not check_friend_order_exist(param_check[2]["friend_order_id"]):
+            return res.error_response(502, "order_id does not exist",
+                                      {"add_user_id": "NULL", "add_user_nick_name": "NULL"})
+        res = from_friend_order_id_get_user_id_and_nick_name(param_check[2]["friend_order_id"])
+
+        return res.success_response({"add_user_id": res[0],
+                                     "add_user_nick_name": res[1]})
+    except Exception as e:
+        return res.error_response(500, str(e), {"inquire_email": "NULL", "result": "NULL"})
     pass
 
 

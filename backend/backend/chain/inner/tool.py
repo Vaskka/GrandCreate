@@ -491,3 +491,31 @@ def from_user_id_get_nick_name(user_id):
     """
     return User.objects.get(user_id=user_id).nick_name
     pass
+
+
+def check_friend_order_exist(friend_order_id):
+    """
+    检查好友请求订单是否存在
+    :param friend_order_id:
+    :return:
+    """
+    res = UserFriendRequestOrder.objects.filter(friend_order_id=friend_order_id)
+
+    if res.exists():
+        return True
+
+    return False
+    pass
+
+
+def from_friend_order_id_get_user_id_and_nick_name(friend_order_id):
+    """
+    好友订单德奥use_id nick_name
+    :param friend_order_id:
+    :return: list
+    """
+
+    res = UserFriendRequestOrder.objects.get(friend_order_id=friend_order_id)
+
+    return [res.sponsor.user_id, res.sponsor.nick_name]
+    pass
