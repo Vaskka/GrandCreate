@@ -45,7 +45,7 @@ class Response:
         self.common_response_dict["code"] = code
         self.common_response_dict["msg"] = msg
 
-        for k, v in response_add_dict:
+        for k, v in response_add_dict.items():
             self.common_response_dict[k] = v
             pass
 
@@ -82,7 +82,7 @@ class Checker:
         :param request:
         :return: dict
         """
-        return json.loads(str(request.body))
+        return json.loads(request.body.decode("utf-8"))
         pass
 
     @classmethod
@@ -110,7 +110,7 @@ class Checker:
         参数格式检查
         :return: boolean
         """
-        for k, v in json_dict:
+        for k, v in json_dict.items():
             if k in cls.common_param_format_summary:
                 check_k = ".*" + k + ".*"
 
@@ -123,6 +123,7 @@ class Checker:
                 if reg_is_match_str(check_k, "trade_value"):
                     return trade_value_check(v)
 
+        return True
         pass
 
     @classmethod
@@ -134,7 +135,7 @@ class Checker:
         if len(correct_key) == len(json_dict):
             i = 0
             for k, v in json_dict.items():
-                if k == correct_key[i]:
+                if k in correct_key:
                     i += 1
                 else:
                     return False
@@ -153,7 +154,7 @@ def email_check(email):
     :param email: email
     :return: boolean
     """
-    reg = "^[0-9a-zA-Z]@[0-9a-zA-Z]\.[0-9a-zA-Z]$"
+    reg = "^[0-9a-zA-Z]+@[0-9a-zA-Z]+\.[0-9a-zA-Z]+$"
 
     return reg_is_match_str(reg, email)
     pass
@@ -267,7 +268,7 @@ def check_verify_code(json_dict):
     :return:
     """
 
-    code = NotRegisterUser.objects.get(email=json_dict["email"])
+    code = NotRegisterUser.objects.get(email=json_dict["email"]).verify_code
 
     if code == json_dict["verify_code"]:
         return True
@@ -296,13 +297,13 @@ def insert_into_user(json_dict, uid, tid):
     :return:
     """
     res = NotRegisterUser.objects.get(email=json_dict["email"])
-    User.objects.create(trade_id=tid,
-                        user_id=uid,
+    User.objects.create(user_id=uid,
+                        trader_id=tid,
                         nick_name=res.nick_name,
                         password=res.password,
                         email=res.email)
 
-    Balance.objects.create(balance_id=get_balance_id(), user=uid, value=0)
+    Balance.objects.create(balance_id=get_balance_id(), user=User.objects.get(user_id=uid), value=0)
 
     res.delete()
     pass
@@ -380,7 +381,7 @@ def register_user_into_fabric(json_dict):
     """
     res = User.objects.get(user_id=json_dict["user_id"])
 
-    tid = res.trade_id
+    tid = res.trader_id
     uid = res.user_id
     ftn = res.face_token
     bid = res.balance.balance_id
@@ -390,7 +391,7 @@ def register_user_into_fabric(json_dict):
     create_trader(tid, uid, ftn)
 
     # balance上链
-    create_balance(balance_id=bid, trade_id=tid, value=int(val))
+    create_balance(balance_id=bid, trader_id=tid, value=int(val))
     pass
 
 
@@ -414,7 +415,7 @@ def check_email_password(json_dict):
     :param json_dict:
     :return:
     """
-    res  = User.objects.filter(email=json_dict["email"])
+    res = User.objects.get(email=json_dict["email"])
     if res.password == json_dict["password"]:
         return True
 
@@ -422,26 +423,26 @@ def check_email_password(json_dict):
     pass
 
 
-def insert_into_user_session(json_dict):
+def insert_into_user_session(email):
     """
     插入session表
-    :param json_dict:
+    :param email:
     :return: [session, user_id]
     """
-    res = UserSession.objects.filter(user__email=json_dict["email"])
+    res = UserSession.objects.filter(user__email=email)
 
     if res.exists():
         uid = res.first().user.user_id
         stn = res.first().session_token
-        return [stn, uid]
+        return [stn, uid, 1]
 
     # 未登录就插入UserSession
-    uid = User.objects.get(email=json_dict["email"]).user_id
+    uid = User.objects.get(email=email).user_id
     stn = md5(str(datetime.datetime.now()))
 
     UserSession.objects.create(user_id=uid, session_token=stn)
 
-    return [stn, uid]
+    return [stn, uid, 0]
     pass
 
 
@@ -485,7 +486,14 @@ def insert_into_friend_request(json_dict):
     if res.exists():
         return 2
 
-    UserFriendRequestOrder.objects.create(friend_order_id=get_order_id(), sponsor_id=json_dict["user_id"], recipient_id=json_dict["add_user_id"])
+    oid = get_order_id()
+    sp = User.objects.get(user_id=json_dict["user_id"])
+    rec = User.objects.get(user_id=json_dict["add_user_id"])
+
+    UserFriendRequestOrder.objects.create(friend_order_id=oid, sponsor=sp, recipient=rec)
+    # UserFriendRequestOrder.objects.create(friend_order_id=oid,
+    #                                       sponsor_id=sp,
+    #                                       recipient_id=rec)
     return 0
     pass
 
@@ -509,23 +517,33 @@ def check_friend_order_exist_and_delete(friend_order_id):
     res = UserFriendRequestOrder.objects.filter(friend_order_id=friend_order_id)
 
     if res.exists():
-        res.delete()
         return True
 
     return False
     pass
 
 
+def delete_friend_order(friend_order_id):
+    """
+    删除好友请求
+    :param friend_order_id:
+    :return:
+    """
+    UserFriendRequestOrder.objects.filter(friend_order_id=friend_order_id).delete()
+    pass
+
+
 def from_friend_order_id_get_user_id_and_nick_name(friend_order_id):
     """
-    好友订单德奥use_id nick_name
+    好友订单use_id nick_name
     :param friend_order_id:
     :return: list
     """
 
     res = UserFriendRequestOrder.objects.get(friend_order_id=friend_order_id)
-
-    return [res.sponsor.user_id, res.sponsor.nick_name]
+    uid = res.sponsor.user_id
+    nkn = res.sponsor.nick_name
+    return [uid, nkn]
     pass
 
 
@@ -537,8 +555,10 @@ def add_friend_mapping(one_user_id, another_user_id):
     :return:
     """
 
-    UserMapping.objects.create(one_user=one_user_id, another_user=another_user_id)
-    UserMapping.objects.create(another_user=one_user_id, one_user=another_user_id)
+    UserMapping.objects.create(one_user=User.objects.get(user_id=one_user_id),
+                               another_user=User.objects.get(user_id=another_user_id))
+    UserMapping.objects.create(another_user=User.objects.get(user_id=one_user_id),
+                               one_user=User.objects.get(user_id=another_user_id))
 
     pass
 
@@ -551,14 +571,14 @@ def charge_balance(uid, change_value):
     :return:
     """
 
-    val = Balance.objects.get(user=uid).value
+    val = int(Balance.objects.get(user=uid).value)
 
-    val += change_value
+    val += int(change_value)
 
     Balance.objects.filter(user=uid).update(value=val)
 
     bid = Balance.objects.get(user=uid).balance_id
-    tid = User.objects.get(user_id=uid).trade_id
+    tid = User.objects.get(user_id=uid).trader_id
 
     # 充值过程信息上链
     change_balance_value_on_fabric(tid, bid, val)
@@ -589,10 +609,10 @@ def check_balance_can_suffer_value_and_pay(user_id, value):
     """
     val = Balance.objects.get(user_id=user_id).value
 
-    if int(value) > val:
+    if int(value) > int(val):
         return False
 
-    Balance.objects.filter(user=user_id).update(value=val-int(value))
+    Balance.objects.filter(user=User.objects.get(user_id=user_id)).update(value=val-int(value))
     return True
 
 
@@ -623,10 +643,10 @@ def insert_into_trans_order(user_id, receiver_user_id, value, face_token):
     """
     oid = get_order_id()
     Transaction.objects.create(order_id=oid,
-                               sender=user_id,
-                               receiver=receiver_user_id,
+                               sender=User.objects.get(user_id=user_id),
+                               receiver=User.objects.get(user_id=receiver_user_id),
                                status=1,
-                               transaction_value=value)
+                               transaction_value=int(value))
 
     # 付款用户上链
     bid = User.objects.get(user_id=user_id).balance.balance_id
@@ -634,13 +654,13 @@ def insert_into_trans_order(user_id, receiver_user_id, value, face_token):
 
     # Trade插入扣款记录
     trade_id = trade_dict["transactionId"]
-    Trade.objects.create(transaction=oid,
-                         transaction_id=trade_id,
+    Trade.objects.create(transaction=Transaction.objects.get(order_id=oid),
+                         trade_id=trade_id,
                          trade_type=0,
                          face_token=face_token,
                          trade_value=value,
                          trade_time=datetime.datetime.strptime(trade_dict["timestamp"], "%Y-%m-%dT%H:%M:%S.%fZ"),
-                         balance=bid)
+                         balance=Balance.objects.get(balance_id=bid))
     pass
 
 
@@ -682,13 +702,26 @@ def update_trans_order(user_id, order_id, face_token):
 
     # Trade插入转款记录
     trade_id = trade_dict["transactionId"]
-    Trade.objects.create(transaction=order_id,
-                         transaction_id=trade_id,
+    Trade.objects.create(transaction=Transaction.objects.get(order_id=order_id),
+                         trade_id=trade_id,
                          trade_type=0,
                          face_token=face_token,
                          trade_value=value,
                          trade_time=datetime.datetime.strptime(trade_dict["timestamp"], "%Y-%m-%dT%H:%M:%S.%fZ"),
-                         balance=bid)
+                         balance=Balance.objects.get(balance_id=bid))
+    return value
+    pass
+
+
+def charge_user(user_id, trade_value):
+    """
+    转款
+    :param user_id:
+    :param trade_value:
+    :return:
+    """
+    value = int(Balance.objects.get(user_id=User.objects.get(user_id=user_id)).value)
+    Balance.objects.filter(user=User.objects.get(user_id=user_id)).update(value=value+int(trade_value))
     pass
 
 
@@ -698,7 +731,7 @@ def from_user_id_get_balance_id(user_id):
     :param user_id:
     :return:
     """
-    return Balance.objects.get(user=user_id).balance_id
+    return Balance.objects.get(user=User.objects.get(user_id=user_id)).balance_id
     pass
 
 

@@ -44,11 +44,11 @@ def create_trader(trade_id, user_id, face_token):
     return result
 
 
-def create_balance(balance_id, trade_id, value):
+def create_balance(balance_id, trader_id, value):
     """
     添加一个balance
     :param balance_id:
-    :param trade_id:
+    :param trader_id:
     :param value:
     :return:
     """
@@ -58,7 +58,7 @@ def create_balance(balance_id, trade_id, value):
         "$class": "com.vaskka.chaina.Balance",
         "balanceId": balance_id,
         "value": value,
-        "owner": trade_id
+        "owner": trader_id
     }
 
     response = requests.post(url=url, headers=chain_header, json=data)

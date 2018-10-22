@@ -16,7 +16,7 @@ def md5(s):
     b = s.encode("utf-8")
     m = hashlib.md5()
     m.update(b)
-    return m.hexdigest()
+    return str(m.hexdigest())
 
 
 def send_a_email(receiver, content, subject=settings.EMAIL_SUBJECT):
@@ -108,7 +108,7 @@ def get_trade_id():
     获取trade_id
     :return:
     """
-    return "trader" + md5(current_time())[0:26]
+    return "trade" + md5(current_time())[0:27]
     pass
 
 
@@ -120,3 +120,11 @@ def get_balance_id():
 
     return "balance" + md5(current_time())[0:25]
     pass
+
+
+def get_trader_id():
+    """
+    得到链上trader_id
+    :return:
+    """
+    return "trader" + md5(current_time())[0:26]

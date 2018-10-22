@@ -1,14 +1,3 @@
-import datetime
-import json
-import random
-
-from django.http import HttpResponse, JsonResponse
-
-# Create your views here.
-from chain.inner.chain import *
-from utils import util
-from utils.request import QueryRequest
-from utils.util import md5
 from chain.inner.tool import *
 
 
@@ -54,7 +43,7 @@ def user_confirm_verify(request):
 
     uid = get_user_id()
 
-    session_token = md5(get_order_id())
+    tid = get_trade_id()
 
     try:
         # 参数检查结果
@@ -68,12 +57,11 @@ def user_confirm_verify(request):
         if check_not_register_user_exist(param_check[2]):
             # 检查验证码
             if check_verify_code(param_check[2]):
-                # 正式注册
-                tid = get_trade_id()
                 # 注册在正式用户中, 删除未注册记录
                 insert_into_user(param_check[2], uid, tid)
-
-                return res.success_response({"user_id": uid, "session_token": session_token})
+                # 注册在session中
+                result = insert_into_user_session(param_check[2]["email"])
+                return res.success_response({"user_id": result[1], "session_token": result[0]})
             else:
                 return res.error_response(502, "error verify code", {"user_id": "NULL", "session_token": "NULL"})
         else:
@@ -183,7 +171,10 @@ def user_login(request):
         if not check_email_password(param_check[2]):
             return res.error_response(502, "password error", {"user_id": "NULL", "session_token": "NULL"})
 
-        result = insert_into_user_session(param_check[2])
+        result = insert_into_user_session(param_check[2]["email"])
+
+        if result[2] == 1:
+            return res.error_response(201, "user already login", {"user_id": result[1], "session_token": result[0]})
 
         return res.success_response({"user_id": result[1], "session_token": result[0]})
     except Exception as e:
@@ -254,9 +245,9 @@ def user_find_from_email_user_id(request):
         if not check_user_id_email_matched(email=param_check[2]["email"], user_id=param_check[2]["user_id"]):
             return res.error_response(503, "email or user_id error", {"inquire_email": "NULL", "result": "NULL"})
 
-        res = from_email_get_user_id_and_nick_name(param_check[2])
+        result = from_email_get_user_id_and_nick_name(param_check[2])
 
-        return res.success_response({"inquire_email": res[0], "result": res[1]})
+        return res.success_response({"inquire_email": param_check[2]["inquire_email"], "result": result[0]})
     except Exception as e:
         return res.error_response(500, str(e), {"inquire_email": "NULL", "result": "NULL"})
     pass
@@ -277,8 +268,8 @@ def user_try_add_friend(request):
         if 0 not in param_check:
             return res.error_response(param_check[0], param_check[1], {"add_user_id": "NULL", "add_user_nick_name": "NULL"})
 
-        # 业务检查
-        # 身份检查
+            # 业务检查
+            # 身份检查
         if not session_check(param_check[2]):
             return res.error_response(504, "identity error", {"add_user_id": "NULL", "add_user_nick_name": "NULL"})
         # 检查用户是否存在
@@ -289,13 +280,13 @@ def user_try_add_friend(request):
         if not check_user_id_email_matched(email=param_check[2]["email"], user_id=param_check[2]["user_id"]):
             return res.error_response(503, "email or user_id error", {"add_user_id": "NULL", "add_user_nick_name": "NULL"})
 
-        res = insert_into_friend_request(param_check[2])
-        if res == 1:
+        result = insert_into_friend_request(param_check[2])
+        if result == 1:
             return res.error_response(501, "user does not exist", {"add_user_id": "NULL", "add_user_nick_name": "NULL"})
-        if res == 2:
+        if result == 2:
             return res.error_response(502, "request has already sent", {"add_user_id": "NULL", "add_user_nick_name": "NULL"})
 
-        return res.success_response({"add_user_id": param_check[2]["add_user_id"], "add_user_nick_name": from_user_id_get_nick_name(param_check[2]["user_id"])})
+        return res.success_response({"add_user_id": param_check[2]["add_user_id"], "add_user_nick_name": from_user_id_get_nick_name(param_check[2]["add_user_id"])})
     except Exception as e:
         return res.error_response(500, str(e), {"add_user_id": "NULL", "add_user_nick_name": "NULL"})
     pass
@@ -334,13 +325,13 @@ def user_confirm_add_friend(request):
         if not check_friend_order_exist_and_delete(param_check[2]["friend_order_id"]):
             return res.error_response(502, "order_id does not exist",
                                       {"add_user_id": "NULL", "add_user_nick_name": "NULL"})
-        res = from_friend_order_id_get_user_id_and_nick_name(param_check[2]["friend_order_id"])
-
+        result = from_friend_order_id_get_user_id_and_nick_name(param_check[2]["friend_order_id"])
+        delete_friend_order(param_check[2]["friend_order_id"])
         # 添加朋友映射
-        add_friend_mapping(one_user_id=param_check[2]["user_id"], another_user_id=res[0])
+        add_friend_mapping(one_user_id=param_check[2]["user_id"], another_user_id=result[0])
 
-        return res.success_response({"add_user_id": res[0],
-                                     "add_user_nick_name": res[1]})
+        return res.success_response({"add_user_id": result[0],
+                                     "add_user_nick_name": result[1]})
     except Exception as e:
         return res.error_response(500, str(e), {"add_user_id": "NULL", "add_user_nick_name": "NULL"})
     pass
@@ -377,7 +368,7 @@ def user_charger(request):
                                       {"balance": "NULL"})
 
         # 检查是否已经进行生物信息登记
-        if not check_face_token_is_already_exist(param_check):
+        if not check_face_token_is_already_exist(param_check[2]):
             return res.error_response(501, "user face_token does not exist", {"balance": "NULL"})
 
         # 更改Balance, 过程信息上链
@@ -432,7 +423,7 @@ def transaction_try_trade(request):
             return res.error_response(505, "bioinformatics error", {"balance": "NULL"})
 
         # 插入在订单表并上链
-        insert_into_trans_order(param_check[2]["user_id"], param_check[2]["receiver_user_id"], param_check[2]["trade_value"], param_check[2]["trade_value"])
+        insert_into_trans_order(param_check[2]["user_id"], param_check[2]["receiver_user_id"], param_check[2]["trade_value"], param_check[2]["face_token"])
 
         return res.success_response({"balance": str(get_balance(param_check[2]["user_id"]))})
 
@@ -479,8 +470,10 @@ def transaction_confirm_trade(request):
             return res.error_response(505, "bioinformatics error", {"balance": "NULL"})
 
         # 修改订单表并上链
-        update_trans_order(param_check[2]["user_id"], param_check[2]["order_id"], param_check[2]["face_token"])
+        v = update_trans_order(param_check[2]["user_id"], param_check[2]["order_id"], param_check[2]["face_token"])
 
+        # 转款
+        charge_user(param_check[2]["user_id"], v)
         return res.success_response({"balance": str(get_balance(param_check[2]["user_id"]))})
 
     except Exception as e:
@@ -521,7 +514,7 @@ def transaction_inquire_trade(request):
         trade_dict = get_all_transaction()
 
         record = []
-        bid = from_user_id_get_nick_name(param_check["user_id"])
+        bid = from_user_id_get_balance_id(param_check[2]["user_id"])
         for trade in trade_dict:
             # 筛选与自己资产相关的trade记录
             if bid != from_fabric_balance_get_balance_id(trade["balance"]):
@@ -530,7 +523,7 @@ def transaction_inquire_trade(request):
             # 时间 类型 交易额
             tsp = datetime.datetime.strptime(trade["timestamp"], "%Y-%m-%dT%H:%M:%S.%fZ").strftime("%Y-%m-%d %H:%M:%S")
             t_type = trade["type"]
-            value = str(trade["trade_value"])
+            value = str(trade["tradeValue"])
 
             record.append({
                 "time_stamp": tsp,

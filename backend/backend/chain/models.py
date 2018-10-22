@@ -1,8 +1,7 @@
 from django.db import models
 
 # Create your models here.
-from django.db.models import CharField, DateTimeField, FloatField, ManyToManyField, TextField, ForeignKey, \
-    BooleanField, CASCADE, OneToOneField, SET_NULL, DO_NOTHING, IntegerField
+from django.db.models import CharField, DateTimeField, ForeignKey, OneToOneField, IntegerField
 from utils.util import *
 
 
@@ -12,19 +11,19 @@ class User(models.Model):
     """
 
     # 主键id
-    user_id = CharField(max_length=32, primary_key=True, default=get_user_id())
+    user_id = CharField(max_length=32, primary_key=True)
 
-    # trade_id
-    trade_id = CharField(max_length=32, null=True)
+    # trader_id
+    trader_id = CharField(max_length=32, default="NULL")
 
     # 昵称
-    nick_name = CharField(max_length=255, null=True)
+    nick_name = CharField(max_length=255)
 
     # password (md5)
-    password = CharField(max_length=32, null=True)
+    password = CharField(max_length=32)
 
     # email
-    email = CharField(max_length=255, null=True)
+    email = CharField(max_length=255)
 
     # face_token
     face_token = CharField(max_length=255, default="NULL")
@@ -35,6 +34,9 @@ class User(models.Model):
     # 更新时间
     update_time = DateTimeField(auto_now=True)
 
+    def __str__(self):
+        return self.nick_name
+
     pass
 
 
@@ -42,15 +44,19 @@ class UserMapping(models.Model):
     """
     好友映射, 主键自增
     """
-    one_user = OneToOneField(User, related_name='one_user', on_delete=models.SET_NULL, null=True)
+    one_user = OneToOneField(User, related_name='one_user', on_delete=models.CASCADE)
 
-    another_user = OneToOneField(User, related_name='another_user', on_delete=models.SET_NULL, null=True)
+    another_user = OneToOneField(User, related_name='another_user', on_delete=models.CASCADE)
 
     # 创建时间
     create_time = DateTimeField(auto_now_add=True)
 
     # 更新时间
     update_time = DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return self.one_user.nick_name + "->" + self.another_user.nick_name
+
     pass
 
 
@@ -61,16 +67,19 @@ class UserSession(models.Model):
     # session_id = CharField(max_length=32, primary_key=True, default=md5(current_time()))
 
     # 关联User
-    user = OneToOneField(User, related_name='user', on_delete=models.SET_NULL, null=True)
+    user = OneToOneField(User, related_name='user', on_delete=models.CASCADE)
 
     # session_token
-    session_token = CharField(max_length=32, null=True)
+    session_token = CharField(max_length=32)
 
     # 创建时间
     create_time = DateTimeField(auto_now_add=True)
 
     # 更新时间
     update_time = DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return self.user.nick_name
 
     pass
 
@@ -83,16 +92,16 @@ class NotRegisterUser(models.Model):
     user_id = CharField(max_length=32, primary_key=True)
 
     # 昵称
-    nick_name = CharField(max_length=255, null=True)
+    nick_name = CharField(max_length=255)
 
     # password (md5)
-    password = CharField(max_length=32, null=True)
+    password = CharField(max_length=32)
 
     # email
-    email = CharField(max_length=255, null=True)
+    email = CharField(max_length=255)
 
     # verify code
-    verify_code = CharField(max_length=4, null=True)
+    verify_code = CharField(max_length=4)
 
     # 创建时间
     create_time = DateTimeField(auto_now_add=True)
@@ -100,6 +109,8 @@ class NotRegisterUser(models.Model):
     # 更新时间
     update_time = DateTimeField(auto_now=True)
 
+    def __str__(self):
+        return self.nick_name
     pass
 
 
@@ -108,20 +119,22 @@ class UserFriendRequestOrder(models.Model):
     好友请求订单model
     """
     # 订单主键
-    friend_order_id = CharField(max_length=32, primary_key=True, default=get_order_id())
+    friend_order_id = CharField(max_length=32, primary_key=True)
 
     # 发起人
-    sponsor = OneToOneField(User, related_name="friend_sender", on_delete=models.SET_NULL, null=True)
+    sponsor = OneToOneField(User, related_name="friend_sender", on_delete=models.CASCADE)
 
     # 接受人
-    recipient = OneToOneField(User, related_name="friend_receiver", on_delete=models.SET_NULL, null=True)
+    recipient = OneToOneField(User, related_name="friend_receiver", on_delete=models.CASCADE)
 
-    # 订单创建时间
+    # 创建时间
     create_time = DateTimeField(auto_now_add=True)
 
-    # 订单更新时间
-    update_time = DateTimeField(default=True)
+    # 更新时间
+    update_time = DateTimeField(auto_now=True)
 
+    def __str__(self):
+        return self.sponsor.nick_name + "->" + self.recipient.nick_name
     pass
 
 
@@ -131,13 +144,13 @@ class Transaction(models.Model):
     一次transaction代表两次Trade（一次扣款一次充值）
     """
     # 主键
-    order_id = CharField(max_length=32, primary_key=True, default=get_order_id())
+    order_id = CharField(max_length=32, primary_key=True)
 
     # 转账人
-    sender = OneToOneField(User, related_name="pay_sender", null=True, on_delete=models.SET_NULL)
+    sender = ForeignKey(User, related_name="pay_sender", on_delete=models.CASCADE)
 
     # 首款人
-    receiver = OneToOneField(User, related_name="pay_receiver", null=True, on_delete=models.SET_NULL)
+    receiver = ForeignKey(User, related_name="pay_receiver", on_delete=models.CASCADE)
 
     # 状态 0-已完成 1-待确认 2-已取消
     status = IntegerField()
@@ -151,6 +164,8 @@ class Transaction(models.Model):
     # 更新时间
     update_time = DateTimeField(auto_now=True)
 
+    def __str__(self):
+        return self.sender.nick_name + "->" + self.receiver.nick_name
     pass
 
 
@@ -159,19 +174,22 @@ class Balance(models.Model):
     余额
     """
     # 关联用户
-    user = OneToOneField(User, related_name='balance', on_delete=models.SET_NULL, null=True)
+    user = OneToOneField(User, related_name='balance', on_delete=models.CASCADE)
 
     # 余额
     value = IntegerField()
 
     # 主键
-    balance_id = CharField(max_length=32, primary_key=True, default=get_balance_id())
+    balance_id = CharField(max_length=32, primary_key=True)
 
     # 创建时间
     create_time = DateTimeField(auto_now_add=True)
 
     # 更新时间
     update_time = DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return self.user.nick_name
     pass
 
 
@@ -181,16 +199,16 @@ class Trade(models.Model):
     """
 
     # 关联transaction
-    transaction = ForeignKey(Transaction, related_name="transaction", null=True, on_delete=models.SET_NULL)
+    transaction = ForeignKey(Transaction, related_name="transaction", on_delete=models.CASCADE)
 
     # trade_id (区块链上交易id)
-    trade_id = CharField(max_length=64, primary_key=True)
+    trade_id = CharField(max_length=255, primary_key=True)
 
     # 交易类型
     trade_type = IntegerField()
 
     # 交易人的face_token
-    face_token = CharField(max_length=255, null=True)
+    face_token = CharField(max_length=255)
 
     # 交易额
     trade_value = IntegerField()
@@ -199,5 +217,8 @@ class Trade(models.Model):
     trade_time = DateTimeField()
 
     # 关联Balance
-    balance = OneToOneField(Balance, related_name="balance", on_delete=models.SET_NULL, null=True)
+    balance = ForeignKey(Balance, related_name="balance", on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.balance.user.nick_name
     pass
