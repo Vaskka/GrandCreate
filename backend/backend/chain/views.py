@@ -392,7 +392,7 @@ def transaction_try_trade(request):
 
     try:
         # 参数检查结果
-        param_check = Checker.common_check_param(request, ["email", "user_id", "session_token", "trade_value", "receiver_user_id", "face_token"])
+        param_check = Checker.common_check_param(request, ["email", "user_id", "session_token", "trade_value", "receiver_user_email", "face_token"])
 
         if 0 not in param_check:
             return res.error_response(param_check[0], param_check[1],
@@ -415,15 +415,16 @@ def transaction_try_trade(request):
             return res.error_response(502, "insufficient balance", {"balance": "NULL"})
 
         # 检查收款方是否存在
-        if not check_user_id_is_exist(param_check[2]["receiver_user_id"]):
+        if not inner_check_user_exist_with_email(param_check[2]["receiver_user_email"]):
             return res.error_response(501, "receiver user does not exist", {"balance": "NULL"})
 
         # 验证生物信息
         if not check_face_token(param_check[2]["user_id"], param_check[2]["face_token"]):
             return res.error_response(505, "bioinformatics error", {"balance": "NULL"})
 
+
         # 插入在订单表并上链
-        insert_into_trans_order(param_check[2]["user_id"], param_check[2]["receiver_user_id"], param_check[2]["trade_value"], param_check[2]["face_token"])
+        insert_into_trans_order(param_check[2]["user_id"], param_check[2]["receiver_user_email"], param_check[2]["trade_value"], param_check[2]["face_token"])
 
         return res.success_response({"balance": str(get_balance(param_check[2]["user_id"]))})
 

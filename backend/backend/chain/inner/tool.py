@@ -73,7 +73,7 @@ class Checker:
     common_server_error = 500
 
     # 需要检查的参数格式字段
-    common_param_format_summary = ("user_id", "add_user_id", "email", "order_id", "receiver_user_id", "inquire_email", "friend_order_id", "trade_value")
+    common_param_format_summary = ("user_id", "add_user_id", "email", "order_id", "receiver_user_email", "inquire_email", "friend_order_id", "trade_value")
 
     @classmethod
     def trans_request_json_dict(cls, request):
@@ -401,7 +401,18 @@ def check_user_exist_with_email(json_dict):
     :param json_dict:
     :return:
     """
-    res = User.objects.filter(email=json_dict["email"])
+    return inner_check_user_exist_with_email(json_dict["email"])
+    pass
+
+
+def inner_check_user_exist_with_email(email):
+    """
+    检查用户是否存在(inner)
+    :param email: str
+    :return:
+    """
+
+    res = User.objects.filter(email=email)
 
     if res.exists():
         return True
@@ -632,19 +643,20 @@ def check_face_token(user_id, face_token):
     pass
 
 
-def insert_into_trans_order(user_id, receiver_user_id, value, face_token):
+def insert_into_trans_order(user_id, receiver_user_email, value, face_token):
     """
     创建交易并将支付方上链
     :param user_id:
-    :param receiver_user_id:
+    :param receiver_user_email:
     :param value:
     :param face_token:
     :return:
     """
     oid = get_order_id()
+
     Transaction.objects.create(order_id=oid,
                                sender=User.objects.get(user_id=user_id),
-                               receiver=User.objects.get(user_id=receiver_user_id),
+                               receiver=User.objects.get(email=receiver_user_email),
                                status=1,
                                transaction_value=int(value))
 
