@@ -1,8 +1,17 @@
 package com.vaskka.api.chain.user.lib;
 
+import com.vaskka.api.chain.user.entity.exception.ChainApiFaceRegisterException;
 import com.vaskka.api.chain.user.entity.request.*;
+import com.vaskka.api.chain.user.entity.response.BaseResponse;
+import com.vaskka.api.chain.user.entity.response.GetFaceTokenResponse;
+import com.vaskka.api.chain.user.util.FaceUtil;
 import com.vaskka.api.chain.user.util.HttpUtil;
+import com.vaskka.api.chain.user.util.ZipUtil;
+import okhttp3.Call;
 import okhttp3.Callback;
+import okhttp3.Response;
+
+import java.io.IOException;
 
 /**
  * @program: GrandCreateApiSdk
@@ -26,8 +35,8 @@ public class ApiTool {
     public static void doConfirmRegister(User user, String verifyCode, Callback callback) {
         RegisterConfirmCodeRequest request = new RegisterConfirmCodeRequest(user.getEmail(), verifyCode);
 
-
-        HttpUtil.post(BASE_URL + "/grand/chain/register/verify/", request.toString(), callback);
+        String body = request.toString();
+        HttpUtil.post(BASE_URL + "/grand/chain/register/verify/", body, callback);
     }
 
     public static void doResendCode(User user, Callback callback) {
@@ -37,7 +46,18 @@ public class ApiTool {
         HttpUtil.post(BASE_URL + "/grand/chain/register/send/", request.toString(), callback);
     }
 
-    public static void doInsertFace(User user, String faceToken, Callback callback) {
+    public static void doInsertFace(User user, String imgBase64, Callback callback) throws ChainApiFaceRegisterException {
+        String ft = FaceUtil.addUserFace(imgBase64, user.getUserId());
+
+        if (ft != null) {
+            doInnerInsertFace(user, ft, callback);
+        }
+        else {
+            throw new ChainApiFaceRegisterException("call face api register error\n", -1);
+        }
+    }
+
+    private  static void doInnerInsertFace(User user, String faceToken, Callback callback) {
         RegisterInsertFaceTokenRequest request = new RegisterInsertFaceTokenRequest(user.getEmail(),
                 user.getUserId(),
                 user.getSessionToken(),
@@ -55,9 +75,9 @@ public class ApiTool {
     }
 
     public static void doLogout(User user, Callback callback) {
-        LogoutRequest request = new LogoutRequest(user.getUserId(), user.getSessionToken());
-
-        HttpUtil.post(BASE_URL + "/grand/chain/logout/", request.toString(), callback);
+        LogoutRequest request = new LogoutRequest(user.getEmail(), user.getUserId(), user.getSessionToken());
+        String json = request.toString();
+        HttpUtil.post(BASE_URL + "/grand/chain/logout/", json, callback);
     }
 
     public static void doCharge(User user, String tradeValue, Callback callback) {
@@ -66,16 +86,63 @@ public class ApiTool {
         HttpUtil.post(BASE_URL + "/grand/chain/user/charge/", request.toString(), callback);
     }
 
-    public static void doTransactionTrade(User user, String tradeValue, String faceToken, String receiverUserEmail, Callback callback) {
-        TransactionTradeRequest request = new TransactionTradeRequest(user.getEmail(), user.getUserId(), user.getSessionToken(), receiverUserEmail, tradeValue, faceToken);
+    public static void doTransactionTrade(User user, String tradeValue, String imgBase64, String receiverUserEmail, Callback callback) {
 
-        HttpUtil.post(BASE_URL + "/grand/chain/trade/transfer/", request.toString(), callback);
+        GetFaceTokenRequest req = new GetFaceTokenRequest(user.getEmail(), user.getUserId(), user.getSessionToken());
+
+        HttpUtil.post(BASE_URL + "/grand/chain/user/get/facetoken/", req.toString(), new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+
+                GetFaceTokenResponse r = (GetFaceTokenResponse) BaseResponse.load(response.body().string(), GetFaceTokenResponse.class);
+                String result_ft = FaceUtil.verifyFace(r.getFace_token(), imgBase64);
+                if (result_ft != null && r.getCode() == 0) {
+
+                    TransactionTradeRequest request = new TransactionTradeRequest(user.getEmail(), user.getUserId(), user.getSessionToken(), receiverUserEmail, tradeValue, result_ft);
+
+                    HttpUtil.post(BASE_URL + "/grand/chain/trade/transfer/", request.toString(), callback);
+                }
+                else {
+                    throw new IOException("network error");
+                }
+            }
+        });
+
+
     }
 
-    public static void doTransactionConfirm(User user, String orderId, String faceToken, Callback callback) {
-        TransactionConfirmRequest request = new TransactionConfirmRequest(user.getEmail(), user.getUserId(), user.getSessionToken(), orderId, faceToken);
+    public static void doTransactionConfirm(User user, String orderId, String imgBase64, Callback callback) {
 
-        HttpUtil.post(BASE_URL + "/grand/chain/trade/receive/", request.toString(), callback);
+        GetFaceTokenRequest req = new GetFaceTokenRequest(user.getEmail(), user.getUserId(), user.getSessionToken());
+
+        HttpUtil.post(BASE_URL + "/grand/chain/user/get/facetoken/", req.toString(), new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                GetFaceTokenResponse r = (GetFaceTokenResponse) BaseResponse.load(response.body().string(), GetFaceTokenResponse.class);
+
+                String result_ft = FaceUtil.verifyFace(r.getFace_token(), imgBase64);
+                if (result_ft != null && r.getCode() == 0) {
+                    TransactionConfirmRequest request = new TransactionConfirmRequest(user.getEmail(), user.getUserId(), user.getSessionToken(), orderId, result_ft);
+
+                    HttpUtil.post(BASE_URL + "/grand/chain/trade/receive/", request.toString(), callback);
+                }
+                else {
+                    throw new IOException("network error");
+                }
+            }
+        });
+
+
     }
 
     public static void doTransactionInquire(User user, Callback callback) {

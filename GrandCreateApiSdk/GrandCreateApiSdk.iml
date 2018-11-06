@@ -7,6 +7,11 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="library" name="gson-2.6.2" level="project" />
+    <orderEntry type="library" name="gson-2.8.5" level="project" />
+    <orderEntry type="library" name="annotations-13.0" level="project" />
+    <orderEntry type="library" name="okhttp-3.11.0" level="project" />
+    <orderEntry type="library" name="BFA" level="project" />
+    <orderEntry type="library" name="commons-codec-1.11-javadoc" level="project" />
+    <orderEntry type="library" name="commons-io-2.6-javadoc" level="project" />
   </component>
 </module>

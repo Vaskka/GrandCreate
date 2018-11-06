@@ -26,4 +26,5 @@ public class ChargeResponse extends BaseResponse {
         super(code, msg);
         this.balance = balance;
     }
+
 }

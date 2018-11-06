@@ -629,17 +629,12 @@ def check_balance_can_suffer_value_and_pay(user_id, value):
 
 def check_face_token(user_id, face_token):
     """
-    验证身份信息
+    验证身份信息 11.5 改 不在后端验证身份
     :param user_id:
     :param face_token:
     :return:
     """
-    ft = User.objects.get(user_id=user_id).face_token
-
-    if ft == face_token:
-        return True
-
-    return False
+    return True
     pass
 
 
@@ -755,4 +750,39 @@ def from_fabric_balance_get_balance_id(fabric_balance):
     """
 
     return reg_match_str_with_group("^.*#(.*)$", fabric_balance)
+    pass
+
+
+def from_user_id_get_face_token(user_id):
+    """
+    user_id 得到face_token
+    :param user_id:
+    :return:
+    """
+    return User.objects.get(user_id=user_id).face_token
+
+    pass
+
+
+def get_unread(user_id):
+    """
+    获取未读交易
+    :param: user_id 待查询的user
+    :return: list
+    """
+    result = Transaction.objects.filter(status=1).filter(receiver__user_id=user_id)
+
+    value_list = []
+    for r in result:
+        d = {
+            "create_time": r.create_time.strftime("%Y-%m-%d %H:%M:%S"),
+            "sender_email": r.sender.email,
+            "sender_nick_name": r.sender.nick_name,
+            "order_id": r.order_id,
+            "trade_value": r.transaction_value
+        }
+        value_list.append(d)
+        pass
+
+    return value_list
     pass

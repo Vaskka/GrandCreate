@@ -381,6 +381,46 @@ def user_charger(request):
     pass
 
 
+def user_get_face_token(request):
+    """
+    用户得到链上的face_token
+    :param request:
+    :return:
+    """
+
+    res = Response()
+
+    try:
+        # 参数检查结果
+        param_check = Checker.common_check_param(request, ["email", "user_id", "session_token"])
+
+        if 0 not in param_check:
+            return res.error_response(param_check[0], param_check[1],
+                                      {"face_token": "NULL"})
+
+        # 业务检查
+        # 身份检查
+        if not session_check(param_check[2]):
+            return res.error_response(504, "identity error", {"face_token": "NULL"})
+        # 检查用户是否存在
+        if not check_user_exist_with_email(param_check[2]):
+            return res.error_response(501, "user does not exist", {"face_token": "NULL"})
+
+        # email user_id 是否匹配
+        if not check_user_id_email_matched(email=param_check[2]["email"], user_id=param_check[2]["user_id"]):
+            return res.error_response(503, "email or user_id error", {"face_token": "NULL"})
+
+        # 更改Balance, 过程信息上链
+        ft = from_user_id_get_face_token(param_check[2]["user_id"])
+
+        return res.success_response({"face_token": ft})
+
+    except Exception as e:
+        return res.error_response(500, str(e), {"face_token": "NULL"})
+
+    pass
+
+
 def transaction_try_trade(request):
     """
     向用户尝试发起转账
@@ -429,7 +469,7 @@ def transaction_try_trade(request):
         return res.success_response({"balance": str(get_balance(param_check[2]["user_id"]))})
 
     except Exception as e:
-        return res.error_response(500, str(e), {"balance": "NULL"})
+        return res.error_response(500, repr(e), {"balance": "NULL"})
     pass
 
 
@@ -496,20 +536,20 @@ def transaction_inquire_trade(request):
 
         if 0 not in param_check:
             return res.error_response(param_check[0], param_check[1],
-                                      {"balance": "NULL"})
+                                      {"record": []})
 
         # 业务检查
         # 身份检查
         if not session_check(param_check[2]):
-            return res.error_response(504, "identity error", {"balance": "NULL"})
+            return res.error_response(504, "identity error", {"record": []})
 
         # 检查用户是否存在
         if not check_user_exist_with_email(param_check[2]):
-            return res.error_response(501, "user does not exist", {"balance": "NULL"})
+            return res.error_response(501, "user does not exist", {"record": []})
 
         # email user_id 是否匹配
         if not check_user_id_email_matched(email=param_check[2]["email"], user_id=param_check[2]["user_id"]):
-            return res.error_response(503, "email or user_id error", {"balance": "NULL"})
+            return res.error_response(503, "email or user_id error", {"record": []})
 
         # 链上查询
         trade_dict = get_all_transaction()
@@ -542,7 +582,45 @@ def transaction_inquire_trade(request):
         return JsonResponse(success_return_dict)
 
     except Exception as e:
-        return res.error_response(500, str(e), {"balance": "NULL"})
+        return res.error_response(500, str(e), {"record": []})
     pass
 
+
+def transaction_inquire_unread(request):
+    """
+    轮询
+    :param request:
+    :return:
+    """
+    res = Response()
+
+    try:
+        # 参数检查结果
+        param_check = Checker.common_check_param(request, ["email", "user_id", "session_token"])
+
+        if 0 not in param_check:
+            return res.error_response(param_check[0], param_check[1],
+                                      {"unread": []})
+
+        # 业务检查
+        # 身份检查
+        if not session_check(param_check[2]):
+            return res.error_response(504, "identity error", {"unread": []})
+
+        # 检查用户是否存在
+        if not check_user_exist_with_email(param_check[2]):
+            return res.error_response(501, "user does not exist", {"unread": []})
+
+        # email user_id 是否匹配
+        if not check_user_id_email_matched(email=param_check[2]["email"], user_id=param_check[2]["user_id"]):
+            return res.error_response(503, "email or user_id error", {"unread": []})
+
+        # 查询未完成的代收款订单
+        unread_dict_list = get_unread(param_check[2]["user_id"])
+
+        return res.success_response({"unread", unread_dict_list})
+
+    except Exception as e:
+        return res.error_response(500, str(e), {"unread": []})
+    pass
     pass

@@ -2,7 +2,6 @@ package com.vaskka.api.chain.user.util;
 
 import okhttp3.*;
 
-import java.util.concurrent.TimeUnit;
 
 /**
  * @program: GrandCreateApiSdk

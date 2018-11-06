@@ -138,7 +138,7 @@ def create_trade(face_token, t_type, value, order_id, balance_id):
     result = json.loads(response.text)
 
     if response.status_code != 200 and result["error"]["statusCode"] != 200:
-        raise BaseChainException(chain_class="com.vaskka.chaina.Trdae",
+        raise BaseChainException(chain_class="com.vaskka.chaina.Trade",
                                  time=util.current_time(),
                                  request_json=json.dumps(data),
                                  response_json=response.text,
@@ -160,7 +160,7 @@ def get_all_transaction():
     result = json.loads(response.text)
 
     if response.status_code != 200 and result["error"]["statusCode"] != 200:
-        raise BaseChainException(chain_class="com.vaskka.chaina.Trdae",
+        raise BaseChainException(chain_class="com.vaskka.chaina.Trade",
                                  time=util.current_time(),
                                  request_json="GET",
                                  response_json=response.text,

@@ -11,23 +11,23 @@ import com.google.gson.Gson;
 
 public class RegisterConfirmCodeRequest  extends BaseRequest {
 
-    private String verifyCode;
+    private String verify_code;
 
     public RegisterConfirmCodeRequest(String verifyCode) {
-        this.verifyCode = verifyCode;
+        this.verify_code = verifyCode;
     }
 
     public RegisterConfirmCodeRequest(String email, String verifyCode) {
         super(email);
-        this.verifyCode = verifyCode;
+        this.verify_code = verifyCode;
     }
 
     public String getVerifyCode() {
-        return verifyCode;
+        return verify_code;
     }
 
     public void setVerifyCode(String verifyCode) {
-        this.verifyCode = verifyCode;
+        this.verify_code = verifyCode;
     }
 
     @Override

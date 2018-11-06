@@ -29,8 +29,10 @@ urlpatterns = [
     path("grand/chain/user/add/friend/", user_try_add_friend),
     path("grand/chain/user/confirm/friend/", user_confirm_add_friend),
     path("grand/chain/user/charge/", user_charger),
+    path("grand/chain/user/get/facetoken/", user_get_face_token),
     path("grand/chain/trade/transfer/", transaction_try_trade),
     path("grand/chain/trade/receive/", transaction_confirm_trade),
     path("grand/chain/trade/inquire/", transaction_inquire_trade),
+    path("grand/chain/trade/unread/", transaction_inquire_unread),
     path("admin/", admin.site.urls)
 ]

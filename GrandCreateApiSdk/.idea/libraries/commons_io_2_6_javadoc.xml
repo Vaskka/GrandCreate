@@ -1,0 +1,15 @@
+<component name="libraryTable">
+  <library name="commons-io-2.6-javadoc">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/Documents/dev/jar/codec/commons-io-2.6/commons-io-2.6-tests.jar!/" />
+      <root url="jar://$USER_HOME$/Documents/dev/jar/codec/commons-io-2.6/commons-io-2.6.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$USER_HOME$/Documents/dev/jar/codec/commons-io-2.6/commons-io-2.6-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$USER_HOME$/Documents/dev/jar/codec/commons-io-2.6/commons-io-2.6-sources.jar!/" />
+      <root url="jar://$USER_HOME$/Documents/dev/jar/codec/commons-io-2.6/commons-io-2.6-test-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

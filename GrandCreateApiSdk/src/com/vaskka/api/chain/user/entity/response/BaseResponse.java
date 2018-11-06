@@ -1,5 +1,8 @@
 package com.vaskka.api.chain.user.entity.response;
 
+import com.google.gson.Gson;
+import com.sun.xml.internal.rngom.parse.host.Base;
+
 /**
  * @program: GrandCreateApiSdk
  * @description: BaseResponse 响应基类
@@ -34,6 +37,12 @@ public class BaseResponse {
     }
 
     private String msg;
+
+    public static Object load(String json, Class template) {
+        Gson gson = new Gson();
+
+        return gson.fromJson(json, template);
+    }
 
 
 }
