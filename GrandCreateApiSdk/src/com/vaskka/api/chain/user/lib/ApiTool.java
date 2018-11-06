@@ -150,4 +150,10 @@ public class ApiTool {
 
         HttpUtil.post(BASE_URL + "/grand/chain/trade/inquire/", request.toString(), callback);
     }
+
+    public static void doTransactionGetUnread(User user, Callback callback) {
+        GetUnreadRequest request = new GetUnreadRequest(user.getEmail(), user.getUserId(), user.getSessionToken());
+
+        HttpUtil.post(BASE_URL + "/grand/chain/trade/unread/", request.toString(), callback);
+    }
 }

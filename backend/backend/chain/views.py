@@ -618,7 +618,13 @@ def transaction_inquire_unread(request):
         # 查询未完成的代收款订单
         unread_dict_list = get_unread(param_check[2]["user_id"])
 
-        return res.success_response({"unread", unread_dict_list})
+        success_return_dict = {
+            "code": 0,
+            "msg": "success",
+            "unread": unread_dict_list
+        }
+
+        return JsonResponse(success_return_dict)
 
     except Exception as e:
         return res.error_response(500, str(e), {"unread": []})

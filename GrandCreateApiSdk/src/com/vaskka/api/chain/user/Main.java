@@ -41,11 +41,11 @@ public class Main {
 //        User.getInstance().setSessionToken("a5bb8fe2276cefbbd559fbefba680d57");
 //        User.getInstance().setUserId("user7a3b6a103425b4ddee428ac63541");
 
-        User.getInstance().setEmail("15145051056@163.com");
-        User.getInstance().setNickName("Vaskka");
-        User.getInstance().setPassword("thisispsw");
-        User.getInstance().setSessionToken("41018c173245428b5b2824f252d8ed2f");
-        User.getInstance().setUserId("userd13a9ac6b05eb814842fa23ca9dc");
+        User.getInstance().setEmail("email2@email.com");
+        User.getInstance().setNickName("n2");
+        User.getInstance().setPassword("p2");
+        User.getInstance().setSessionToken("s2");
+        User.getInstance().setUserId("user2222222222222222V222222222aZ");
 
 
 //        ApiTool.doTryRegister(User.getInstance(), new Callback() {
@@ -203,7 +203,28 @@ public class Main {
 //            }
 //        });
         // 测试查询
-        ApiTool.doTransactionInquire(User.getInstance(), new Callback() {
+//        ApiTool.doTransactionInquire(User.getInstance(), new Callback() {
+//            @Override
+//            public void onFailure(Call call, IOException e) {
+//
+//            }
+//
+//            @Override
+//            public void onResponse(Call call, Response response) throws IOException {
+//                TransactionInquireResponse r = (TransactionInquireResponse) TransactionInquireResponse.load(response.body().string(), TransactionInquireResponse.class);
+//                if (r.getCode() == 0) {
+//                    for (TransactionInquireResponse.RecordItem item : r.getRecord()) {
+//                        Log(item.getTime_stamp());
+//                        Log(item.getTrade_value());
+//                        Log(item.getType());
+//                        Log("==============");
+//                    }
+//                }
+//            }
+//        });
+
+        // 测试轮询
+        ApiTool.doTransactionGetUnread(User.getInstance(), new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
 
@@ -211,14 +232,20 @@ public class Main {
 
             @Override
             public void onResponse(Call call, Response response) throws IOException {
-                TransactionInquireResponse r = (TransactionInquireResponse) TransactionInquireResponse.load(response.body().string(), TransactionInquireResponse.class);
-                if (r.getCode() == 0) {
-                    for (TransactionInquireResponse.RecordItem item : r.getRecord()) {
-                        Log(item.getTime_stamp());
-                        Log(item.getTrade_value());
-                        Log(item.getType());
-                        Log("==============");
-                    }
+                String result = response.body().string();
+                Log(result);
+
+                GetUnreadResponse resp = (GetUnreadResponse) BaseResponse.load(result, GetUnreadResponse.class);
+
+
+                for (GetUnreadResponse.UnreadItem item : resp.getUnread()) {
+                    Log("---------------------------");
+                    Log("create_time:" + item.getCreate_time());
+                    Log("sender_email:" + item.getSender_email());
+                    Log("sender_nick_name:" + item.getSender_nick_name());
+                    Log("order_id:" + item.getOrder_id());
+                    Log("trade_value:" + item.getTrade_value());
+
                 }
             }
         });
