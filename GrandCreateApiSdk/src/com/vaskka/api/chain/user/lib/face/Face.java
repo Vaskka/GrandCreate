@@ -1,4 +1,4 @@
-package com.vaskka.api.chain.user.entity;
+package com.vaskka.api.chain.user.lib.face;
 
 /**
  * @program: GrandCreateApiSdk

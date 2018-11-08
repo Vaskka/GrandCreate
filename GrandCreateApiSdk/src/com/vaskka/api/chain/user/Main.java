@@ -1,27 +1,14 @@
 package com.vaskka.api.chain.user;
 
-import com.google.gson.Gson;
-import com.vaskka.api.chain.user.entity.Face;
-import com.vaskka.api.chain.user.entity.exception.ChainApiFaceRegisterException;
-import com.vaskka.api.chain.user.entity.request.LogoutRequest;
-import com.vaskka.api.chain.user.entity.request.TransactionConfirmRequest;
-import com.vaskka.api.chain.user.entity.request.TransactionTradeRequest;
 import com.vaskka.api.chain.user.entity.response.*;
 import com.vaskka.api.chain.user.lib.ApiTool;
 import com.vaskka.api.chain.user.lib.User;
 import com.vaskka.api.chain.user.util.ConstUtil;
-import com.vaskka.api.chain.user.util.FaceUtil;
-import com.vaskka.api.chain.user.util.ZipUtil;
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.Response;
-import org.json.JSONObject;
 
-import javax.jws.soap.SOAPBinding;
 import java.io.IOException;
-
-import static com.vaskka.api.chain.user.util.FaceUtil.addUserFace;
-import static com.vaskka.api.chain.user.util.FaceUtil.verifyFace;
 
 public class Main {
 

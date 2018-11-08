@@ -1,17 +1,12 @@
 package com.vaskka.api.chain.user.util;
 
 
-import com.vaskka.api.chain.user.entity.Face;
-import com.vaskka.api.chain.user.lib.User;
+import com.vaskka.api.chain.user.lib.face.Face;
+import org.json.JSONException;
 import org.json.JSONObject;
 import sun.misc.BASE64Encoder;
 
 import java.io.*;
-import java.util.zip.GZIPInputStream;
-import java.util.zip.GZIPOutputStream;
-
-
-import static com.vaskka.api.chain.user.Main.Log;
 
 /**
  * @program: GrandCreateApiSdk
@@ -53,9 +48,16 @@ public class FaceUtil {
     public static String addUserFace(String imgBase64, String userId) {
         Face f = Face.getInstance();
         f.initService();
-        JSONObject o = f.addUser(userId, imgBase64, "BASE64");
-        if (o.getString("error_msg").equals("SUCCESS")) {
-            return o.getJSONObject("result").getString("face_token");
+
+        try {
+            JSONObject o = f.addUser(userId, imgBase64, "BASE64");
+            if (o.getString("error_msg").equals("SUCCESS")) {
+                return o.getJSONObject("result").getString("face_token");
+            }
+        }
+        catch (JSONException e) {
+            e.printStackTrace();
+            return null;
         }
         return null;
 
@@ -64,10 +66,15 @@ public class FaceUtil {
     public static String verifyFace(String faceToken, String imgBase64) {
         Face f = Face.getInstance();
         f.initService();
-
-        JSONObject o = f.faceVerify(faceToken, "FACE_TOKEN", imgBase64, "BASE64");
-        if (o.getJSONObject("result").getDouble("score") >= ConstUtil.STD_FACE_SCORE) {
-            return o.getJSONObject("result").getJSONArray("face_list").getJSONObject(1).getString("face_token");
+        try {
+            JSONObject o = f.faceVerify(faceToken, "FACE_TOKEN", imgBase64, "BASE64");
+            if (o.getJSONObject("result").getDouble("score") >= ConstUtil.STD_FACE_SCORE) {
+                return o.getJSONObject("result").getJSONArray("face_list").getJSONObject(1).getString("face_token");
+            }
+        }
+        catch (JSONException e) {
+            e.printStackTrace();
+            return null;
         }
         return  null;
     }

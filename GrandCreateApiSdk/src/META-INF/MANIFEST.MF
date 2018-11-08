@@ -1,0 +1,6 @@
+Manifest-Version: 1.0
+Class-Path: BFA.jar commons-io-2.6-tests.jar commons-io-2.6.jar annota
+ tions-13.0.jar kotlin-stdlib-1.3.0.jar gson-2.8.5.jar okhttp-3.11.0.j
+ ar okio-2.0.0.jar commons-codec-1.11-tests.jar commons-codec-1.11.jar
+Main-Class: 
+

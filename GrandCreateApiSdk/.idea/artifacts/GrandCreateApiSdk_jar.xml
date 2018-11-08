@@ -1,0 +1,16 @@
+<component name="ArtifactManager">
+  <artifact name="GrandCreateApiSdk:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/GrandCreateApiSdk_jar</output-path>
+    <root id="root">
+      <element id="archive" name="GrandCreateApiSdk.jar">
+        <element id="module-output" name="GrandCreateApiSdk" />
+      </element>
+      <element id="library" level="project" name="BFA" />
+      <element id="library" level="project" name="commons-io-2.6-javadoc" />
+      <element id="library" level="project" name="annotations-13.0" />
+      <element id="library" level="project" name="gson-2.8.5" />
+      <element id="library" level="project" name="okhttp-3.11.0" />
+      <element id="library" level="project" name="commons-codec-1.11-javadoc" />
+    </root>
+  </artifact>
+</component>
