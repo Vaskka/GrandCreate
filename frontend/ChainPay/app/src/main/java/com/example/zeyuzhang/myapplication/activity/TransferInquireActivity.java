@@ -25,20 +25,28 @@ public class TransferInquireActivity extends AppCompatActivity {
 
     private InquireAdapter adapter;
 
+    private ListView listView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_transfer_inquire);
+        listView = findViewById(R.id.transfer_inquire_list_view);
 
-        initView();
     }
 
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        initView();
+    }
 
     /**
      * 初始化视图
      */
     private void initView() {
-        ListView listView = findViewById(R.id.transfer_inquire_list_view);
+
         adapter = new InquireAdapter(this, R.layout.item_inquire, list);
         listView.setAdapter(adapter);
 

@@ -1,13 +1,10 @@
 package com.example.zeyuzhang.myapplication.activity;
 
-import android.content.BroadcastReceiver;
 import android.content.ComponentName;
-import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
 import android.os.Bundle;
 import android.os.IBinder;
-import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MotionEvent;
 import android.view.View;
@@ -25,7 +22,6 @@ import com.vaskka.frontend.utils.UsualUtil;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
@@ -186,7 +182,7 @@ public class FunctionActivity extends AppCompatActivity {
 
             if(x2 - x1 > 50) {
                 // 向右滑
-                Intent intent = new Intent(this, )
+                Intent intent = new Intent(this, MineActivity.class);
             }
         }
         return super.onTouchEvent(event);
