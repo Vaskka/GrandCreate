@@ -18,8 +18,11 @@ import java.io.*;
 public class FaceUtil {
 
 
-
-
+    /**
+     * 将本地url指向image转化为base64
+     * @param imgFile image的路径
+     * @return base64 结果
+     */
     public static String imageToBase64ByLocal(String imgFile) {// 将图片文件转化为字节数组字符串，并对其进行Base64编码处理
 
 
@@ -42,9 +45,12 @@ public class FaceUtil {
         return encoder.encode(data);// 返回Base64编码过的字节数组字符串
     }
 
-
-
-
+    /**
+     * 将人脸信息注册在百度云上
+     * @param imgBase64 拍摄的base64图像
+     * @param userId uid
+     * @return face_token
+     */
     public static String addUserFace(String imgBase64, String userId) {
         Face f = Face.getInstance();
         f.initService();
@@ -63,6 +69,13 @@ public class FaceUtil {
 
     }
 
+
+    /**
+     * 验证两个人脸的相似度
+     * @param faceToken 标准face_token
+     * @param imgBase64 待验证的图像base64
+     * @return 验证后的图像face_token (未通过返回null)
+     */
     public static String verifyFace(String faceToken, String imgBase64) {
         Face f = Face.getInstance();
         f.initService();

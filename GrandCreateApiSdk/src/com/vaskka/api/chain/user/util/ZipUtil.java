@@ -13,6 +13,7 @@ import java.util.zip.GZIPOutputStream;
  * @author: Vaskka
  * @create: 2018/11/5 6:19 PM
  **/
+@Deprecated
 public class ZipUtil {
 
     /**

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/do_trade_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:textSize="24sp"
+        android:textColor="#a69c49"
+        android:text="转账"/>
+
+    <EditText
+        android:id="@+id/do_trade_receiver_email"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="请输入收款人邮箱"
+        android:maxLines="1"/>
+
+    <EditText
+        android:id="@+id/do_trade_value"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="请输入转账金额"
+        android:maxLines="1"/>
+
+    <Button
+        android:id="@+id/do_trade_go"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="下一步"/>
+
+    <Button
+        android:id="@+id/do_trade_cancel"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="返回"/>
+
+</LinearLayout>

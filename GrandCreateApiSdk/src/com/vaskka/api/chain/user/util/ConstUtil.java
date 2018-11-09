@@ -13,11 +13,13 @@ public class ConstUtil {
     /**
      * 测试环境
      */
+    @Deprecated
     public static String TEST_HOST = "http://localhost:8000";
 
     /**
      * 线上环境
      */
+    @Deprecated
     public static String ONLINE_HOST = "http://www.vaskka.com";
 
     /**

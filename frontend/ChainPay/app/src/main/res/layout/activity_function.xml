@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <TextView
+        android:id="@+id/main_show_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:textSize="22sp"
+        android:textColor="#a69c49"
+        android:layout_marginBottom="30dp"
+        android:layout_marginTop="30dp"
+        android:text="我的收款"/>
+
+    <ListView
+        android:id="@+id/main_show_receive_list_view"
+        android:layout_width="match_parent"
+        android:layout_height="380dp">
+
+    </ListView>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:gravity="bottom">
+
+        <Button
+            android:id="@+id/main_show_go_trade"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="发起转账"/>
+
+
+
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+        <com.ycl.tabview.library.TabView
+            android:id="@+id/tabView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+        </com.ycl.tabview.library.TabView>
+    </LinearLayout>
+
+
+
+</LinearLayout>

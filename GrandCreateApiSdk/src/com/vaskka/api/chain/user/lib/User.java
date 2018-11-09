@@ -26,15 +26,6 @@ public class User {
 
     private static User mainUser;
 
-
-//    public User(String userId, String email, String nickName, String password, int loginStatus) {
-//        this.userId = userId;
-//        this.email = email;
-//        this.nickName = nickName;
-//        this.password = password;
-//        this.loginStatus = loginStatus;
-//    }
-
     private User() {
 
     }

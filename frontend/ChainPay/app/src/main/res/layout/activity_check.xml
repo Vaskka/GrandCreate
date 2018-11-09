@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/register_confirm_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:textSize="24sp"
+        android:textColor="#a69c49"
+        android:text="邮箱验证"/>
+
+    <EditText
+        android:id="@+id/register_confirm_verify_code"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="请输入邮箱验证码"
+        android:maxLines="1"/>
+
+    <Button
+        android:id="@+id/register_confirm_to_register"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="确认"/>
+
+    <Button
+        android:id="@+id/register_confirm_to_cancel"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="返回"/>
+
+</LinearLayout>
