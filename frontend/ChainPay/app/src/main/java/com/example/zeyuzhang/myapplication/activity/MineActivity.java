@@ -24,12 +24,14 @@ public class MineActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mine);
+
+        initView();
+        initAction();
     }
 
 
     private void initView() {
         nickNameEditText = findViewById(R.id.mine_nick_name);
-        balanceEditText = findViewById(R.id.mine_balance);
         goInquire = findViewById(R.id.mine_go_inquire);
     }
 

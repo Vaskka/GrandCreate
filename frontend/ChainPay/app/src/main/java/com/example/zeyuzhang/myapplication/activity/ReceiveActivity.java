@@ -62,7 +62,7 @@ public class ReceiveActivity extends AppCompatActivity {
     }
 
     /**
-     * 人脸识别并确认收款
+     * 读取上一Activity读入的图片信息并执行人脸识别API并调用确认收款API
      */
     private void doCheck() {
         // 转动条

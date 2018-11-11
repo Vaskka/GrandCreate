@@ -82,6 +82,7 @@ public class CheckActivity extends AppCompatActivity {
 
     /**
      * 验证邮箱
+     * 负责接收用户的输入并调用sdk执行响应功能
      */
     private void doCheckEmail() {
         String emailCode = checkEmailEditText.getText().toString();

@@ -90,7 +90,7 @@ public class RegisterActivity extends AppCompatActivity {
 
 
     /**
-     * 尝试注册
+     * 执行尝试注册API并根据返回信息进行判断逻辑
      */
     private void doRegister() {
         String emailString = email.getText().toString();

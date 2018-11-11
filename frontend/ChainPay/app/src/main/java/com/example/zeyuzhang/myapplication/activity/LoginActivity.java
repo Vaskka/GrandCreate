@@ -93,6 +93,7 @@ public class LoginActivity extends AppCompatActivity  {
 
     /**
      * 执行登陆
+     * 读入用户输入信息，进行登陆操作
      */
     private void login() {
         String emailString = email.getText().toString();

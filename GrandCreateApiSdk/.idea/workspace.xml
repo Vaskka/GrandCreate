@@ -76,7 +76,7 @@
     <session id="-1418700363">
       <usages-collector id="statistics.lifecycle.project">
         <counts>
-          <entry key="project.closed" value="7" />
+          <entry key="project.closed" value="8" />
           <entry key="project.open.time.10" value="2" />
           <entry key="project.open.time.16" value="1" />
           <entry key="project.open.time.6" value="2" />
@@ -363,7 +363,7 @@
       <workItem from="1541474269811" duration="1825000" />
       <workItem from="1541562446963" duration="1162000" />
       <workItem from="1541680654099" duration="5579000" />
-      <workItem from="1541753182525" duration="149000" />
+      <workItem from="1541753182525" duration="325000" />
     </task>
     <task id="LOCAL-00001" summary="修改sdk人脸验证逻辑">
       <created>1541690997120</created>
@@ -376,7 +376,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="39319000" />
+    <option name="totallyTimeSpent" value="39495000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="23" width="1440" height="808" extended-state="0" />

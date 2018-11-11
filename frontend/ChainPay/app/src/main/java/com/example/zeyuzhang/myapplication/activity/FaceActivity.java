@@ -55,7 +55,7 @@ public class FaceActivity extends AppCompatActivity {
     }
 
     /**
-     * 执行插入
+     * 执行人脸信息的插入
      */
     private void doInsert() {
         // 转动条

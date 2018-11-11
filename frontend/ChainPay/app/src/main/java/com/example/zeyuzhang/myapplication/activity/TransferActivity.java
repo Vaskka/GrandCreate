@@ -78,7 +78,7 @@ public class TransferActivity extends AppCompatActivity  {
 
 
     /**
-     * 发起转账
+     * start发起转账Activity
      */
     private void goTrade() {
         email = emailEditText.getText().toString();

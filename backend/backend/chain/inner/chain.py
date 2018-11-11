@@ -18,10 +18,10 @@ chain_header = {
 def create_trader(trade_id, user_id, face_token):
     """
     添加一个Trader
-    :param trade_id:
-    :param user_id:
-    :param face_token:
-    :return:
+    :param trade_id: 链上trader唯一标示
+    :param user_id: 用户唯一标示
+    :param face_token: 生物信息
+    :return: dict: 返回信息集合
     """
     url = chain_host + "Trader"
 
@@ -47,10 +47,10 @@ def create_trader(trade_id, user_id, face_token):
 def create_balance(balance_id, trader_id, value):
     """
     添加一个balance
-    :param balance_id:
-    :param trader_id:
-    :param value:
-    :return:
+    :param balance_id: 链上资产唯一标示
+    :param trader_id: 关联trader唯一标示
+    :param value: 具体数额
+    :return: dict: 结果集合
     """
     url = chain_host + "Balance"
 
@@ -78,10 +78,10 @@ def create_balance(balance_id, trader_id, value):
 def change_balance_value_on_fabric(trade_id, balance_id, value):
     """
     更改Balance值
-    :param trade_id:
-    :param balance_id:
-    :param value:
-    :return:
+    :param trade_id: 交易者唯一标示
+    :param balance_id: 链上资产唯一标示
+    :param value: 具体交易金额
+    :return: dict: 信息集合
     """
     url = chain_host + "Balance/" + balance_id
 
@@ -111,12 +111,12 @@ def change_balance_value_on_fabric(trade_id, balance_id, value):
 def create_trade(face_token, t_type, value, order_id, balance_id):
     """
     产生交易
-    :param balance_id:
-    :param face_token:
-    :param t_type:
-    :param value:
-    :param order_id:
-    :return:
+    :param balance_id: 链上资产唯一标示
+    :param face_token: 生物信息
+    :param t_type: 交易类型
+    :param value: 交易额
+    :param order_id: 交易唯一标示
+    :return: dict 结果信息集合
     """
     time_stamp = datetime.datetime.now().strftime("%Y-%m-%dT%H:%M:%SZ")
 
@@ -150,7 +150,7 @@ def create_trade(face_token, t_type, value, order_id, balance_id):
 def get_all_transaction():
     """
     得到全部的交易记录
-    :return: dict
+    :return: dict 结果信息集合
     """
 
     url = chain_host + "Trade"

@@ -56,7 +56,7 @@ public class ReadyToInsertFace extends AppCompatActivity {
 
 
     /**
-     * 结束拍摄
+     * 结束拍摄，获取拍摄结果图片并进行处理
      * @param requestCode 请求码
      * @param resultCode 返回码
      * @param data 数据
