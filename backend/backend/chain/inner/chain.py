@@ -23,7 +23,7 @@ def create_trader(trade_id, user_id, face_token):
     :param face_token: 生物信息
     :return: dict: 返回信息集合
     """
-    url = chain_host + "Trader"
+    url = chain_host + "com.vaskka.chaina.Trader"
 
     data = {
         "$class": "com.vaskka.chaina.Trader",
@@ -52,7 +52,7 @@ def create_balance(balance_id, trader_id, value):
     :param value: 具体数额
     :return: dict: 结果集合
     """
-    url = chain_host + "Balance"
+    url = chain_host + "com.vaskka.chaina.Balance"
 
     data = {
         "$class": "com.vaskka.chaina.Balance",
@@ -83,7 +83,7 @@ def change_balance_value_on_fabric(trade_id, balance_id, value):
     :param value: 具体交易金额
     :return: dict: 信息集合
     """
-    url = chain_host + "Balance/" + balance_id
+    url = chain_host + "com.vaskka.chaina.Balance/" + balance_id
 
     data = {
         "$class": "com.vaskka.chaina.Balance",
@@ -120,7 +120,7 @@ def create_trade(face_token, t_type, value, order_id, balance_id):
     """
     time_stamp = datetime.datetime.now().strftime("%Y-%m-%dT%H:%M:%SZ")
 
-    url = chain_host + "Trade"
+    url = chain_host + "com.vaskka.chaina.Trade"
 
     data = {
         "$class": "com.vaskka.chaina.Trade",
@@ -153,7 +153,7 @@ def get_all_transaction():
     :return: dict 结果信息集合
     """
 
-    url = chain_host + "Trade"
+    url = chain_host + "com.vaskka.chaina.Trade"
 
     response = requests.get(url=url, headers=chain_header)
 
