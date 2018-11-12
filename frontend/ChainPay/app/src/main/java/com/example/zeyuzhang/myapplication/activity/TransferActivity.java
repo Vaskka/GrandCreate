@@ -85,6 +85,27 @@ public class TransferActivity extends AppCompatActivity  {
         value = valueEditText.getText().toString();
 
         // 验证人脸信息
+        try {
+            float test = Float.valueOf(value);
+
+            if (test < 0) {
+                throw new NumberFormatException("金额为负");
+            }
+
+            int real = (int )test * 100;
+
+            value = String.valueOf(real);
+        }
+        catch (NumberFormatException e) {
+            final String message = e.getMessage();
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    UsualUtil.showWithToast(TransferActivity.this, "请输入合法的数字:" + message);
+                }
+            });
+        }
+
 
         // 拍摄
         Intent intent = new Intent(TransferActivity.this, SydCameraActivity.class);

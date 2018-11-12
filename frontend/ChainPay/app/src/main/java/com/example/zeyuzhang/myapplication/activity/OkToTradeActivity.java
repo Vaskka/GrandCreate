@@ -64,7 +64,7 @@ public class OkToTradeActivity extends AppCompatActivity {
         String email = intent.getStringExtra("email");
         String time = intent.getStringExtra("time");
         String nickName = intent.getStringExtra("nick_name");
-        String value = intent.getStringExtra("value");
+        String value = UsualUtil.fromSmallBalanceGetNormalBalance(intent.getStringExtra("value"));
 
         orderId = intent.getStringExtra("order_id");
 

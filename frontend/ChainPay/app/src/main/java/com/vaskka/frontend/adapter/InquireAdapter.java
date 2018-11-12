@@ -12,6 +12,7 @@ import android.widget.TextView;
 import com.example.zeyuzhang.myapplication.R;
 import com.vaskka.api.chain.user.entity.response.TransactionInquireResponse;
 import com.vaskka.frontend.entity.Receive;
+import com.vaskka.frontend.utils.UsualUtil;
 
 import java.text.DateFormat;
 import java.util.List;
@@ -48,7 +49,8 @@ public class InquireAdapter extends ArrayAdapter {
         else {
             kind.setText("收款");
         }
-        value.setText(item.getTrade_value());
+        String v = UsualUtil.fromSmallBalanceGetNormalBalance(item.getTrade_value());
+        value.setText(v);
 
         return view;
     }

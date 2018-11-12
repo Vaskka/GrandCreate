@@ -5,39 +5,99 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/do_trade_title"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:textSize="24sp"
-        android:textColor="#a69c49"
-        android:text="转账"/>
 
-    <EditText
-        android:id="@+id/do_trade_receiver_email"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="请输入收款人邮箱"
-        android:maxLines="1"/>
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:layout_gravity="center"
+        android:gravity="center">
+        <TextView
+            android:layout_gravity="center"
+            android:id="@+id/do_trade_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:textSize="25sp"
+            android:textColor="#a69c49"
+            android:text="转账"/>
+    </LinearLayout>
 
-    <EditText
-        android:id="@+id/do_trade_value"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="请输入转账金额"
-        android:maxLines="1"/>
 
-    <Button
-        android:id="@+id/do_trade_go"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="下一步"/>
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:orientation="vertical">
 
-    <Button
-        android:id="@+id/do_trade_cancel"
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:layout_gravity="center"
+            android:gravity="center">
+            <EditText
+                android:id="@+id/do_trade_receiver_email"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="请输入收款人邮箱"
+                android:inputType="textEmailAddress"
+                android:maxLines="1"/>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:layout_gravity="center"
+            android:gravity="center">
+            <EditText
+                android:id="@+id/do_trade_value"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="请输入转账金额"
+                android:maxLines="1"/>
+
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="返回"/>
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:orientation="vertical">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:layout_gravity="center"
+            android:gravity="center">
+            <Button
+                android:id="@+id/do_trade_go"
+                android:layout_width="200dp"
+                android:layout_height="50dp"
+                android:text="下一步"/>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:layout_gravity="center"
+            android:gravity="center">
+            <Button
+                android:id="@+id/do_trade_cancel"
+                android:layout_width="200dp"
+                android:layout_height="50dp"
+                android:text="返回"/>
+        </LinearLayout>
+    </LinearLayout>
+
+
+
+
+
+
+
+
+
 
 </LinearLayout>

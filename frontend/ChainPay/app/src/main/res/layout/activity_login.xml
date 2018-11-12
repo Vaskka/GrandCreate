@@ -33,7 +33,8 @@
             android:id="@+id/login_email"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="请输入用户名"
+            android:inputType="textEmailAddress"
+            android:hint="请输入注册邮箱"
             android:maxLines="1"/>
 
         <EditText
@@ -41,6 +42,7 @@
             android:id="@+id/login_password"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:inputType="textPassword"
             android:hint="请输入密码"
             android:maxLines="1"/>
     </LinearLayout>
