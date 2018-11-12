@@ -124,7 +124,7 @@ public class RegisterActivity extends AppCompatActivity {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        ld.loadFailed();
+
                         ld.close();
                         UsualUtil.showWithToast(RegisterActivity.this, "调用失败");
                     }
@@ -143,6 +143,7 @@ public class RegisterActivity extends AppCompatActivity {
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
+
                             ld.close();
                             UsualUtil.showWithToast(RegisterActivity.this, res.getMsg());
                         }
@@ -154,6 +155,7 @@ public class RegisterActivity extends AppCompatActivity {
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
+
                             ld.close();
                         }
                     });

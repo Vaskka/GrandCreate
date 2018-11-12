@@ -1,20 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="a2a27088-eebd-40d7-af35-11c2f20e9dd8" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/../../GrandCreateApiSdk/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../GrandCreateApiSdk/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/chain/inner/chain.py" beforeDir="false" afterPath="$PROJECT_DIR$/chain/inner/chain.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/chain/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/chain/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../frontend/ChainPay/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../frontend/ChainPay/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../frontend/ChainPay/app/src/main/java/com/example/zeyuzhang/myapplication/activity/CheckActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../frontend/ChainPay/app/src/main/java/com/example/zeyuzhang/myapplication/activity/CheckActivity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../frontend/ChainPay/app/src/main/java/com/example/zeyuzhang/myapplication/activity/FaceActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../frontend/ChainPay/app/src/main/java/com/example/zeyuzhang/myapplication/activity/FaceActivity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../frontend/ChainPay/app/src/main/java/com/example/zeyuzhang/myapplication/activity/LoginActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../frontend/ChainPay/app/src/main/java/com/example/zeyuzhang/myapplication/activity/LoginActivity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../frontend/ChainPay/app/src/main/java/com/example/zeyuzhang/myapplication/activity/MineActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../frontend/ChainPay/app/src/main/java/com/example/zeyuzhang/myapplication/activity/MineActivity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../frontend/ChainPay/app/src/main/java/com/example/zeyuzhang/myapplication/activity/ReadyToInsertFace.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../frontend/ChainPay/app/src/main/java/com/example/zeyuzhang/myapplication/activity/ReadyToInsertFace.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../frontend/ChainPay/app/src/main/java/com/example/zeyuzhang/myapplication/activity/ReceiveActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../frontend/ChainPay/app/src/main/java/com/example/zeyuzhang/myapplication/activity/ReceiveActivity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../frontend/ChainPay/app/src/main/java/com/example/zeyuzhang/myapplication/activity/RegisterActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../frontend/ChainPay/app/src/main/java/com/example/zeyuzhang/myapplication/activity/RegisterActivity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../frontend/ChainPay/app/src/main/java/com/example/zeyuzhang/myapplication/activity/TransferActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../frontend/ChainPay/app/src/main/java/com/example/zeyuzhang/myapplication/activity/TransferActivity.java" afterDir="false" />
-    </list>
+    <list default="true" id="a2a27088-eebd-40d7-af35-11c2f20e9dd8" name="Default Changelist" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -103,12 +90,12 @@
     <session id="2008723054">
       <usages-collector id="statistics.lifecycle.project">
         <counts>
-          <entry key="project.closed" value="13" />
+          <entry key="project.closed" value="14" />
           <entry key="project.open.time.6" value="3" />
           <entry key="project.open.time.7" value="8" />
-          <entry key="project.open.time.8" value="1" />
+          <entry key="project.open.time.8" value="2" />
           <entry key="project.open.time.9" value="1" />
-          <entry key="project.opened" value="13" />
+          <entry key="project.opened" value="14" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
@@ -187,8 +174,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/chain/views.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="629">
-              <caret line="550" column="54" lean-forward="true" selection-start-line="550" selection-start-column="54" selection-end-line="550" selection-end-column="54" />
+            <state relative-caret-position="440">
+              <caret line="138" column="29" lean-forward="true" selection-start-line="138" selection-start-column="29" selection-end-line="138" selection-end-column="29" />
               <folding>
                 <marker date="1541939850607" expanded="true" signature="64:69" ph="..." />
                 <marker date="1541939850607" expanded="true" signature="870:875" ph="..." />
@@ -216,8 +203,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/chain/inner/tool.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="11685">
-              <caret line="786" selection-start-line="786" selection-end-line="786" />
+            <state relative-caret-position="210">
+              <caret line="375" column="4" selection-start-line="375" selection-start-column="4" selection-end-line="375" selection-end-column="4" />
               <folding>
                 <element signature="e#0#11#0" expanded="true" />
                 <marker date="1541475423357" expanded="true" signature="261:262" ph="..." />
@@ -246,8 +233,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/chain/inner/chain.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="337">
-              <caret line="154" lean-forward="true" selection-start-line="154" selection-end-line="154" />
+            <state relative-caret-position="38">
+              <caret line="9" column="40" lean-forward="true" selection-start-line="9" selection-start-column="14" selection-end-line="9" selection-end-column="40" />
               <folding>
                 <element signature="e#0#15#0" expanded="true" />
                 <marker date="1541940613489" expanded="true" signature="492:493" ph="..." />
@@ -596,9 +583,8 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="23" width="1440" height="806" extended-state="0" />
-    <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.2067239" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.20958512" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -898,34 +884,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/chain/inner/tool.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="11685">
-          <caret line="786" selection-start-line="786" selection-end-line="786" />
-          <folding>
-            <element signature="e#0#11#0" expanded="true" />
-            <marker date="1541475423357" expanded="true" signature="261:262" ph="..." />
-            <marker date="1541475423357" expanded="true" signature="5627:5810" ph="..." />
-            <marker date="1541475423357" expanded="true" signature="6130:6135" ph="..." />
-            <marker date="1541475423357" expanded="true" signature="6351:6356" ph="..." />
-            <marker date="1541475423357" expanded="true" signature="6880:6883" ph="..." />
-            <marker date="1541475423357" expanded="true" signature="8780:8966" ph="..." />
-            <marker date="1541475423357" expanded="true" signature="11579:11743" ph="..." />
-            <marker date="1541475423357" expanded="true" signature="12126:12131" ph="..." />
-            <marker date="1541475423357" expanded="true" signature="12602:12607" ph="..." />
-            <marker date="1541475423357" expanded="true" signature="13122:13127" ph="..." />
-            <marker date="1541475423357" expanded="true" signature="13386:13391" ph="..." />
-            <marker date="1541475423357" expanded="true" signature="13649:13654" ph="..." />
-            <marker date="1541475423357" expanded="true" signature="14991:14996" ph="..." />
-            <marker date="1541475423357" expanded="true" signature="15337:15342" ph="..." />
-            <marker date="1541475423357" expanded="true" signature="16310:16592" ph="..." />
-            <marker date="1541475423357" expanded="true" signature="16857:16862" ph="..." />
-            <marker date="1541475423357" expanded="true" signature="17064:17069" ph="..." />
-            <marker date="1541475423357" expanded="true" signature="17231:17236" ph="..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/chain/models.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="2325">
@@ -952,8 +910,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/chain/views.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="629">
-          <caret line="550" column="54" lean-forward="true" selection-start-line="550" selection-start-column="54" selection-end-line="550" selection-end-column="54" />
+        <state relative-caret-position="440">
+          <caret line="138" column="29" lean-forward="true" selection-start-line="138" selection-start-column="29" selection-end-line="138" selection-end-column="29" />
           <folding>
             <marker date="1541939850607" expanded="true" signature="64:69" ph="..." />
             <marker date="1541939850607" expanded="true" signature="870:875" ph="..." />
@@ -968,10 +926,38 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/chain/inner/tool.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="210">
+          <caret line="375" column="4" selection-start-line="375" selection-start-column="4" selection-end-line="375" selection-end-column="4" />
+          <folding>
+            <element signature="e#0#11#0" expanded="true" />
+            <marker date="1541475423357" expanded="true" signature="261:262" ph="..." />
+            <marker date="1541475423357" expanded="true" signature="5627:5810" ph="..." />
+            <marker date="1541475423357" expanded="true" signature="6130:6135" ph="..." />
+            <marker date="1541475423357" expanded="true" signature="6351:6356" ph="..." />
+            <marker date="1541475423357" expanded="true" signature="6880:6883" ph="..." />
+            <marker date="1541475423357" expanded="true" signature="8780:8966" ph="..." />
+            <marker date="1541475423357" expanded="true" signature="11579:11743" ph="..." />
+            <marker date="1541475423357" expanded="true" signature="12126:12131" ph="..." />
+            <marker date="1541475423357" expanded="true" signature="12602:12607" ph="..." />
+            <marker date="1541475423357" expanded="true" signature="13122:13127" ph="..." />
+            <marker date="1541475423357" expanded="true" signature="13386:13391" ph="..." />
+            <marker date="1541475423357" expanded="true" signature="13649:13654" ph="..." />
+            <marker date="1541475423357" expanded="true" signature="14991:14996" ph="..." />
+            <marker date="1541475423357" expanded="true" signature="15337:15342" ph="..." />
+            <marker date="1541475423357" expanded="true" signature="16310:16592" ph="..." />
+            <marker date="1541475423357" expanded="true" signature="16857:16862" ph="..." />
+            <marker date="1541475423357" expanded="true" signature="17064:17069" ph="..." />
+            <marker date="1541475423357" expanded="true" signature="17231:17236" ph="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/chain/inner/chain.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="337">
-          <caret line="154" lean-forward="true" selection-start-line="154" selection-end-line="154" />
+        <state relative-caret-position="38">
+          <caret line="9" column="40" lean-forward="true" selection-start-line="9" selection-start-column="14" selection-end-line="9" selection-end-column="40" />
           <folding>
             <element signature="e#0#15#0" expanded="true" />
             <marker date="1541940613489" expanded="true" signature="492:493" ph="..." />

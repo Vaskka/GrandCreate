@@ -4,6 +4,7 @@ import android.content.ComponentName;
 import android.content.Intent;
 import android.content.ServiceConnection;
 import android.os.Bundle;
+import android.os.Handler;
 import android.os.IBinder;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MotionEvent;
@@ -13,17 +14,25 @@ import android.widget.Button;
 import android.widget.ListView;
 
 import com.example.zeyuzhang.myapplication.R;
+import com.vaskka.api.chain.user.entity.response.BaseResponse;
 import com.vaskka.api.chain.user.entity.response.GetUnreadResponse;
+import com.vaskka.api.chain.user.lib.ApiTool;
+import com.vaskka.api.chain.user.lib.User;
 import com.vaskka.frontend.adapter.ReceiveAdapter;
 import com.vaskka.frontend.entity.Receive;
 import com.vaskka.frontend.service.PollingService;
 import com.vaskka.frontend.utils.UsualUtil;
 
+import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
+
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.Response;
 
 /**
  * 展示待接受的收款信息
@@ -32,13 +41,15 @@ public class FunctionActivity extends AppCompatActivity {
 
     private Button goTrade;
 
+    private Button goMine;
+
     private ListView listView;
 
     private List<Receive> receives = new ArrayList<>();
 
     private ReceiveAdapter receiveAdapter;
 
-    private PollingService.DownLoadBinder pollingBinder;
+    private Handler handler;
 
 
     // 滑动监听
@@ -51,13 +62,14 @@ public class FunctionActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_function);
+        handler=new Handler();
 
         initView();
         initData();
         initAction();
-
-        Intent bindIntent = new Intent(this, PollingService.class);
-        bindService(bindIntent, connection, BIND_AUTO_CREATE);
+//
+//        Intent bindIntent = new Intent(this, PollingService.class);
+//        bindService(bindIntent, connection, BIND_AUTO_CREATE);
     }
 
 
@@ -66,6 +78,8 @@ public class FunctionActivity extends AppCompatActivity {
      */
     private void initView() {
         goTrade = findViewById(R.id.main_show_go_trade);
+
+        goMine = findViewById(R.id.main_show_go_mine);
 
         listView = findViewById(R.id.main_show_receive_list_view);
 
@@ -76,29 +90,76 @@ public class FunctionActivity extends AppCompatActivity {
      * 初始化list view 数据
      */
     private void initData() {
-        try {
-            Receive r1 = new Receive("tv1", (new SimpleDateFormat("yyyy-MM-dd HH:mm:ss")).parse("2018-1-1 22:33:20"), "123@email.com", "叫啊叫啊叫", "oid");
-            Receive r2 = new Receive("tv2", (new SimpleDateFormat("yyyy-MM-dd HH:mm:ss")).parse("2018-1-1 22:33:20"), "123@email.com", "叫啊wqd叫啊叫", "oid");
-            Receive r3 = new Receive("tv3", (new SimpleDateFormat("yyyy-MM-dd HH:mm:ss")).parse("2017-1-1 22:33:20"), "123@email.com", "r叫啊叫啊叫", "oid12");
-            Receive r4 = new Receive("tv4", (new SimpleDateFormat("yyyy-MM-dd HH:mm:ss")).parse("2018-1-1 22:33:20"), "123@email.com", "叫啊叫啊ad叫", "oid34");
-            Receive r5 = new Receive("tv5", (new SimpleDateFormat("yyyy-MM-dd HH:mm:ss")).parse("2019-1-1 22:33:20"), "123@email.com", "叫啊叫啊叫", "oid55");
-            Receive r6 = new Receive("tv6", (new SimpleDateFormat("yyyy-MM-dd HH:mm:ss")).parse("2020-1-1 22:33:20"), "133@email.com", "叫啊叫asd啊叫", "oid6");
-
-            receives.add(r1);
-            receives.add(r2);
-            receives.add(r3);
-            receives.add(r4);
-            receives.add(r5);
-            receives.add(r6);
-
-            receiveAdapter = new ReceiveAdapter(FunctionActivity.this, R.layout.item_receive, receives);
-            listView.setAdapter(receiveAdapter);
-
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
+        receiveAdapter = new ReceiveAdapter(FunctionActivity.this, R.layout.item_receive, receives);
+        listView.setAdapter(receiveAdapter);
+//        try {
+//            Receive r1 = new Receive("tv1", (new SimpleDateFormat("yyyy-MM-dd HH:mm:ss")).parse("2018-1-1 22:33:20"), "123@email.com", "叫啊叫啊叫", "oid");
+//            Receive r2 = new Receive("tv2", (new SimpleDateFormat("yyyy-MM-dd HH:mm:ss")).parse("2018-1-1 22:33:20"), "123@email.com", "叫啊wqd叫啊叫", "oid");
+//            Receive r3 = new Receive("tv3", (new SimpleDateFormat("yyyy-MM-dd HH:mm:ss")).parse("2017-1-1 22:33:20"), "123@email.com", "r叫啊叫啊叫", "oid12");
+//            Receive r4 = new Receive("tv4", (new SimpleDateFormat("yyyy-MM-dd HH:mm:ss")).parse("2018-1-1 22:33:20"), "123@email.com", "叫啊叫啊ad叫", "oid34");
+//            Receive r5 = new Receive("tv5", (new SimpleDateFormat("yyyy-MM-dd HH:mm:ss")).parse("2019-1-1 22:33:20"), "123@email.com", "叫啊叫啊叫", "oid55");
+//            Receive r6 = new Receive("tv6", (new SimpleDateFormat("yyyy-MM-dd HH:mm:ss")).parse("2020-1-1 22:33:20"), "133@email.com", "叫啊叫asd啊叫", "oid6");
+//
+//            receives.add(r1);
+//            receives.add(r2);
+//            receives.add(r3);
+//            receives.add(r4);
+//            receives.add(r5);
+//            receives.add(r6);
+//
+//
+//
+//        } catch (ParseException e) {
+//            e.printStackTrace();
+//        }
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        ApiTool.doTransactionGetUnread(User.getInstance(), new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                GetUnreadResponse resp = (GetUnreadResponse) BaseResponse.load(response.body().string(), GetUnreadResponse.class);
+
+                if (resp.getCode() == 0) {
+                    List<GetUnreadResponse.UnreadItem> list = resp.getUnread();
+
+                    receives.clear();
+
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            // test
+                            UsualUtil.showWithToast(FunctionActivity.this, String.valueOf(receives.size()));
+                        }
+                    });
+
+                    for (GetUnreadResponse.UnreadItem item : list) {
+                        Receive receive = new Receive(item.getTrade_value(), UsualUtil.fromStringToDate(item.getCreate_time()), item.getSender_email(), item.getSender_nick_name(), item.getOrder_id());
+                        receives.add(receive);
+                    }
+
+
+                    handler.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            receiveAdapter.notifyDataSetChanged();
+                        }
+                    });
+
+
+
+                }
+            }
+        });
+    }
 
     /**
      * 初始化动作
@@ -130,62 +191,57 @@ public class FunctionActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-    }
 
-
-    /**
-     * service 链接
-     */
-    private ServiceConnection connection = new ServiceConnection() {
-        @Override
-        public void onServiceConnected(ComponentName name, IBinder service) {
-            pollingBinder = (PollingService.DownLoadBinder) service;
-
-            PollingService s = pollingBinder.getService();
-
-            s.setCallback(new PollingService.PollingCallback() {
-                @Override
-                public void getList(List<GetUnreadResponse.UnreadItem> list) {
-                    // 接受list
-
-                    receives.clear();
-
-                    for (GetUnreadResponse.UnreadItem item : list) {
-                        Receive receive = new Receive(item.getTrade_value(), UsualUtil.fromStringToDate(item.getCreate_time()), item.getSender_email(), item.getSender_nick_name(), item.getOrder_id());
-                        receives.add(receive);
-                    }
-
-                    receiveAdapter.notifyDataSetChanged();
-                }
-            });
-        }
-
-        @Override
-        public void onServiceDisconnected(ComponentName name) {
-
-        }
-    };
-
-
-    @Override
-    public boolean onTouchEvent(MotionEvent event) {
-        if(event.getAction() == MotionEvent.ACTION_DOWN) {
-            //当手指按下的时候
-            x1 = event.getX();
-            y1 = event.getY();
-        }
-        if(event.getAction() == MotionEvent.ACTION_UP) {
-            //当手指离开的时候
-            x2 = event.getX();
-            y2 = event.getY();
-
-
-            if(x2 - x1 > 50) {
-                // 向右滑
-                Intent intent = new Intent(this, MineActivity.class);
+        goMine.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent in = new Intent(FunctionActivity.this, MineActivity.class);
+                startActivity(in);
             }
-        }
-        return super.onTouchEvent(event);
-
+        });
     }
+
+
+//    /**
+//     * service 链接
+//     */
+//    private ServiceConnection connection = new ServiceConnection() {
+//        @Override
+//        public void onServiceConnected(ComponentName name, IBinder service) {
+//            pollingBinder = (PollingService.DownLoadBinder) service;
+//
+//            PollingService s = pollingBinder.getService();
+//
+//            s.setCallback(new PollingService.PollingCallback() {
+//                @Override
+//                public void getList(List<GetUnreadResponse.UnreadItem> list) {
+//                    // 接受list
+//
+//                    receives.clear();
+//
+//
+//                    runOnUiThread(new Runnable() {
+//                        @Override
+//                        public void run() {
+//                            // test
+//                            UsualUtil.showWithToast(FunctionActivity.this, String.valueOf(receives.size()));
+//                        }
+//                    });
+//
+//                    for (GetUnreadResponse.UnreadItem item : list) {
+//                        Receive receive = new Receive(item.getTrade_value(), UsualUtil.fromStringToDate(item.getCreate_time()), item.getSender_email(), item.getSender_nick_name(), item.getOrder_id());
+//                        receives.add(receive);
+//                    }
+//
+//                    receiveAdapter.notifyDataSetChanged();
+//                }
+//            });
+//        }
+//
+//        @Override
+//        public void onServiceDisconnected(ComponentName name) {
+//
+//        }
+//    };
+
 }

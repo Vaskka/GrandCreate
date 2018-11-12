@@ -62,83 +62,90 @@ public class FaceActivity extends AppCompatActivity {
         final LoadingDialog ld = UsualUtil.showLoading(FaceActivity.this, "加载中", "成功！" , "请重试");
 
         // 百度云上注册人脸
-        ApiTool.doRegisterFace(User.getInstance(), FaceUtil.imageToBase64ByLocal(path), new FaceRegisterCallback() {
+        Thread net_thread = new Thread(new Runnable() {
             @Override
-            public void beforeRegister(User user, String b64) {
+            public void run() {
+                ApiTool.doRegisterFace(User.getInstance(), FaceUtil.imageToBase64ByLocal(path), new FaceRegisterCallback() {
+                    @Override
+                    public void beforeRegister(User user, String b64) {
 
-            }
+                    }
 
-            @Override
-            public void afterRegister(String resultFT) {
-                if (resultFT == null) {
+                    @Override
+                    public void afterRegister(String resultFT) {
+                        if (resultFT == null) {
 
-                    // 注册失败
-                    runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
+                            // 注册失败
                             runOnUiThread(new Runnable() {
                                 @Override
                                 public void run() {
-                                    // 错误提示重试
-                                    ld.close();
-                                    UsualUtil.showWithToast(FaceActivity.this, "注册失败，请重试");
-                                    finish();
+                                    runOnUiThread(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            // 错误提示重试
+                                            ld.close();
+                                            UsualUtil.showWithToast(FaceActivity.this, "注册失败，请重试");
+                                            finish();
+                                        }
+                                    });
+
                                 }
                             });
 
                         }
-                    });
-
-                }
-                else {
-                    // 注册成功
-                    ApiTool.doInsertFace(User.getInstance(), resultFT, new Callback() {
-                        @Override
-                        public void onFailure(Call call, IOException e) {
-                            runOnUiThread(new Runnable() {
+                        else {
+                            // 注册成功
+                            ApiTool.doInsertFace(User.getInstance(), resultFT, new Callback() {
                                 @Override
-                                public void run() {
-                                    ld.close();
-                                    UsualUtil.showWithToast(FaceActivity.this, "网络错误，请重试");
-                                    finish();
+                                public void onFailure(Call call, IOException e) {
+                                    runOnUiThread(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            ld.close();
+                                            UsualUtil.showWithToast(FaceActivity.this, "网络错误，请重试");
+                                            finish();
+                                        }
+                                    });
+
+                                }
+
+                                @Override
+                                public void onResponse(Call call, Response response) throws IOException {
+                                    RegisterInsertFaceTokenResponse resp = (RegisterInsertFaceTokenResponse) BaseResponse.load(response.body().string(), RegisterInsertFaceTokenResponse.class);
+                                    if (resp.getCode() != 0 ){
+                                        // 服务器错误
+                                        runOnUiThread(new Runnable() {
+                                            @Override
+                                            public void run() {
+                                                ld.close();
+                                                UsualUtil.showWithToast(FaceActivity.this, "服务器错误，请重试");
+                                                finish();
+                                            }
+                                        });
+                                    }
+                                    else  {
+                                        // 调用成功
+                                        runOnUiThread(new Runnable() {
+                                            @Override
+                                            public void run() {
+                                                ld.close();
+                                                UsualUtil.showWithToast(FaceActivity.this, "注册成功");
+
+                                                // 跳转主界面
+                                                Intent intent = new Intent(FaceActivity.this, FunctionActivity.class);
+                                                startActivity(intent);
+                                            }
+                                        });
+                                    }
                                 }
                             });
-
                         }
-
-                        @Override
-                        public void onResponse(Call call, Response response) throws IOException {
-                            RegisterInsertFaceTokenResponse resp = (RegisterInsertFaceTokenResponse) BaseResponse.load(response.body().string(), RegisterInsertFaceTokenResponse.class);
-                            if (resp.getCode() != 0 ){
-                                // 服务器错误
-                                runOnUiThread(new Runnable() {
-                                    @Override
-                                    public void run() {
-                                        ld.close();
-                                        UsualUtil.showWithToast(FaceActivity.this, "服务器错误，请重试");
-                                        finish();
-                                    }
-                                });
-                            }
-                            else  {
-                                // 调用成功
-                                runOnUiThread(new Runnable() {
-                                    @Override
-                                    public void run() {
-                                        ld.close();
-                                        UsualUtil.showWithToast(FaceActivity.this, "注册成功");
-
-                                        // 跳转主界面
-                                        Intent intent = new Intent(FaceActivity.this, FunctionActivity.class);
-                                        startActivity(intent);
-                                    }
-                                });
-                            }
-                        }
-                    });
-                }
+                    }
+                });
             }
         });
+
+        net_thread.start();
     }
 
 

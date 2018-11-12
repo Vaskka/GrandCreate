@@ -1,5 +1,6 @@
 package com.example.zeyuzhang.myapplication.activity;
 
+import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.ListView;
@@ -27,11 +28,14 @@ public class TransferInquireActivity extends AppCompatActivity {
 
     private ListView listView;
 
+    private Handler handler;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_transfer_inquire);
         listView = findViewById(R.id.transfer_inquire_list_view);
+        handler = new Handler();
 
     }
 
@@ -65,7 +69,12 @@ public class TransferInquireActivity extends AppCompatActivity {
                     list.clear();
                     list.addAll(resp.getRecord());
 
-                    adapter.notifyDataSetChanged();
+                    handler.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            adapter.notifyDataSetChanged();
+                        }
+                    });
                 }
             }
         });

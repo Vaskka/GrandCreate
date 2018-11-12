@@ -55,7 +55,7 @@ public class CheckActivity extends AppCompatActivity {
         goCancel = findViewById(R.id.register_confirm_to_cancel);
 
         // 验证码
-        checkEmailEditText.findViewById(R.id.register_confirm_verify_code);
+        checkEmailEditText = findViewById(R.id.register_confirm_verify_code);
 
     }
 
@@ -96,7 +96,6 @@ public class CheckActivity extends AppCompatActivity {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                    ld.loadFailed();
                     ld.close();
 
                     UsualUtil.showWithToast(CheckActivity.this, "网络错误，请重试");
@@ -115,7 +114,6 @@ public class CheckActivity extends AppCompatActivity {
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                        ld.loadFailed();
                         ld.close();
                         UsualUtil.showWithToast(CheckActivity.this, resp.getMsg());
                         }
@@ -133,13 +131,12 @@ public class CheckActivity extends AppCompatActivity {
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            ld.loadSuccess();
                             ld.close();
                         }
                     });
 
 
-                    Intent intent = new Intent(CheckActivity.this, FaceActivity.class);
+                    Intent intent = new Intent(CheckActivity.this, ReadyToInsertFace.class);
                     startActivity(intent);
                 }
 

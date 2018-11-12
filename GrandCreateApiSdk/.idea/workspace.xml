@@ -7,26 +7,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="361eb320-250a-4663-a1ab-5c350abad27c" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/META-INF/MANIFEST.MF" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/artifacts/GrandCreateApiSdk_jar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/artifacts/GrandCreateApiSdk_jar.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/GrandCreateApiSdk/com/vaskka/api/chain/user/Main$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/GrandCreateApiSdk/com/vaskka/api/chain/user/Main$1.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/GrandCreateApiSdk/com/vaskka/api/chain/user/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/GrandCreateApiSdk/com/vaskka/api/chain/user/Main.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/GrandCreateApiSdk/com/vaskka/api/chain/user/entity/Face.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/GrandCreateApiSdk/com/vaskka/api/chain/user/lib/ApiTool$1.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/GrandCreateApiSdk/com/vaskka/api/chain/user/lib/ApiTool$2.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/GrandCreateApiSdk/com/vaskka/api/chain/user/lib/ApiTool.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/GrandCreateApiSdk/com/vaskka/api/chain/user/lib/ApiTool.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/GrandCreateApiSdk/com/vaskka/api/chain/user/lib/User.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/GrandCreateApiSdk/com/vaskka/api/chain/user/lib/User.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/GrandCreateApiSdk/com/vaskka/api/chain/user/util/ConstUtil.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/GrandCreateApiSdk/com/vaskka/api/chain/user/util/ConstUtil.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/GrandCreateApiSdk/com/vaskka/api/chain/user/util/FaceUtil.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/GrandCreateApiSdk/com/vaskka/api/chain/user/util/FaceUtil.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/GrandCreateApiSdk/com/vaskka/api/chain/user/util/ZipUtil.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/GrandCreateApiSdk/com/vaskka/api/chain/user/util/ZipUtil.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/META-INF/MANIFEST.MF" beforeDir="false" afterPath="$PROJECT_DIR$/src/META-INF/MANIFEST.MF" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/com/vaskka/api/chain/user/lib/ApiTool.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/vaskka/api/chain/user/lib/ApiTool.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/vaskka/api/chain/user/lib/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/vaskka/api/chain/user/lib/User.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/vaskka/api/chain/user/lib/face/FaceRegisterCallback.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/vaskka/api/chain/user/lib/face/FaceRegisterCallback.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/vaskka/api/chain/user/lib/face/FaceVerifyCallback.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/vaskka/api/chain/user/lib/face/FaceVerifyCallback.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/vaskka/api/chain/user/util/ConstUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/vaskka/api/chain/user/util/ConstUtil.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/vaskka/api/chain/user/util/FaceUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/vaskka/api/chain/user/util/FaceUtil.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/vaskka/api/chain/user/util/ZipUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/vaskka/api/chain/user/util/ZipUtil.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../backend/backend/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../backend/backend/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/ChainPay/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/ChainPay/.idea/misc.xml" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -76,36 +61,36 @@
     <session id="-1418700363">
       <usages-collector id="statistics.lifecycle.project">
         <counts>
-          <entry key="project.closed" value="8" />
+          <entry key="project.closed" value="9" />
           <entry key="project.open.time.10" value="2" />
           <entry key="project.open.time.16" value="1" />
           <entry key="project.open.time.6" value="2" />
           <entry key="project.open.time.8" value="1" />
-          <entry key="project.open.time.9" value="2" />
-          <entry key="project.opened" value="8" />
+          <entry key="project.open.time.9" value="3" />
+          <entry key="project.opened" value="9" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
         <counts>
           <entry key="class" value="4" />
-          <entry key="java" value="40" />
+          <entry key="java" value="41" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
           <entry key="CLASS" value="4" />
-          <entry key="JAVA" value="40" />
+          <entry key="JAVA" value="41" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="java" value="8031" />
+          <entry key="java" value="8045" />
           <entry key="txt" value="16" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="JAVA" value="8031" />
+          <entry key="JAVA" value="8045" />
           <entry key="PLAIN_TEXT" value="16" />
         </counts>
       </usages-collector>
@@ -130,11 +115,17 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/com/vaskka/api/chain/user/lib/ApiTool.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1057">
-              <caret line="71" column="61" selection-start-line="71" selection-start-column="61" selection-end-line="71" selection-end-column="61" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
+            <state relative-caret-position="60">
+              <caret line="4" selection-start-line="4" selection-end-line="4" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/com/vaskka/api/chain/user/util/HttpUtil.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="189">
+              <caret line="14" column="7" selection-start-line="14" selection-start-column="7" selection-end-line="14" selection-end-column="7" />
             </state>
           </provider>
         </entry>
@@ -241,8 +232,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
-      <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -293,6 +282,13 @@
             </path>
             <path>
               <item name="GrandCreateApiSdk" type="b2602c69:ProjectViewProjectNode" />
+              <item name="GrandCreateApiSdk" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="user" type="462c0819:PsiDirectoryNode" />
+              <item name="util" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="GrandCreateApiSdk" type="b2602c69:ProjectViewProjectNode" />
               <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
             </path>
           </expand>
@@ -300,6 +296,8 @@
         </subPane>
       </pane>
       <pane id="AndroidView" />
+      <pane id="PackagesPane" />
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -364,6 +362,7 @@
       <workItem from="1541562446963" duration="1162000" />
       <workItem from="1541680654099" duration="5579000" />
       <workItem from="1541753182525" duration="325000" />
+      <workItem from="1541967263929" duration="180000" />
     </task>
     <task id="LOCAL-00001" summary="修改sdk人脸验证逻辑">
       <created>1541690997120</created>
@@ -376,12 +375,13 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="39495000" />
+    <option name="totallyTimeSpent" value="39675000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="23" width="1440" height="808" extended-state="0" />
+    <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.28183118" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.28540772" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Designer" order="2" />
       <window_info id="Image Layers" order="3" />
@@ -844,13 +844,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/vaskka/api/chain/user/util/HttpUtil.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="206">
-          <caret line="14" column="7" selection-start-line="14" selection-start-column="7" selection-end-line="14" selection-end-column="7" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/com/vaskka/api/chain/user/util/ZipUtil.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="150">
@@ -875,13 +868,17 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/vaskka/api/chain/user/util/HttpUtil.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="189">
+          <caret line="14" column="7" selection-start-line="14" selection-start-column="7" selection-end-line="14" selection-end-column="7" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/com/vaskka/api/chain/user/lib/ApiTool.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1057">
-          <caret line="71" column="61" selection-start-line="71" selection-start-column="61" selection-end-line="71" selection-end-column="61" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
+        <state relative-caret-position="60">
+          <caret line="4" selection-start-line="4" selection-end-line="4" />
         </state>
       </provider>
     </entry>

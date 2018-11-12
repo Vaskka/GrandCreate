@@ -130,13 +130,12 @@ public class LoginActivity extends AppCompatActivity  {
                 User.getInstance().setSessionToken(resp.getSession_token());
                 User.getInstance().setUserId(resp.getUser_id());
 
-                if (resp.getCode() != 0) {
+                if (resp.getCode() != 0 && resp.getCode() != 201) {
 
 
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            ld.loadFailed();
                             ld.close();
                             UsualUtil.showWithToast(LoginActivity.this, resp.getMsg());
                         }
@@ -147,7 +146,6 @@ public class LoginActivity extends AppCompatActivity  {
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            ld.loadSuccess();
                             ld.close();
                         }
                     });

@@ -15,6 +15,7 @@ import com.vaskka.api.chain.user.lib.ApiTool;
 import com.vaskka.api.chain.user.lib.User;
 import com.vaskka.api.chain.user.lib.face.FaceVerifyCallback;
 import com.vaskka.api.chain.user.util.FaceUtil;
+import com.vaskka.frontend.entity.Receive;
 import com.vaskka.frontend.utils.UsualUtil;
 import com.xiasuhuei321.loadingdialog.view.LoadingDialog;
 
@@ -137,7 +138,9 @@ public class ReceiveActivity extends AppCompatActivity {
                                             public void run() {
                                             ld.close();
                                             UsualUtil.showWithToast(ReceiveActivity.this, "网络错误，请重试");
-                                            finish();
+
+                                            Intent intent = new Intent(ReceiveActivity.this, FunctionActivity.class);
+                                            startActivity(intent);
 
                                             }
                                         });
@@ -153,7 +156,9 @@ public class ReceiveActivity extends AppCompatActivity {
                                                 public void run() {
                                                     ld.close();
                                                     UsualUtil.showWithToast(ReceiveActivity.this, resp.getMsg());
-                                                    finish();
+
+                                                    Intent intent = new Intent(ReceiveActivity.this, FunctionActivity.class);
+                                                    startActivity(intent);
                                                 }
                                             });
                                         }
@@ -165,10 +170,12 @@ public class ReceiveActivity extends AppCompatActivity {
                                                 public void run() {
                                                 ld.close();
 
-                                                UsualUtil.showInfoInDialog(ReceiveActivity.this, "转账成功", balanceString, new DialogInterface.OnClickListener() {
+                                                UsualUtil.showInfoInDialog(ReceiveActivity.this, "交易成功！", balanceString, new DialogInterface.OnClickListener() {
                                                     @Override
                                                     public void onClick(DialogInterface dialog, int which) {
-                                                    finish();
+
+                                                    Intent intent = new Intent(ReceiveActivity.this, FunctionActivity.class);
+                                                    startActivity(intent);
                                                     }
                                                 });
                                                 }

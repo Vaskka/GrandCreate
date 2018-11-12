@@ -30,6 +30,7 @@
                 android:layout_height="match_parent"
                 android:layout_gravity="center"
                 android:gravity="center"
+                android:textSize="30sp"
                 android:text=""/>
         </LinearLayout>
     </LinearLayout>
@@ -43,18 +44,38 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_weight="1">
-
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_weight="2.7"
+        android:orientation="horizontal"
         android:padding="5dp">
-        <Button
-            android:id="@+id/mine_go_inquire"
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:text="查询交易记录"/>
+            android:padding="1dp"
+            android:layout_weight="1">
+            <Button
+                android:id="@+id/mine_go_inquire"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="查询交易记录"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:padding="1dp">
+            <Button
+                android:id="@+id/mine_go_charge"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="充值"/>
+        </LinearLayout>
+
     </LinearLayout>
 </LinearLayout>

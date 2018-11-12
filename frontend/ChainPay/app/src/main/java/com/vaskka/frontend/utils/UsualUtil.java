@@ -22,7 +22,7 @@ public class UsualUtil {
      * @param message 信息
      */
     public static void showWithToast(Context context, String message) {
-        Toast.makeText(context, message, Toast.LENGTH_SHORT).show();
+        Toast.makeText(context, message, Toast.LENGTH_LONG).show();
     }
 
 

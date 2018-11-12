@@ -19,7 +19,7 @@ import okhttp3.Callback;
 
 public class ApiTool {
 
-    public static String BASE_URL = "http://localhost:8000";
+    public static String BASE_URL = "http://www.vaskka.com";
 
 
     /**
